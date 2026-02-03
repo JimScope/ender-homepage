@@ -6,43 +6,23 @@ interface Props {
 const { class: className } = Astro.props
 ---
 
-<header class:list={['fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-100', className]}>
+<header class:list={['py-8 lg:py-12', className]}>
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
-    <nav class="flex items-center justify-between h-16">
-      <a href="/" class="flex items-center gap-2">
-        <svg class="w-8 h-8 text-primary-600" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="32" height="32" rx="8" fill="currentColor"/>
-          <path d="M8 10h16M8 16h12M8 22h8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <span class="font-semibold text-xl">Ender</span>
+    <nav class="flex items-center justify-between">
+      <a href="/" class="flex items-center gap-1">
+        <span class="text-[#e94d1f] text-3xl font-bold">:</span>
+        <span class="font-serif font-bold text-2xl tracking-tight uppercase">Ender</span>
       </a>
 
-      <div class="hidden md:flex items-center gap-8">
-        <a href="#features" class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium">
-          Features
-        </a>
-        <a href="#how-it-works" class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium">
-          How it Works
-        </a>
-        <a href="#pricing" class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium">
-          Pricing
-        </a>
-      </div>
-
-      <div class="flex items-center gap-4">
-        <a
-          href="/login"
-          class="hidden sm:inline-flex text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium"
-        >
-          Sign in
-        </a>
-        <a
-          href="/register"
-          class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-neutral-900 rounded-lg hover:bg-neutral-800 transition-colors"
-        >
-          Get Started
-        </a>
-      </div>
+      <a
+        href="#contact"
+        class="text-neutral-900 hover:text-[#e94d1f] transition-colors text-sm font-medium flex items-center gap-1"
+      >
+        Get in touch
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
     </nav>
   </div>
 </header>

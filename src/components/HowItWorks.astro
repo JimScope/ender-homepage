@@ -1,70 +1,68 @@
 ---
-const steps = [
+const capabilities = [
   {
-    step: '01',
-    title: 'Register your devices',
-    description: 'Install our Android app on your phones or connect your modems. They become your personal SMS gateways.',
+    title: 'Device Gateway',
+    description: 'Use your Android phones or modems as SMS gateways. Full control over your messaging infrastructure.',
   },
   {
-    step: '02',
-    title: 'Get your API keys',
-    description: 'Generate API keys from your dashboard. Use them to authenticate your applications.',
+    title: 'Real-time Webhooks',
+    description: 'Get instant notifications for message delivery, failures, and incoming messages via webhooks.',
   },
   {
-    step: '03',
-    title: 'Send messages via API',
-    description: 'Use our simple REST API to send SMS messages. Messages are routed through your registered devices.',
+    title: 'Quota Management',
+    description: 'Flexible quota system with automatic tracking and alerts. Never run out of messages unexpectedly.',
   },
   {
-    step: '04',
-    title: 'Track delivery',
-    description: 'Monitor delivery status in real-time via webhooks or our dashboard. Get detailed analytics.',
+    title: 'REST API',
+    description: 'Simple and powerful API for sending messages, managing devices, and tracking delivery status.',
+  },
+  {
+    title: 'Multi-user Support',
+    description: 'Create teams with role-based access control. Perfect for agencies and businesses.',
+  },
+  {
+    title: 'Detailed Analytics',
+    description: 'Track delivery rates, response times, and usage patterns with comprehensive analytics.',
   },
 ]
 ---
 
-<section id="how-it-works" class="py-20 lg:py-32">
+<section id="how-it-works" class="py-24 lg:py-32 bg-neutral-900 text-white">
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
-    <div class="text-center max-w-2xl mx-auto">
-      <h2 class="text-3xl sm:text-4xl font-bold text-neutral-900">
-        How it works
+    <div class="max-w-3xl">
+      <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
+        What we offer
       </h2>
-      <p class="mt-4 text-lg text-neutral-600">
-        Get started in minutes with our simple setup process.
+      <p class="mt-6 text-lg text-neutral-400 leading-relaxed">
+        Everything you need to build a reliable SMS infrastructure. No third-party dependencies, full control over your messaging.
       </p>
     </div>
 
-    <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      {steps.map((item, index) => (
-        <div class="relative">
-          {index < steps.length - 1 && (
-            <div class="hidden lg:block absolute top-8 left-full w-full h-0.5 bg-gradient-to-r from-primary-200 to-transparent -translate-x-4"></div>
-          )}
-          <div class="text-5xl font-bold text-primary-100">{item.step}</div>
-          <h3 class="mt-4 text-lg font-semibold text-neutral-900">{item.title}</h3>
-          <p class="mt-2 text-neutral-600">{item.description}</p>
+    <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-12">
+      {capabilities.map((item) => (
+        <div class="group">
+          <div class="flex items-start gap-4">
+            <div class="w-3 h-3 mt-2 bg-[#e94d1f] rounded-full shrink-0"></div>
+            <div>
+              <h3 class="text-lg font-semibold text-white group-hover:text-[#e94d1f] transition-colors">
+                {item.title}
+              </h3>
+              <p class="mt-2 text-neutral-400 leading-relaxed">
+                {item.description}
+              </p>
+            </div>
+          </div>
         </div>
       ))}
     </div>
 
-    <div class="mt-16 bg-neutral-900 rounded-2xl p-8 lg:p-12">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-        <div>
-          <h3 class="text-2xl font-bold text-white">Simple API integration</h3>
-          <p class="mt-4 text-neutral-400">
-            Our REST API is designed for developers. Send your first message in just a few lines of code.
-          </p>
-        </div>
-        <div class="bg-neutral-800 rounded-xl p-4 overflow-x-auto">
-          <pre class="text-sm text-neutral-300"><code><span class="text-primary-400">curl</span> -X POST https://api.ender.dev/v1/sms \
+    <!-- Code example -->
+    <div class="mt-20 p-8 lg:p-10 border border-neutral-800 rounded-none">
+      <p class="text-sm text-neutral-500 uppercase tracking-wider mb-4">Quick Start</p>
+      <pre class="text-sm text-neutral-300 overflow-x-auto"><code><span class="text-[#e94d1f]">curl</span> -X POST https://api.ender.dev/v1/sms \
   -H <span class="text-green-400">"Authorization: Bearer YOUR_API_KEY"</span> \
   -H <span class="text-green-400">"Content-Type: application/json"</span> \
-  -d <span class="text-yellow-400">'{
-    "to": "+1234567890",
-    "message": "Hello from Ender!"
-  }'</span></code></pre>
-        </div>
-      </div>
+  -d <span class="text-yellow-400">'{"{"}to": "+1234567890", "message": "Hello from Ender!{"}"}'</span></code></pre>
     </div>
   </div>
 </section>
