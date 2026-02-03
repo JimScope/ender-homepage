@@ -1,28 +1,28 @@
 ---
 const capabilities = [
   {
-    title: 'Device Gateway',
-    description: 'Use your Android phones or modems as SMS gateways. Full control over your messaging infrastructure.',
+    title: 'Your Devices',
+    description: 'Turn your old Android phones or USB modems into SMS gateways. No special hardware needed.',
   },
   {
-    title: 'Real-time Webhooks',
-    description: 'Get instant notifications for message delivery, failures, and incoming messages via webhooks.',
+    title: 'Webhooks',
+    description: 'Get notified on delivery, failures, and incoming messages. Integrate with anything.',
   },
   {
-    title: 'Quota Management',
-    description: 'Flexible quota system with automatic tracking and alerts. Never run out of messages unexpectedly.',
+    title: 'Quotas & Limits',
+    description: 'Built-in quota system to manage usage across users and API keys.',
   },
   {
     title: 'REST API',
-    description: 'Simple and powerful API for sending messages, managing devices, and tracking delivery status.',
+    description: 'Clean, documented API. Send messages, manage devices, check status. That\'s it.',
   },
   {
-    title: 'Multi-user Support',
-    description: 'Create teams with role-based access control. Perfect for agencies and businesses.',
+    title: 'Multi-tenant',
+    description: 'Create users, assign devices, set permissions. Great for teams or reselling.',
   },
   {
-    title: 'Detailed Analytics',
-    description: 'Track delivery rates, response times, and usage patterns with comprehensive analytics.',
+    title: 'Dashboard',
+    description: 'Web UI to manage everything. Or use the API if that\'s your thing.',
   },
 ]
 ---
@@ -31,10 +31,10 @@ const capabilities = [
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
     <div class="max-w-3xl">
       <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
-        What we offer
+        What's included
       </h2>
       <p class="mt-6 text-lg text-neutral-400 leading-relaxed">
-        Everything you need to build a reliable SMS infrastructure. No third-party dependencies, full control over your messaging.
+        Everything you need to run your own SMS gateway. Self-host it, own your data, pay nothing per message.
       </p>
     </div>
 
@@ -59,7 +59,7 @@ const capabilities = [
     <!-- Code example -->
     <div class="mt-20 p-8 lg:p-10 border border-neutral-800 rounded-none">
       <p class="text-sm text-neutral-500 uppercase tracking-wider mb-4">Quick Start</p>
-      <pre class="text-sm text-neutral-300 overflow-x-auto"><code><span class="text-[#e94d1f]">curl</span> -X POST https://api.ender.dev/v1/sms \
+      <pre class="text-sm text-neutral-300 overflow-x-auto"><code><span class="text-[#e94d1f]">curl</span> -X POST https://your-server.com/api/v1/sms \
   -H <span class="text-green-400">"Authorization: Bearer YOUR_API_KEY"</span> \
   -H <span class="text-green-400">"Content-Type: application/json"</span> \
   -d <span class="text-yellow-400">'{"{"}to": "+1234567890", "message": "Hello from Ender!{"}"}'</span></code></pre>

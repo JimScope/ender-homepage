@@ -14,15 +14,35 @@ const { class: className } = Astro.props
         <span class="font-serif font-bold text-2xl tracking-tight uppercase">Ender</span>
       </a>
 
-      <a
-        href="#contact"
-        class="text-neutral-900 hover:text-[#e94d1f] transition-colors text-sm font-medium flex items-center gap-1"
-      >
-        Get in touch
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-        </svg>
-      </a>
+      <div class="flex items-center gap-6">
+        <a
+          href="/docs"
+          class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium"
+        >
+          Docs
+        </a>
+        <a
+          href="#faq"
+          class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium"
+        >
+          FAQ
+        </a>
+        <a
+          href="https://github.com/ender-sms"
+          class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium"
+        >
+          GitHub
+        </a>
+        <a
+          href="/dashboard"
+          class="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-sm font-medium rounded-lg hover:bg-neutral-800 transition-colors"
+        >
+          Dashboard
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
     </nav>
   </div>
 </header>
