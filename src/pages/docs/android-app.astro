@@ -1,0 +1,114 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro'
+---
+
+<DocsLayout title="Android App">
+  <h1>Android App</h1>
+
+  <p class="lead text-xl text-neutral-600">
+    Turn any Android phone into an SMS gateway with the Ender app.
+  </p>
+
+  <h2>Requirements</h2>
+
+  <ul>
+    <li>Android 8.0 (Oreo) or higher</li>
+    <li>Active SIM card with SMS capability</li>
+    <li>Internet connection (WiFi or mobile data)</li>
+  </ul>
+
+  <h2>Installation</h2>
+
+  <h3>Option 1: Download APK</h3>
+
+  <ol>
+    <li>Go to <a href="https://github.com/ender-sms/android/releases">GitHub Releases</a></li>
+    <li>Download the latest <code>ender-vX.X.X.apk</code></li>
+    <li>Enable "Install from unknown sources" in your phone settings</li>
+    <li>Open the APK to install</li>
+  </ol>
+
+  <h3>Option 2: Build from source</h3>
+
+  <pre><code class="language-bash">git clone https://github.com/ender-sms/android.git
+cd android
+./gradlew assembleRelease</code></pre>
+
+  <h2>Setup</h2>
+
+  <h3>1. Open the app</h3>
+
+  <p>Launch Ender and tap "Get Started".</p>
+
+  <h3>2. Enter server URL</h3>
+
+  <p>Enter your Ender server URL:</p>
+
+  <pre><code>https://sms.yourdomain.com</code></pre>
+
+  <h3>3. Log in</h3>
+
+  <p>Enter your Ender account credentials.</p>
+
+  <h3>4. Grant permissions</h3>
+
+  <p>The app will request the following permissions:</p>
+
+  <ul>
+    <li><strong>Send SMS</strong> - Required to send messages</li>
+    <li><strong>Receive SMS</strong> - Optional, for incoming message webhooks</li>
+    <li><strong>Read phone state</strong> - To detect SIM status</li>
+    <li><strong>Run in background</strong> - To process messages when app is closed</li>
+  </ul>
+
+  <div class="not-prose my-8 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+    <p class="text-amber-800 text-sm">
+      <strong>Important:</strong> Disable battery optimization for Ender to ensure reliable message delivery when the screen is off.
+    </p>
+  </div>
+
+  <h2>Battery optimization</h2>
+
+  <p>Android aggressively kills background apps. To prevent this:</p>
+
+  <ol>
+    <li>Go to Settings → Apps → Ender</li>
+    <li>Tap "Battery"</li>
+    <li>Select "Unrestricted" or "Don't optimize"</li>
+  </ol>
+
+  <p>On some phones (Xiaomi, Huawei, Samsung), you may need additional steps. See <a href="https://dontkillmyapp.com">Don't Kill My App</a> for device-specific instructions.</p>
+
+  <h2>Troubleshooting</h2>
+
+  <h3>App shows "Disconnected"</h3>
+
+  <ul>
+    <li>Check your internet connection</li>
+    <li>Verify the server URL is correct</li>
+    <li>Make sure your server is running</li>
+  </ul>
+
+  <h3>Messages stuck in "Sending"</h3>
+
+  <ul>
+    <li>Check if the SIM card has SMS credits</li>
+    <li>Verify the phone number format</li>
+    <li>Check the Android SMS app for errors</li>
+  </ul>
+
+  <h3>App killed in background</h3>
+
+  <ul>
+    <li>Disable battery optimization</li>
+    <li>Lock the app in recent apps (on supported devices)</li>
+    <li>Add the app to any "protected apps" list</li>
+  </ul>
+
+  <h2>Next steps</h2>
+
+  <ul>
+    <li><a href="/docs/device-management">Device Management</a> - Manage your devices</li>
+    <li><a href="/docs/api/send-sms">Send SMS</a> - Send your first message</li>
+  </ul>
+</DocsLayout>

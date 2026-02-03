@@ -1,0 +1,77 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro'
+---
+
+<DocsLayout title="Introduction">
+  <h1>Introduction</h1>
+
+  <p class="lead text-xl text-neutral-600">
+    Ender is an open source SMS gateway that lets you send text messages using your own Android phones or USB modems.
+  </p>
+
+  <h2>What is Ender?</h2>
+
+  <p>
+    Instead of paying per-message fees to services like Twilio or Vonage, Ender lets you use your existing hardware to send SMS. Connect an old Android phone or a USB modem, and you have your own SMS gateway.
+  </p>
+
+  <p>
+    Ender provides:
+  </p>
+
+  <ul>
+    <li><strong>REST API</strong> - Simple HTTP endpoints to send messages and check status</li>
+    <li><strong>Web Dashboard</strong> - Manage devices, users, and view analytics</li>
+    <li><strong>Webhooks</strong> - Get notified on delivery, failures, and incoming messages</li>
+    <li><strong>Multi-tenant</strong> - Create users with quotas and permissions</li>
+  </ul>
+
+  <h2>Use cases</h2>
+
+  <p>Ender works great for:</p>
+
+  <ul>
+    <li><strong>OTPs and verification codes</strong> - Send login codes from your app</li>
+    <li><strong>Notifications</strong> - Alert users about important events</li>
+    <li><strong>Internal tools</strong> - Send SMS from your internal systems</li>
+    <li><strong>Side projects</strong> - Avoid monthly minimums from big providers</li>
+  </ul>
+
+  <div class="not-prose my-8 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+    <p class="text-amber-800 text-sm">
+      <strong>Note:</strong> Ender is designed for transactional messages, not marketing or bulk SMS. Carriers may block your number if you send spam.
+    </p>
+  </div>
+
+  <h2>How it works</h2>
+
+  <ol>
+    <li><strong>Set up a device</strong> - Install our Android app or connect a USB modem</li>
+    <li><strong>Deploy Ender</strong> - Self-host on your server or use our cloud version</li>
+    <li><strong>Send via API</strong> - Make HTTP requests to send messages</li>
+    <li><strong>Track delivery</strong> - Get status updates via webhooks or polling</li>
+  </ol>
+
+  <h2>Architecture</h2>
+
+  <pre><code>┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│   Your App  │────▶│   Ender     │────▶│   Device    │
+│             │     │   Server    │     │  (Android/  │
+│  HTTP POST  │     │             │     │   Modem)    │
+└─────────────┘     └─────────────┘     └─────────────┘
+                           │
+                           ▼
+                    ┌─────────────┐
+                    │  Webhooks   │
+                    │  (delivery  │
+                    │   status)   │
+                    └─────────────┘</code></pre>
+
+  <h2>Next steps</h2>
+
+  <ul>
+    <li><a href="/docs/quickstart">Quick Start</a> - Get running in 5 minutes</li>
+    <li><a href="/docs/installation">Installation</a> - Full deployment guide</li>
+    <li><a href="/docs/api/send-sms">API Reference</a> - Send your first message</li>
+  </ul>
+</DocsLayout>

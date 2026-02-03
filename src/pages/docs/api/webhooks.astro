@@ -1,0 +1,112 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro'
+---
+
+<DocsLayout title="Webhooks">
+  <h1>Webhooks</h1>
+
+  <p class="lead text-xl text-neutral-600">
+    Receive real-time notifications for message events.
+  </p>
+
+  <h2>Setting up webhooks</h2>
+
+  <h3>Per-message webhook</h3>
+
+  <p>Include a <code>webhook_url</code> when sending:</p>
+
+  <pre><code class="language-json">{"{"}
+  "to": "+1234567890",
+  "message": "Hello!",
+  "webhook_url": "https://your-app.com/webhooks/sms"
+{"}"}</code></pre>
+
+  <h3>Global webhook</h3>
+
+  <p>Configure in Dashboard → Settings → Webhooks for all messages.</p>
+
+  <h2>Webhook payload</h2>
+
+  <p>Ender sends a POST request with JSON body:</p>
+
+  <pre><code class="language-json">{"{"}
+  "event": "message.delivered",
+  "data": {"{"}
+    "id": "msg_abc123",
+    "status": "delivered",
+    "to": "+1234567890",
+    "device_id": "dev_xyz789",
+    "delivered_at": "2024-01-15T10:30:05Z"
+  {"}"},
+  "timestamp": "2024-01-15T10:30:05Z"
+{"}"}</code></pre>
+
+  <h2>Event types</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Event</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>message.queued</code></td>
+        <td>Message added to queue</td>
+      </tr>
+      <tr>
+        <td><code>message.sent</code></td>
+        <td>Message sent by device</td>
+      </tr>
+      <tr>
+        <td><code>message.delivered</code></td>
+        <td>Delivery confirmed</td>
+      </tr>
+      <tr>
+        <td><code>message.failed</code></td>
+        <td>Message failed</td>
+      </tr>
+      <tr>
+        <td><code>message.received</code></td>
+        <td>Incoming SMS received</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Verifying webhooks</h2>
+
+  <p>Webhooks include a signature header:</p>
+
+  <pre><code>X-Ender-Signature: sha256=abc123...</code></pre>
+
+  <p>Verify it using your webhook secret:</p>
+
+  <pre><code class="language-python">import hmac
+import hashlib
+
+def verify_signature(payload, signature, secret):
+    expected = hmac.new(
+        secret.encode(),
+        payload.encode(),
+        hashlib.sha256
+    ).hexdigest()
+    return hmac.compare_digest(f"sha256={"{"}expected{"}"}", signature)</code></pre>
+
+  <h2>Retry policy</h2>
+
+  <p>Failed webhooks are retried:</p>
+
+  <ul>
+    <li>3 retries with exponential backoff</li>
+    <li>Delays: 1min, 5min, 30min</li>
+    <li>Webhook marked failed after all retries</li>
+  </ul>
+
+  <h2>Related</h2>
+
+  <ul>
+    <li><a href="/docs/api/send-sms">Send SMS</a> - Include webhook URL</li>
+    <li><a href="/docs/api/status">Message Status</a> - Poll for status</li>
+  </ul>
+</DocsLayout>

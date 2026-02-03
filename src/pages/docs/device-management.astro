@@ -1,0 +1,68 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro'
+---
+
+<DocsLayout title="Device Management">
+  <h1>Device Management</h1>
+
+  <p class="lead text-xl text-neutral-600">
+    Add, configure, and monitor your SMS devices.
+  </p>
+
+  <h2>Viewing devices</h2>
+
+  <p>Go to the Dashboard → Devices to see all registered devices.</p>
+
+  <p>Each device shows:</p>
+
+  <ul>
+    <li><strong>Status</strong> - Online, offline, or error</li>
+    <li><strong>Phone number</strong> - The SIM card number</li>
+    <li><strong>Messages sent</strong> - Total count</li>
+    <li><strong>Last seen</strong> - When the device last connected</li>
+  </ul>
+
+  <h2>Device settings</h2>
+
+  <p>Click on a device to configure:</p>
+
+  <ul>
+    <li><strong>Name</strong> - Friendly name for the device</li>
+    <li><strong>Priority</strong> - Higher priority devices are used first</li>
+    <li><strong>Rate limit</strong> - Max messages per minute</li>
+    <li><strong>Enabled</strong> - Toggle device on/off</li>
+  </ul>
+
+  <h2>Load balancing</h2>
+
+  <p>
+    When multiple devices are available, Ender distributes messages based on:
+  </p>
+
+  <ol>
+    <li>Device priority (higher first)</li>
+    <li>Current queue length (shorter first)</li>
+    <li>Recent failures (healthier first)</li>
+  </ol>
+
+  <h2>API endpoints</h2>
+
+  <h3>List devices</h3>
+
+  <pre><code class="language-bash">GET /api/v1/devices</code></pre>
+
+  <h3>Get device</h3>
+
+  <pre><code class="language-bash">GET /api/v1/devices/:id</code></pre>
+
+  <h3>Update device</h3>
+
+  <pre><code class="language-bash">PATCH /api/v1/devices/:id</code></pre>
+
+  <h2>Related</h2>
+
+  <ul>
+    <li><a href="/docs/android-app">Android App</a> - Set up a new device</li>
+    <li><a href="/docs/api/send-sms">Send SMS</a> - Target specific devices</li>
+  </ul>
+</DocsLayout>

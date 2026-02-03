@@ -1,0 +1,76 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro'
+---
+
+<DocsLayout title="Multi-tenant Setup">
+  <h1>Multi-tenant Setup</h1>
+
+  <p class="lead text-xl text-neutral-600">
+    Create users with separate quotas and permissions.
+  </p>
+
+  <h2>User management</h2>
+
+  <h3>Create user via CLI</h3>
+
+  <pre><code class="language-bash">docker compose exec backend python -m app.cli create-user \
+  --email user@example.com \
+  --password secret123</code></pre>
+
+  <h3>Create user via API</h3>
+
+  <pre><code class="language-bash">curl -X POST https://your-server.com/api/v1/users \
+  -H "Authorization: Bearer ADMIN_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"{"}
+    "email": "user@example.com",
+    "password": "secret123",
+    "quota": 1000
+  {"}"}'</code></pre>
+
+  <h2>Quotas</h2>
+
+  <p>Set monthly message limits per user:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Field</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>quota</code></td>
+        <td>Monthly message limit</td>
+      </tr>
+      <tr>
+        <td><code>quota_reset_day</code></td>
+        <td>Day of month to reset (1-28)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Device assignment</h2>
+
+  <p>Assign specific devices to users:</p>
+
+  <pre><code class="language-bash">curl -X POST https://your-server.com/api/v1/users/user_123/devices \
+  -H "Authorization: Bearer ADMIN_API_KEY" \
+  -d '{"{"}"device_id": "dev_xyz789"{"}"}'</code></pre>
+
+  <h2>Permissions</h2>
+
+  <ul>
+    <li><strong>admin</strong> - Full access, can manage users</li>
+    <li><strong>user</strong> - Can send SMS, view own messages</li>
+    <li><strong>readonly</strong> - Can only view status</li>
+  </ul>
+
+  <h2>Related</h2>
+
+  <ul>
+    <li><a href="/docs/api/auth">Authentication</a> - API keys per user</li>
+    <li><a href="/docs/device-management">Device Management</a> - Assign devices</li>
+  </ul>
+</DocsLayout>

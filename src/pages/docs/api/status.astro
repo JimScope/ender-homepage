@@ -1,0 +1,117 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro'
+---
+
+<DocsLayout title="Message Status">
+  <h1>Message Status</h1>
+
+  <p class="lead text-xl text-neutral-600">
+    Check the delivery status of sent messages.
+  </p>
+
+  <h2>Get message status</h2>
+
+  <div class="not-prose my-6 p-4 bg-neutral-100 rounded-lg">
+    <p class="text-sm font-mono">
+      <span class="text-blue-600 font-semibold">GET</span>
+      <span class="text-neutral-900 ml-2">/api/v1/sms/:id</span>
+    </p>
+  </div>
+
+  <h3>Example</h3>
+
+  <pre><code class="language-bash">curl https://your-server.com/api/v1/sms/msg_abc123 \
+  -H "Authorization: Bearer YOUR_API_KEY"</code></pre>
+
+  <h3>Response</h3>
+
+  <pre><code class="language-json">{"{"}
+  "id": "msg_abc123",
+  "status": "delivered",
+  "to": "+1234567890",
+  "message": "Your code is 123456",
+  "device_id": "dev_xyz789",
+  "created_at": "2024-01-15T10:30:00Z",
+  "sent_at": "2024-01-15T10:30:02Z",
+  "delivered_at": "2024-01-15T10:30:05Z",
+  "error": null
+{"}"}</code></pre>
+
+  <h2>Status values</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>queued</code></td>
+        <td>Waiting to be sent</td>
+      </tr>
+      <tr>
+        <td><code>sending</code></td>
+        <td>Being processed by device</td>
+      </tr>
+      <tr>
+        <td><code>sent</code></td>
+        <td>Sent by device</td>
+      </tr>
+      <tr>
+        <td><code>delivered</code></td>
+        <td>Confirmed delivered</td>
+      </tr>
+      <tr>
+        <td><code>failed</code></td>
+        <td>Failed to send</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>List messages</h2>
+
+  <div class="not-prose my-6 p-4 bg-neutral-100 rounded-lg">
+    <p class="text-sm font-mono">
+      <span class="text-blue-600 font-semibold">GET</span>
+      <span class="text-neutral-900 ml-2">/api/v1/sms</span>
+    </p>
+  </div>
+
+  <h3>Query parameters</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Parameter</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>status</code></td>
+        <td>Filter by status</td>
+      </tr>
+      <tr>
+        <td><code>to</code></td>
+        <td>Filter by recipient</td>
+      </tr>
+      <tr>
+        <td><code>limit</code></td>
+        <td>Results per page (default: 20)</td>
+      </tr>
+      <tr>
+        <td><code>offset</code></td>
+        <td>Pagination offset</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Related</h2>
+
+  <ul>
+    <li><a href="/docs/api/webhooks">Webhooks</a> - Get status updates in real-time</li>
+    <li><a href="/docs/api/send-sms">Send SMS</a> - Send messages</li>
+  </ul>
+</DocsLayout>

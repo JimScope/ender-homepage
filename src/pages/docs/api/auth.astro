@@ -1,0 +1,104 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro'
+---
+
+<DocsLayout title="Authentication">
+  <h1>Authentication</h1>
+
+  <p class="lead text-xl text-neutral-600">
+    Authenticate API requests using API keys.
+  </p>
+
+  <h2>API Keys</h2>
+
+  <p>All API requests require an API key in the <code>Authorization</code> header:</p>
+
+  <pre><code class="language-bash">Authorization: Bearer sk_live_abc123...</code></pre>
+
+  <h2>Creating API keys</h2>
+
+  <ol>
+    <li>Log in to the Dashboard</li>
+    <li>Go to Settings → API Keys</li>
+    <li>Click "Create API Key"</li>
+    <li>Copy the key (it won't be shown again)</li>
+  </ol>
+
+  <h2>Key types</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Prefix</th>
+        <th>Type</th>
+        <th>Use for</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>sk_live_</code></td>
+        <td>Live</td>
+        <td>Production API calls</td>
+      </tr>
+      <tr>
+        <td><code>sk_test_</code></td>
+        <td>Test</td>
+        <td>Testing (messages not sent)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Key permissions</h2>
+
+  <p>API keys can be scoped to specific permissions:</p>
+
+  <ul>
+    <li><code>sms:send</code> - Send SMS messages</li>
+    <li><code>sms:read</code> - Read message status</li>
+    <li><code>devices:read</code> - List devices</li>
+    <li><code>devices:write</code> - Manage devices</li>
+  </ul>
+
+  <h2>Revoking keys</h2>
+
+  <p>To revoke an API key:</p>
+
+  <ol>
+    <li>Go to Settings → API Keys</li>
+    <li>Click the trash icon next to the key</li>
+    <li>Confirm deletion</li>
+  </ol>
+
+  <div class="not-prose my-8 p-4 bg-red-50 border border-red-200 rounded-lg">
+    <p class="text-red-800 text-sm">
+      <strong>Security:</strong> Never expose API keys in client-side code or public repositories.
+    </p>
+  </div>
+
+  <h2>Rate limits</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Endpoint</th>
+        <th>Limit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>POST /api/v1/sms</td>
+        <td>100 req/min</td>
+      </tr>
+      <tr>
+        <td>GET endpoints</td>
+        <td>300 req/min</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Rate limit headers are included in responses:</p>
+
+  <pre><code>X-RateLimit-Limit: 100
+X-RateLimit-Remaining: 95
+X-RateLimit-Reset: 1642234567</code></pre>
+</DocsLayout>

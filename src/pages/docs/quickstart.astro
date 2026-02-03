@@ -1,0 +1,94 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro'
+---
+
+<DocsLayout title="Quick Start">
+  <h1>Quick Start</h1>
+
+  <p class="lead text-xl text-neutral-600">
+    Get Ender up and running in 5 minutes using Docker.
+  </p>
+
+  <h2>Prerequisites</h2>
+
+  <ul>
+    <li>Docker and Docker Compose installed</li>
+    <li>An Android phone with a SIM card (or USB modem)</li>
+  </ul>
+
+  <h2>1. Clone the repository</h2>
+
+  <pre><code class="language-bash">git clone https://github.com/ender-sms/ender.git
+cd ender</code></pre>
+
+  <h2>2. Start the services</h2>
+
+  <pre><code class="language-bash">docker compose up -d</code></pre>
+
+  <p>This starts:</p>
+  <ul>
+    <li>Ender API server on port <code>8000</code></li>
+    <li>Web dashboard on port <code>5173</code></li>
+    <li>PostgreSQL database</li>
+  </ul>
+
+  <h2>3. Create your first user</h2>
+
+  <pre><code class="language-bash">docker compose exec backend python -m app.cli create-user \
+  --email admin@example.com \
+  --password your-password \
+  --superuser</code></pre>
+
+  <h2>4. Connect a device</h2>
+
+  <p>
+    Install the Ender Android app on your phone:
+  </p>
+
+  <ol>
+    <li>Download the APK from <a href="https://github.com/ender-sms/android/releases">GitHub Releases</a></li>
+    <li>Open the app and enter your server URL</li>
+    <li>Log in with your credentials</li>
+    <li>Grant SMS permissions when prompted</li>
+  </ol>
+
+  <p>Your phone is now registered as a device and ready to send messages.</p>
+
+  <h2>5. Send your first message</h2>
+
+  <p>First, get an API key from the dashboard at <code>http://localhost:5173</code>.</p>
+
+  <p>Then send a message:</p>
+
+  <pre><code class="language-bash">curl -X POST http://localhost:8000/api/v1/sms \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"{"}
+    "to": "+1234567890",
+    "message": "Hello from Ender!"
+  {"}"}'</code></pre>
+
+  <p>You'll get a response like:</p>
+
+  <pre><code class="language-json">{"{"}
+  "id": "msg_abc123",
+  "status": "queued",
+  "to": "+1234567890",
+  "message": "Hello from Ender!",
+  "device_id": "dev_xyz789",
+  "created_at": "2024-01-15T10:30:00Z"
+{"}"}</code></pre>
+
+  <h2>6. Check message status</h2>
+
+  <pre><code class="language-bash">curl http://localhost:8000/api/v1/sms/msg_abc123 \
+  -H "Authorization: Bearer YOUR_API_KEY"</code></pre>
+
+  <h2>Next steps</h2>
+
+  <ul>
+    <li><a href="/docs/installation">Installation</a> - Production deployment guide</li>
+    <li><a href="/docs/api/webhooks">Webhooks</a> - Get delivery notifications</li>
+    <li><a href="/docs/guides/docker">Docker Guide</a> - Advanced Docker configuration</li>
+  </ul>
+</DocsLayout>
