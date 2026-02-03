@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro'
+import CodeBlock from '../../../components/CodeBlock.astro'
 ---
 
 <DocsLayout title="Message Status">
@@ -20,12 +21,17 @@ import DocsLayout from '../../../layouts/DocsLayout.astro'
 
   <h3>Example</h3>
 
-  <pre><code class="language-bash">curl https://your-server.com/api/v1/sms/msg_abc123 \
-  -H "Authorization: Bearer YOUR_API_KEY"</code></pre>
+  <CodeBlock
+    lang="bash"
+    code={`curl https://your-server.com/api/v1/sms/msg_abc123 \\
+  -H "Authorization: Bearer YOUR_API_KEY"`}
+  />
 
   <h3>Response</h3>
 
-  <pre><code class="language-json">{"{"}
+  <CodeBlock
+    lang="json"
+    code={`{
   "id": "msg_abc123",
   "status": "delivered",
   "to": "+1234567890",
@@ -35,7 +41,8 @@ import DocsLayout from '../../../layouts/DocsLayout.astro'
   "sent_at": "2024-01-15T10:30:02Z",
   "delivered_at": "2024-01-15T10:30:05Z",
   "error": null
-{"}"}</code></pre>
+}`}
+  />
 
   <h2>Status values</h2>
 

@@ -9,6 +9,8 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@4hse/astro-llms-txt": "^1.0.4",
+    "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.17.1",
     "tailwindcss": "^4.1.18"

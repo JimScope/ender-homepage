@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro'
+import CodeBlock from '../../../components/CodeBlock.astro'
 ---
 
 <DocsLayout title="Multi-tenant Setup">
@@ -11,22 +12,29 @@ import DocsLayout from '../../../layouts/DocsLayout.astro'
 
   <h2>User management</h2>
 
-  <h3>Create user via CLI</h3>
+  <h3>Create user via Dashboard</h3>
 
-  <pre><code class="language-bash">docker compose exec backend python -m app.cli create-user \
-  --email user@example.com \
-  --password secret123</code></pre>
+  <p>The easiest way to create users is through the dashboard:</p>
+
+  <ol>
+    <li>Go to <strong>Settings → Users</strong></li>
+    <li>Click <strong>Create User</strong></li>
+    <li>Enter email, password, and quota settings</li>
+  </ol>
 
   <h3>Create user via API</h3>
 
-  <pre><code class="language-bash">curl -X POST https://your-server.com/api/v1/users \
-  -H "Authorization: Bearer ADMIN_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"{"}
+  <CodeBlock
+    lang="bash"
+    code={`curl -X POST https://your-server.com/api/v1/users \\
+  -H "Authorization: Bearer ADMIN_API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{
     "email": "user@example.com",
     "password": "secret123",
     "quota": 1000
-  {"}"}'</code></pre>
+  }'`}
+  />
 
   <h2>Quotas</h2>
 
@@ -55,9 +63,12 @@ import DocsLayout from '../../../layouts/DocsLayout.astro'
 
   <p>Assign specific devices to users:</p>
 
-  <pre><code class="language-bash">curl -X POST https://your-server.com/api/v1/users/user_123/devices \
-  -H "Authorization: Bearer ADMIN_API_KEY" \
-  -d '{"{"}"device_id": "dev_xyz789"{"}"}'</code></pre>
+  <CodeBlock
+    lang="bash"
+    code={`curl -X POST https://your-server.com/api/v1/users/user_123/devices \\
+  -H "Authorization: Bearer ADMIN_API_KEY" \\
+  -d '{"device_id": "dev_xyz789"}'`}
+  />
 
   <h2>Permissions</h2>
 

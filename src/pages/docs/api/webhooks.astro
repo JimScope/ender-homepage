@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro'
+import CodeBlock from '../../../components/CodeBlock.astro'
 ---
 
 <DocsLayout title="Webhooks">
@@ -15,11 +16,14 @@ import DocsLayout from '../../../layouts/DocsLayout.astro'
 
   <p>Include a <code>webhook_url</code> when sending:</p>
 
-  <pre><code class="language-json">{"{"}
+  <CodeBlock
+    lang="json"
+    code={`{
   "to": "+1234567890",
   "message": "Hello!",
   "webhook_url": "https://your-app.com/webhooks/sms"
-{"}"}</code></pre>
+}`}
+  />
 
   <h3>Global webhook</h3>
 
@@ -29,17 +33,20 @@ import DocsLayout from '../../../layouts/DocsLayout.astro'
 
   <p>Ender sends a POST request with JSON body:</p>
 
-  <pre><code class="language-json">{"{"}
+  <CodeBlock
+    lang="json"
+    code={`{
   "event": "message.delivered",
-  "data": {"{"}
+  "data": {
     "id": "msg_abc123",
     "status": "delivered",
     "to": "+1234567890",
     "device_id": "dev_xyz789",
     "delivered_at": "2024-01-15T10:30:05Z"
-  {"}"},
+  },
   "timestamp": "2024-01-15T10:30:05Z"
-{"}"}</code></pre>
+}`}
+  />
 
   <h2>Event types</h2>
 
@@ -78,11 +85,13 @@ import DocsLayout from '../../../layouts/DocsLayout.astro'
 
   <p>Webhooks include a signature header:</p>
 
-  <pre><code>X-Ender-Signature: sha256=abc123...</code></pre>
+  <CodeBlock lang="bash" code="X-Ender-Signature: sha256=abc123..." />
 
   <p>Verify it using your webhook secret:</p>
 
-  <pre><code class="language-python">import hmac
+  <CodeBlock
+    lang="python"
+    code={`import hmac
 import hashlib
 
 def verify_signature(payload, signature, secret):
@@ -91,7 +100,8 @@ def verify_signature(payload, signature, secret):
         payload.encode(),
         hashlib.sha256
     ).hexdigest()
-    return hmac.compare_digest(f"sha256={"{"}expected{"}"}", signature)</code></pre>
+    return hmac.compare_digest(f"sha256={expected}", signature)`}
+  />
 
   <h2>Retry policy</h2>
 

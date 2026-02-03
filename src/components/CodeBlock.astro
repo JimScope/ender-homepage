@@ -1,0 +1,32 @@
+---
+/**
+ * CodeBlock Component
+ *
+ * A reusable code block with syntax highlighting using Shiki.
+ * Styles are defined in global.css for reusability across projects.
+ *
+ * @example
+ * <CodeBlock lang="bash" code="npm install" />
+ * <CodeBlock lang="json" filename="package.json" code='{"name": "app"}' />
+ */
+import { Code } from 'astro:components'
+import { enderTheme } from '../lib/code-theme'
+
+interface Props {
+  code: string
+  lang?: 'bash' | 'javascript' | 'typescript' | 'python' | 'json' | 'yaml' | 'nginx' | 'dockerfile' | 'shell'
+  filename?: string
+  class?: string
+}
+
+const { code, lang = 'bash', filename, class: className } = Astro.props
+---
+
+<div class:list={['code-block', className]}>
+  {filename && (
+    <div class="code-filename">
+      {filename}
+    </div>
+  )}
+  <Code code={code.trim()} lang={lang} theme={enderTheme} />
+</div>

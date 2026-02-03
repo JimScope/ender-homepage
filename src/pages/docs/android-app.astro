@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro'
+import CodeBlock from '../../components/CodeBlock.astro'
 ---
 
 <DocsLayout title="Android App">
@@ -30,9 +31,12 @@ import DocsLayout from '../../layouts/DocsLayout.astro'
 
   <h3>Option 2: Build from source</h3>
 
-  <pre><code class="language-bash">git clone https://github.com/ender-sms/android.git
+  <CodeBlock
+    lang="bash"
+    code={`git clone https://github.com/ender-sms/android.git
 cd android
-./gradlew assembleRelease</code></pre>
+./gradlew assembleRelease`}
+  />
 
   <h2>Setup</h2>
 
@@ -44,7 +48,7 @@ cd android
 
   <p>Enter your Ender server URL:</p>
 
-  <pre><code>https://sms.yourdomain.com</code></pre>
+  <CodeBlock lang="bash" code="https://sms.yourdomain.com" />
 
   <h3>3. Log in</h3>
 

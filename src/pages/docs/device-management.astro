@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro'
+import CodeBlock from '../../components/CodeBlock.astro'
 ---
 
 <DocsLayout title="Device Management">
@@ -49,15 +50,15 @@ import DocsLayout from '../../layouts/DocsLayout.astro'
 
   <h3>List devices</h3>
 
-  <pre><code class="language-bash">GET /api/v1/devices</code></pre>
+  <CodeBlock lang="bash" code="GET /api/v1/devices" />
 
   <h3>Get device</h3>
 
-  <pre><code class="language-bash">GET /api/v1/devices/:id</code></pre>
+  <CodeBlock lang="bash" code="GET /api/v1/devices/:id" />
 
   <h3>Update device</h3>
 
-  <pre><code class="language-bash">PATCH /api/v1/devices/:id</code></pre>
+  <CodeBlock lang="bash" code="PATCH /api/v1/devices/:id" />
 
   <h2>Related</h2>
 

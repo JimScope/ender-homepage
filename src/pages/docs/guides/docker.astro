@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro'
+import CodeBlock from '../../../components/CodeBlock.astro'
 ---
 
 <DocsLayout title="Docker Deployment">
@@ -11,15 +12,16 @@ import DocsLayout from '../../../layouts/DocsLayout.astro'
 
   <h2>docker-compose.yml</h2>
 
-  <pre><code class="language-yaml">version: '3.8'
-
-services:
+  <CodeBlock
+    lang="yaml"
+    filename="docker-compose.yml"
+    code={`services:
   backend:
     image: ghcr.io/ender-sms/backend:latest
     environment:
-      - DATABASE_URL=postgresql://postgres:password@db:5432/ender
-      - SECRET_KEY=${"$"}{"{"}SECRET_KEY{"}"}
-      - DOMAIN=${"$"}{"{"}DOMAIN{"}"}
+      - DATABASE_URL=postgresql://postgres:\${POSTGRES_PASSWORD}@db:5432/ender
+      - SECRET_KEY=\${SECRET_KEY}
+      - DOMAIN=\${DOMAIN}
     ports:
       - "8000:8000"
     depends_on:
@@ -28,7 +30,7 @@ services:
   frontend:
     image: ghcr.io/ender-sms/frontend:latest
     environment:
-      - VITE_API_URL=https://${"$"}{"{"}DOMAIN{"}"}
+      - VITE_API_URL=https://\${DOMAIN}
     ports:
       - "5173:80"
 
@@ -36,33 +38,41 @@ services:
     image: postgres:17
     environment:
       - POSTGRES_DB=ender
-      - POSTGRES_PASSWORD=${"$"}{"{"}POSTGRES_PASSWORD{"}"}
+      - POSTGRES_PASSWORD=\${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
 volumes:
-  postgres_data:</code></pre>
+  postgres_data:`}
+  />
 
   <h2>Environment variables</h2>
 
   <p>Create a <code>.env</code> file:</p>
 
-  <pre><code class="language-bash">SECRET_KEY=your-32-character-secret-key
+  <CodeBlock
+    lang="bash"
+    filename=".env"
+    code={`SECRET_KEY=your-32-character-secret-key
 POSTGRES_PASSWORD=your-database-password
-DOMAIN=sms.yourdomain.com</code></pre>
+DOMAIN=sms.yourdomain.com`}
+  />
 
   <h2>Start services</h2>
 
-  <pre><code class="language-bash">docker compose up -d</code></pre>
+  <CodeBlock lang="bash" code="docker compose up -d" />
 
   <h2>View logs</h2>
 
-  <pre><code class="language-bash">docker compose logs -f backend</code></pre>
+  <CodeBlock lang="bash" code="docker compose logs -f backend" />
 
   <h2>Update</h2>
 
-  <pre><code class="language-bash">docker compose pull
-docker compose up -d</code></pre>
+  <CodeBlock
+    lang="bash"
+    code={`docker compose pull
+docker compose up -d`}
+  />
 
   <h2>Related</h2>
 

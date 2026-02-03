@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro'
+import CodeBlock from '../../../components/CodeBlock.astro'
 ---
 
 <DocsLayout title="Authentication">
@@ -13,7 +14,7 @@ import DocsLayout from '../../../layouts/DocsLayout.astro'
 
   <p>All API requests require an API key in the <code>Authorization</code> header:</p>
 
-  <pre><code class="language-bash">Authorization: Bearer sk_live_abc123...</code></pre>
+  <CodeBlock lang="bash" code="Authorization: Bearer sk_live_abc123..." />
 
   <h2>Creating API keys</h2>
 
@@ -98,7 +99,10 @@ import DocsLayout from '../../../layouts/DocsLayout.astro'
 
   <p>Rate limit headers are included in responses:</p>
 
-  <pre><code>X-RateLimit-Limit: 100
+  <CodeBlock
+    lang="bash"
+    code={`X-RateLimit-Limit: 100
 X-RateLimit-Remaining: 95
-X-RateLimit-Reset: 1642234567</code></pre>
+X-RateLimit-Reset: 1642234567`}
+  />
 </DocsLayout>

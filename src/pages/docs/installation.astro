@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro'
+import CodeBlock from '../../components/CodeBlock.astro'
 ---
 
 <DocsLayout title="Installation">
@@ -8,6 +9,12 @@ import DocsLayout from '../../layouts/DocsLayout.astro'
   <p class="lead text-xl text-neutral-600">
     Deploy Ender on your own server for production use.
   </p>
+
+  <div class="not-prose my-6 alert alert-info">
+    <p>
+      <strong>Don't want to self-host?</strong> Try <a href="https://app.ender.town">Ender Cloud</a> — free plan available, paid plans from $0.99/month.
+    </p>
+  </div>
 
   <h2>Requirements</h2>
 
@@ -20,41 +27,64 @@ import DocsLayout from '../../layouts/DocsLayout.astro'
 
   <h2>Docker Compose (Recommended)</h2>
 
-  <h3>1. Clone the repository</h3>
+  <h3>1. Create docker-compose.yml</h3>
 
-  <pre><code class="language-bash">git clone https://github.com/ender-sms/ender.git
-cd ender</code></pre>
+  <p>Create a new directory and add a <code>docker-compose.yml</code> file:</p>
+
+  <CodeBlock
+    lang="yaml"
+    filename="docker-compose.yml"
+    code={`services:
+  backend:
+    image: ghcr.io/ender-sms/backend:latest
+    environment:
+      - DATABASE_URL=postgresql://postgres:\${POSTGRES_PASSWORD}@db:5432/ender
+      - SECRET_KEY=\${SECRET_KEY}
+      - DOMAIN=\${DOMAIN}
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  frontend:
+    image: ghcr.io/ender-sms/frontend:latest
+    environment:
+      - VITE_API_URL=https://\${DOMAIN}
+    ports:
+      - "5173:80"
+
+  db:
+    image: postgres:17
+    environment:
+      - POSTGRES_DB=ender
+      - POSTGRES_PASSWORD=\${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:`}
+  />
 
   <h3>2. Configure environment</h3>
 
-  <pre><code class="language-bash">cp .env.example .env</code></pre>
+  <p>Create a <code>.env</code> file in the same directory:</p>
 
-  <p>Edit <code>.env</code> and set:</p>
-
-  <pre><code class="language-bash"># Required
-SECRET_KEY=your-secret-key-here
-POSTGRES_PASSWORD=your-db-password
-DOMAIN=sms.yourdomain.com
-
-# Optional
-SMTP_HOST=smtp.example.com
-SMTP_USER=...
-SMTP_PASSWORD=...</code></pre>
+  <CodeBlock
+    lang="bash"
+    filename=".env"
+    code={`# Required
+SECRET_KEY=your-32-character-secret-key
+POSTGRES_PASSWORD=your-database-password
+DOMAIN=sms.yourdomain.com`}
+  />
 
   <h3>3. Start the services</h3>
 
-  <pre><code class="language-bash">docker compose -f docker-compose.prod.yml up -d</code></pre>
+  <CodeBlock lang="bash" code="docker compose up -d" />
 
-  <h3>4. Run migrations</h3>
+  <h3>4. Register your account</h3>
 
-  <pre><code class="language-bash">docker compose exec backend alembic upgrade head</code></pre>
-
-  <h3>5. Create admin user</h3>
-
-  <pre><code class="language-bash">docker compose exec backend python -m app.cli create-user \
-  --email admin@yourdomain.com \
-  --password your-secure-password \
-  --superuser</code></pre>
+  <p>Open the dashboard at <code>http://localhost:5173</code> (or your domain) and create your account. The first registered user becomes the admin.</p>
 
   <h2>Reverse Proxy Setup</h2>
 
@@ -98,10 +128,11 @@ SMTP_PASSWORD=...</code></pre>
 
   <p>To update to the latest version:</p>
 
-  <pre><code class="language-bash">git pull
-docker compose -f docker-compose.prod.yml pull
-docker compose -f docker-compose.prod.yml up -d
-docker compose exec backend alembic upgrade head</code></pre>
+  <CodeBlock
+    lang="bash"
+    code={`docker compose pull
+docker compose up -d`}
+  />
 
   <h2>Next steps</h2>
 

@@ -37,17 +37,52 @@ import DocsLayout from '../../layouts/DocsLayout.astro'
     <li><strong>Side projects</strong> - Avoid monthly minimums from big providers</li>
   </ul>
 
-  <div class="not-prose my-8 p-4 bg-amber-50 border border-amber-200 rounded-lg">
-    <p class="text-amber-800 text-sm">
+  <div class="not-prose my-8 alert alert-warning">
+    <p>
       <strong>Note:</strong> Ender is designed for transactional messages, not marketing or bulk SMS. Carriers may block your number if you send spam.
     </p>
+  </div>
+
+  <h2>Deployment options</h2>
+
+  <div class="not-prose my-8 grid gap-4 md:grid-cols-2">
+    <div class="card card-default">
+      <h3 class="card-title">Ender Cloud</h3>
+      <p class="card-description">The easiest way to get started. No server required.</p>
+      <ul class="card-list">
+        <li>✓ Free plan available</li>
+        <li>✓ Paid plans from $0.99/month</li>
+        <li>✓ No infrastructure to manage</li>
+      </ul>
+      <a href="https://app.ender.town" class="btn btn-primary">
+        Get started free
+        <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+    <div class="card card-default">
+      <h3 class="card-title">Self-hosted</h3>
+      <p class="card-description">Full control on your own infrastructure.</p>
+      <ul class="card-list">
+        <li>✓ 100% open source</li>
+        <li>✓ Deploy with Docker</li>
+        <li>✓ Your data, your server</li>
+      </ul>
+      <a href="/docs/quickstart" class="btn btn-secondary">
+        Self-host guide
+        <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
   </div>
 
   <h2>How it works</h2>
 
   <ol>
+    <li><strong>Sign up or deploy</strong> - Use Ender Cloud or self-host on your server</li>
     <li><strong>Set up a device</strong> - Install our Android app or connect a USB modem</li>
-    <li><strong>Deploy Ender</strong> - Self-host on your server or use our cloud version</li>
     <li><strong>Send via API</strong> - Make HTTP requests to send messages</li>
     <li><strong>Track delivery</strong> - Get status updates via webhooks or polling</li>
   </ol>
