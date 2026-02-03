@@ -1,0 +1,88 @@
+---
+const features = [
+  {
+    title: 'Device Gateway',
+    description: 'Use your Android phones or modems as SMS gateways. Full control over your messaging infrastructure.',
+    icon: 'device',
+  },
+  {
+    title: 'Real-time Webhooks',
+    description: 'Get instant notifications for message delivery, failures, and incoming messages via webhooks.',
+    icon: 'webhook',
+  },
+  {
+    title: 'Quota Management',
+    description: 'Flexible quota system with automatic tracking and alerts. Never run out of messages unexpectedly.',
+    icon: 'quota',
+  },
+  {
+    title: 'REST API',
+    description: 'Simple and powerful API for sending messages, managing devices, and tracking delivery status.',
+    icon: 'api',
+  },
+  {
+    title: 'Multi-user Support',
+    description: 'Create teams with role-based access control. Perfect for agencies and businesses.',
+    icon: 'users',
+  },
+  {
+    title: 'Detailed Analytics',
+    description: 'Track delivery rates, response times, and usage patterns with comprehensive analytics.',
+    icon: 'analytics',
+  },
+]
+---
+
+<section id="features" class="py-20 lg:py-32 bg-neutral-50">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold text-neutral-900">
+        Everything you need for SMS messaging
+      </h2>
+      <p class="mt-4 text-lg text-neutral-600">
+        Built for developers and businesses who need reliable, self-hosted SMS infrastructure.
+      </p>
+    </div>
+
+    <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {features.map((feature) => (
+        <div class="bg-white rounded-2xl p-6 border border-neutral-200 hover:border-neutral-300 hover:shadow-lg transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-primary-100 flex items-center justify-center">
+            {feature.icon === 'device' && (
+              <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+              </svg>
+            )}
+            {feature.icon === 'webhook' && (
+              <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+            )}
+            {feature.icon === 'quota' && (
+              <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+              </svg>
+            )}
+            {feature.icon === 'api' && (
+              <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+              </svg>
+            )}
+            {feature.icon === 'users' && (
+              <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+              </svg>
+            )}
+            {feature.icon === 'analytics' && (
+              <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+              </svg>
+            )}
+          </div>
+          <h3 class="mt-4 text-lg font-semibold text-neutral-900">{feature.title}</h3>
+          <p class="mt-2 text-neutral-600">{feature.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

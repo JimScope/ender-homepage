@@ -1,0 +1,48 @@
+---
+interface Props {
+  class?: string
+}
+
+const { class: className } = Astro.props
+---
+
+<header class:list={['fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-100', className]}>
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <nav class="flex items-center justify-between h-16">
+      <a href="/" class="flex items-center gap-2">
+        <svg class="w-8 h-8 text-primary-600" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="8" fill="currentColor"/>
+          <path d="M8 10h16M8 16h12M8 22h8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span class="font-semibold text-xl">Ender</span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#features" class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium">
+          Features
+        </a>
+        <a href="#how-it-works" class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium">
+          How it Works
+        </a>
+        <a href="#pricing" class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium">
+          Pricing
+        </a>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <a
+          href="/login"
+          class="hidden sm:inline-flex text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium"
+        >
+          Sign in
+        </a>
+        <a
+          href="/register"
+          class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-neutral-900 rounded-lg hover:bg-neutral-800 transition-colors"
+        >
+          Get Started
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
