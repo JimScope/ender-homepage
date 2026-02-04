@@ -1,5 +1,34 @@
 ---
+import CodeBlock from './CodeBlock.astro'
 
+const sendExample = `// Send an SMS
+const response = await fetch('https://api.ender.town/v1/sms', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    to: '+1234567890',
+    message: 'Your verification code is 847293'
+  })
+});
+
+const { id, status } = await response.json();
+// { id: "msg_abc123", status: "queued" }`
+
+const webhookExample = `// Webhook payload on delivery
+{
+  "event": "sms.delivered",
+  "message_id": "msg_abc123",
+  "to": "+1234567890",
+  "status": "delivered",
+  "delivered_at": "2024-01-15T10:30:45Z",
+  "device": {
+    "id": "dev_xyz789",
+    "name": "Office Phone"
+  }
+}`
 ---
 
 <section id="features" class="py-24 lg:py-32">
@@ -9,32 +38,71 @@
         Built for developers
       </h2>
       <p class="mt-6 text-lg text-neutral-600 leading-relaxed">
-        Ender is for devs who want to own their SMS infrastructure. Perfect for side projects, startups, or anyone tired of paying per-message fees to big providers.
+        Ender is for devs who want to own their SMS infrastructure. Clean API, webhooks, and no surprises.
       </p>
     </div>
 
-    <!-- Image grid with accent circles -->
-    <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+    <!-- Code examples grid -->
+    <div class="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+      <!-- Send SMS example -->
       <div class="relative">
-        <div class="aspect-[4/3] bg-neutral-200 overflow-hidden">
-          <div class="w-full h-full bg-gradient-to-br from-neutral-300 to-neutral-400 flex items-center justify-center">
-            <svg class="w-24 h-24 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
-            </svg>
+        <div class="absolute -top-3 -left-3 w-16 h-16 bg-[#e94d1f] rounded-full opacity-20"></div>
+        <div class="relative">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-2 h-2 bg-[#e94d1f] rounded-full"></div>
+            <span class="text-sm font-medium text-neutral-900">Send SMS</span>
           </div>
+          <CodeBlock lang="javascript" code={sendExample} />
         </div>
-        <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-[#e94d1f] rounded-full"></div>
       </div>
 
-      <div class="relative mt-12 md:mt-24">
-        <div class="aspect-[4/3] bg-neutral-200 overflow-hidden">
-          <div class="w-full h-full bg-gradient-to-br from-neutral-300 to-neutral-400 flex items-center justify-center">
-            <svg class="w-24 h-24 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-            </svg>
+      <!-- Webhook example -->
+      <div class="relative lg:mt-12">
+        <div class="absolute -bottom-3 -right-3 w-20 h-20 bg-[#e94d1f] rounded-full opacity-20"></div>
+        <div class="relative">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-2 h-2 bg-[#e94d1f] rounded-full"></div>
+            <span class="text-sm font-medium text-neutral-900">Webhook Events</span>
           </div>
+          <CodeBlock lang="json" code={webhookExample} />
         </div>
-        <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-24 h-24 bg-[#e94d1f] rounded-full"></div>
+      </div>
+    </div>
+
+    <!-- Feature highlights -->
+    <div class="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-8">
+      <div class="flex items-start gap-4">
+        <div class="w-10 h-10 bg-neutral-100 rounded-lg flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5 text-[#e94d1f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-medium text-neutral-900">Simple API</h3>
+          <p class="mt-1 text-sm text-neutral-600">One endpoint to send. No complex SDKs needed.</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-4">
+        <div class="w-10 h-10 bg-neutral-100 rounded-lg flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5 text-[#e94d1f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-medium text-neutral-900">Real-time Webhooks</h3>
+          <p class="mt-1 text-sm text-neutral-600">Know instantly when messages are delivered or fail.</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-4">
+        <div class="w-10 h-10 bg-neutral-100 rounded-lg flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5 text-[#e94d1f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-medium text-neutral-900">Your Infrastructure</h3>
+          <p class="mt-1 text-sm text-neutral-600">Self-host it. Your data never leaves your server.</p>
+        </div>
       </div>
     </div>
   </div>
