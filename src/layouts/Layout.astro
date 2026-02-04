@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css'
+import WaitlistModal from '../components/WaitlistModal.astro'
 
 interface Props {
   title: string
@@ -26,5 +27,6 @@ const { title, description = 'Ender - SMS Gateway Platform' } = Astro.props
   </head>
   <body class="antialiased">
     <slot />
+    <WaitlistModal />
   </body>
 </html>
