@@ -1,5 +1,9 @@
 <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="32" height="32" fill="#f5f1eb"/>
-  <circle cx="8" cy="16" r="4" fill="#e94d1f"/>
-  <circle cx="8" cy="26" r="4" fill="#e94d1f"/>
+  <!-- Left colon -->
+  <circle cx="6" cy="10" r="3" fill="#e94d1f"/>
+  <circle cx="6" cy="22" r="3" fill="#e94d1f"/>
+  <!-- Right colon -->
+  <circle cx="26" cy="10" r="3" fill="#e94d1f"/>
+  <circle cx="26" cy="22" r="3" fill="#e94d1f"/>
 </svg>
