@@ -1,54 +1,59 @@
 ---
 const faqs = [
-  {
-    question: 'Is Ender really free?',
-    answer: 'Yes. Ender is open source and free to self-host. You only pay for your own infrastructure (server, SIM cards, etc). No per-message fees, no hidden costs.',
-  },
-  {
-    question: 'What devices can I use?',
-    answer: 'Any Android phone with a SIM card works. We also support USB modems. The older the phone, the better — repurpose that drawer full of old phones.',
-  },
-  {
-    question: 'How many messages can I send?',
-    answer: 'As many as your carrier allows. Ender doesn\'t impose limits. Just be mindful of carrier restrictions and don\'t spam.',
-  },
-  {
-    question: 'Is there a hosted version?',
-    answer: 'We offer a managed cloud version if you don\'t want to self-host. Same features, we handle the infrastructure. Check out the Dashboard for pricing.',
-  },
-  {
-    question: 'Can I use this for marketing/bulk SMS?',
-    answer: 'Technically yes, but please don\'t. Ender is designed for transactional messages: OTPs, notifications, alerts. Carriers will block you if you spam.',
-  },
-  {
-    question: 'How do I contribute?',
-    answer: 'Check out our GitHub repo! We welcome PRs, bug reports, and feature requests. Join our Discord to chat with other contributors.',
-  },
-]
+    {
+        question: "Is Ender really free?",
+        answer: "Yes. Ender is open source and free to self-host. You only pay for your own infrastructure (server, SIM cards, etc). No per-message fees, no hidden costs.",
+    },
+    {
+        question: "What devices can I use?",
+        answer: "Any Android phone with a SIM card works. We also support USB modems. The older the phone, the better — repurpose that drawer full of old phones.",
+    },
+    {
+        question: "How many messages can I send?",
+        answer: "As many as your carrier allows. Ender doesn't impose limits. Just be mindful of carrier restrictions and don't spam.",
+    },
+    {
+        question: "Is there a hosted version?",
+        answer: "We offer a managed cloud version if you don't want to self-host. Same features, we handle the infrastructure. Check out the Dashboard for pricing.",
+    },
+    {
+        question: "Can I use this for marketing/bulk SMS?",
+        answer: "Technically yes, but please don't. Ender is designed for transactional messages: OTPs, notifications, alerts. Carriers will block you if you spam.",
+    },
+    {
+        question: "How do I contribute?",
+        answer: "Check out our GitHub repo! We welcome PRs, bug reports, and feature requests. Join our Telegram to chat with other contributors.",
+    },
+];
 ---
 
 <section id="faq" class="py-24 lg:py-32">
-  <div class="max-w-7xl mx-auto px-6 lg:px-8">
-    <div class="max-w-3xl">
-      <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 leading-tight">
-        FAQ
-      </h2>
-      <p class="mt-6 text-lg text-neutral-600 leading-relaxed">
-        Common questions about Ender. Still confused? Open an issue or ask on Discord.
-      </p>
-    </div>
-
-    <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-      {faqs.map((faq) => (
-        <div>
-          <h3 class="text-lg font-semibold text-neutral-900">
-            {faq.question}
-          </h3>
-          <p class="mt-3 text-neutral-600 leading-relaxed">
-            {faq.answer}
-          </p>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="max-w-3xl">
+            <h2
+                class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 leading-tight"
+            >
+                FAQ
+            </h2>
+            <p class="mt-6 text-lg text-neutral-600 leading-relaxed">
+                Common questions about Ender. Still confused? Open an issue or
+                ask on Telegram.
+            </p>
         </div>
-      ))}
+
+        <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+            {
+                faqs.map((faq) => (
+                    <div>
+                        <h3 class="text-lg font-semibold text-neutral-900">
+                            {faq.question}
+                        </h3>
+                        <p class="mt-3 text-neutral-600 leading-relaxed">
+                            {faq.answer}
+                        </p>
+                    </div>
+                ))
+            }
+        </div>
     </div>
-  </div>
 </section>

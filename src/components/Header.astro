@@ -1,115 +1,168 @@
 ---
 interface Props {
-  class?: string
+    class?: string;
 }
 
-const { class: className } = Astro.props
+const { class: className } = Astro.props;
 ---
 
-<header class:list={['py-6 lg:py-12', className]}>
-  <div class="max-w-7xl mx-auto px-6 lg:px-8">
-    <nav class="flex items-center justify-between">
-      <a href="/" class="flex items-baseline">
-        <span class="text-[#e94d1f] text-2xl font-bold relative -top-[0.15em]">:</span>
-        <span class="font-serif font-bold text-2xl tracking-tight uppercase">Ender</span>
-        <span class="text-[#e94d1f] text-2xl font-bold relative -top-[0.15em]">:</span>
-      </a>
+<header class:list={["py-6 lg:py-12", className]}>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <nav class="flex items-center justify-between">
+            <a href="/" class="flex items-baseline">
+                <span
+                    class="text-[#e94d1f] text-2xl font-bold relative -top-[0.15em]"
+                    >:</span
+                >
+                <span
+                    class="font-serif font-bold text-2xl tracking-tight uppercase"
+                    >Ender</span
+                >
+                <span
+                    class="text-[#e94d1f] text-2xl font-bold relative -top-[0.15em]"
+                    >:</span
+                >
+            </a>
 
-      <!-- Desktop menu -->
-      <div class="hidden md:flex items-center gap-6">
-        <a
-          href="/docs"
-          class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium"
-        >
-          Docs
-        </a>
-        <a
-          href="#faq"
-          class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium"
-        >
-          FAQ
-        </a>
-        <a
-          href="https://github.com/ender-sms"
-          class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium"
-        >
-          GitHub
-        </a>
-        <button onclick="openWaitlistModal()" class="btn btn-primary">
-          Dashboard
-          <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-          </svg>
-        </button>
-      </div>
+            <!-- Desktop menu -->
+            <div class="hidden md:flex items-center gap-6">
+                <a
+                    href="/docs"
+                    class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium"
+                >
+                    Docs
+                </a>
+                <a
+                    href="#faq"
+                    class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium"
+                >
+                    FAQ
+                </a>
+                <a
+                    href="https://github.com/JimScope/ender"
+                    class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium"
+                >
+                    GitHub
+                </a>
+                <button onclick="openWaitlistModal()" class="btn btn-primary">
+                    Dashboard
+                    <svg
+                        class="btn-icon"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </button>
+            </div>
 
-      <!-- Mobile menu button -->
-      <button id="mobile-menu-btn" class="md:hidden p-2 -mr-2 text-neutral-600 hover:text-neutral-900 transition-colors" aria-label="Open menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path id="menu-icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-          <path id="menu-icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
-    </nav>
+            <!-- Mobile menu button -->
+            <button
+                id="mobile-menu-btn"
+                class="md:hidden p-2 -mr-2 text-neutral-600 hover:text-neutral-900 transition-colors"
+                aria-label="Open menu"
+            >
+                <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        id="menu-icon-open"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 6h16M4 12h16M4 18h16"></path>
+                    <path
+                        id="menu-icon-close"
+                        class="hidden"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </nav>
 
-    <!-- Mobile menu -->
-    <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 border-t border-neutral-200 pt-4">
-      <div class="flex flex-col gap-4">
-        <a
-          href="/docs"
-          class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium"
+        <!-- Mobile menu -->
+        <div
+            id="mobile-menu"
+            class="hidden md:hidden mt-4 pb-4 border-t border-neutral-200 pt-4"
         >
-          Docs
-        </a>
-        <a
-          href="#faq"
-          class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium"
-        >
-          FAQ
-        </a>
-        <a
-          href="https://github.com/ender-sms"
-          class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium"
-        >
-          GitHub
-        </a>
-        <button onclick="openWaitlistModal()" class="btn btn-primary w-full justify-center">
-          Dashboard
-          <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-          </svg>
-        </button>
-      </div>
+            <div class="flex flex-col gap-4">
+                <a
+                    href="/docs"
+                    class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium"
+                >
+                    Docs
+                </a>
+                <a
+                    href="#faq"
+                    class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium"
+                >
+                    FAQ
+                </a>
+                <a
+                    href="https://github.com/ender-sms"
+                    class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium"
+                >
+                    GitHub
+                </a>
+                <button
+                    onclick="openWaitlistModal()"
+                    class="btn btn-primary w-full justify-center"
+                >
+                    Dashboard
+                    <svg
+                        class="btn-icon"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
 </header>
 
 <script>
-  const menuBtn = document.getElementById('mobile-menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const iconOpen = document.getElementById('menu-icon-open');
-  const iconClose = document.getElementById('menu-icon-close');
+    const menuBtn = document.getElementById("mobile-menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const iconOpen = document.getElementById("menu-icon-open");
+    const iconClose = document.getElementById("menu-icon-close");
 
-  menuBtn?.addEventListener('click', () => {
-    const isOpen = !mobileMenu?.classList.contains('hidden');
+    menuBtn?.addEventListener("click", () => {
+        const isOpen = !mobileMenu?.classList.contains("hidden");
 
-    if (isOpen) {
-      mobileMenu?.classList.add('hidden');
-      iconOpen?.classList.remove('hidden');
-      iconClose?.classList.add('hidden');
-    } else {
-      mobileMenu?.classList.remove('hidden');
-      iconOpen?.classList.add('hidden');
-      iconClose?.classList.remove('hidden');
-    }
-  });
-
-  // Close menu when clicking a link
-  mobileMenu?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu?.classList.add('hidden');
-      iconOpen?.classList.remove('hidden');
-      iconClose?.classList.add('hidden');
+        if (isOpen) {
+            mobileMenu?.classList.add("hidden");
+            iconOpen?.classList.remove("hidden");
+            iconClose?.classList.add("hidden");
+        } else {
+            mobileMenu?.classList.remove("hidden");
+            iconOpen?.classList.add("hidden");
+            iconClose?.classList.remove("hidden");
+        }
     });
-  });
+
+    // Close menu when clicking a link
+    mobileMenu?.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+            mobileMenu?.classList.add("hidden");
+            iconOpen?.classList.remove("hidden");
+            iconClose?.classList.add("hidden");
+        });
+    });
 </script>

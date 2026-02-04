@@ -1,214 +1,378 @@
 ---
-import Layout from '../../layouts/Layout.astro'
+import Layout from "../../layouts/Layout.astro";
 
 const sections = [
-  {
-    title: 'Getting Started',
-    items: [
-      { title: 'Introduction', href: '/docs/introduction', description: 'What is Ender and how it works' },
-      { title: 'Quick Start', href: '/docs/quickstart', description: 'Get up and running in 5 minutes' },
-      { title: 'Installation', href: '/docs/installation', description: 'Self-host Ender on your server' },
-    ]
-  },
-  {
-    title: 'Devices',
-    items: [
-      { title: 'Android App', href: '/docs/android-app', description: 'Set up your Android phone as a gateway' },
-      { title: 'USB Modems', href: '/docs/usb-modems', description: 'Connect USB modems to your server' },
-      { title: 'Device Management', href: '/docs/device-management', description: 'Add, remove, and configure devices' },
-    ]
-  },
-  {
-    title: 'API Reference',
-    items: [
-      { title: 'Authentication', href: '/docs/api/auth', description: 'API keys and authentication' },
-      { title: 'Send SMS', href: '/docs/api/send-sms', description: 'POST /api/v1/sms' },
-      { title: 'Message Status', href: '/docs/api/status', description: 'Check delivery status' },
-      { title: 'Webhooks', href: '/docs/api/webhooks', description: 'Receive delivery notifications' },
-    ]
-  },
-  {
-    title: 'Guides',
-    items: [
-      { title: 'Docker Deployment', href: '/docs/guides/docker', description: 'Deploy with Docker Compose' },
-      { title: 'Nginx Reverse Proxy', href: '/docs/guides/nginx', description: 'Set up SSL and reverse proxy' },
-      { title: 'Multi-tenant Setup', href: '/docs/guides/multi-tenant', description: 'Create users and manage quotas' },
-    ]
-  },
-]
+    {
+        title: "Getting Started",
+        items: [
+            {
+                title: "Introduction",
+                href: "/docs/introduction",
+                description: "What is Ender and how it works",
+            },
+            {
+                title: "Quick Start",
+                href: "/docs/quickstart",
+                description: "Get up and running in 5 minutes",
+            },
+            {
+                title: "Installation",
+                href: "/docs/installation",
+                description: "Self-host Ender on your server",
+            },
+        ],
+    },
+    {
+        title: "Devices",
+        items: [
+            {
+                title: "Android App",
+                href: "/docs/android-app",
+                description: "Set up your Android phone as a gateway",
+            },
+            {
+                title: "USB Modems",
+                href: "/docs/usb-modems",
+                description: "Connect USB modems to your server",
+            },
+            {
+                title: "Device Management",
+                href: "/docs/device-management",
+                description: "Add, remove, and configure devices",
+            },
+        ],
+    },
+    {
+        title: "API Reference",
+        items: [
+            {
+                title: "Authentication",
+                href: "/docs/api/auth",
+                description: "API keys and authentication",
+            },
+            {
+                title: "Send SMS",
+                href: "/docs/api/send-sms",
+                description: "POST /api/v1/sms",
+            },
+            {
+                title: "Message Status",
+                href: "/docs/api/status",
+                description: "Check delivery status",
+            },
+            {
+                title: "Webhooks",
+                href: "/docs/api/webhooks",
+                description: "Receive delivery notifications",
+            },
+        ],
+    },
+    {
+        title: "Guides",
+        items: [
+            {
+                title: "Docker Deployment",
+                href: "/docs/guides/docker",
+                description: "Deploy with Docker Compose",
+            },
+            {
+                title: "Nginx Reverse Proxy",
+                href: "/docs/guides/nginx",
+                description: "Set up SSL and reverse proxy",
+            },
+            {
+                title: "Multi-tenant Setup",
+                href: "/docs/guides/multi-tenant",
+                description: "Create users and manage quotas",
+            },
+        ],
+    },
+];
 ---
 
 <Layout title="Documentation - Ender">
-  <div class="min-h-screen">
-    <!-- Header -->
-    <header class="py-6 border-b border-neutral-200">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8">
-        <nav class="flex items-center justify-between">
-          <a href="/" class="flex items-baseline">
-            <span class="text-[#e94d1f] text-xl font-bold relative -top-[0.15em]">:</span>
-            <span class="font-serif font-bold text-xl tracking-tight uppercase">Ender</span>
-            <span class="text-[#e94d1f] text-xl font-bold relative -top-[0.15em]">:</span>
-          </a>
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="py-6 border-b border-neutral-200">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <nav class="flex items-center justify-between">
+                    <a href="/" class="flex items-baseline">
+                        <span
+                            class="text-[#e94d1f] text-xl font-bold relative -top-[0.15em]"
+                            >:</span
+                        >
+                        <span
+                            class="font-serif font-bold text-xl tracking-tight uppercase"
+                            >Ender</span
+                        >
+                        <span
+                            class="text-[#e94d1f] text-xl font-bold relative -top-[0.15em]"
+                            >:</span
+                        >
+                    </a>
 
-          <!-- Desktop menu -->
-          <div class="hidden md:flex items-center gap-6">
-            <a href="/docs" class="text-neutral-900 text-sm font-medium">
-              Docs
-            </a>
-            <a href="/#faq" class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium">
-              FAQ
-            </a>
-            <a href="https://github.com/ender-sms" class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium">
-              GitHub
-            </a>
-            <button onclick="openWaitlistModal()" class="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-sm font-medium rounded-lg hover:bg-neutral-800 transition-colors">
-              Dashboard
-            </button>
-          </div>
+                    <!-- Desktop menu -->
+                    <div class="hidden md:flex items-center gap-6">
+                        <a
+                            href="/docs"
+                            class="text-neutral-900 text-sm font-medium"
+                        >
+                            Docs
+                        </a>
+                        <a
+                            href="/#faq"
+                            class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium"
+                        >
+                            FAQ
+                        </a>
+                        <a
+                            href="https://github.com/JimScope/ender"
+                            class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium"
+                        >
+                            GitHub
+                        </a>
+                        <button
+                            onclick="openWaitlistModal()"
+                            class="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-sm font-medium rounded-lg hover:bg-neutral-800 transition-colors"
+                        >
+                            Dashboard
+                        </button>
+                    </div>
 
-          <!-- Mobile menu button -->
-          <button id="docsindex-mobile-menu-btn" class="md:hidden p-2 -mr-2 text-neutral-600 hover:text-neutral-900 transition-colors" aria-label="Open menu">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path id="docsindex-menu-icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-              <path id="docsindex-menu-icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-            </svg>
-          </button>
-        </nav>
+                    <!-- Mobile menu button -->
+                    <button
+                        id="docsindex-mobile-menu-btn"
+                        class="md:hidden p-2 -mr-2 text-neutral-600 hover:text-neutral-900 transition-colors"
+                        aria-label="Open menu"
+                    >
+                        <svg
+                            class="w-6 h-6"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                id="docsindex-menu-icon-open"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                            <path
+                                id="docsindex-menu-icon-close"
+                                class="hidden"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </nav>
 
-        <!-- Mobile menu -->
-        <div id="docsindex-mobile-menu" class="hidden md:hidden mt-4 pb-4 border-t border-neutral-200 pt-4">
-          <div class="flex flex-col gap-4">
-            <a href="/docs" class="text-neutral-900 text-sm font-medium">
-              Docs
-            </a>
-            <a href="/#faq" class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium">
-              FAQ
-            </a>
-            <a href="https://github.com/ender-sms" class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium">
-              GitHub
-            </a>
-            <button onclick="openWaitlistModal()" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-neutral-900 text-white text-sm font-medium rounded-lg hover:bg-neutral-800 transition-colors w-full">
-              Dashboard
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
+                <!-- Mobile menu -->
+                <div
+                    id="docsindex-mobile-menu"
+                    class="hidden md:hidden mt-4 pb-4 border-t border-neutral-200 pt-4"
+                >
+                    <div class="flex flex-col gap-4">
+                        <a
+                            href="/docs"
+                            class="text-neutral-900 text-sm font-medium"
+                        >
+                            Docs
+                        </a>
+                        <a
+                            href="/#faq"
+                            class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium"
+                        >
+                            FAQ
+                        </a>
+                        <a
+                            href="https://github.com/JimScope/ender"
+                            class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium"
+                        >
+                            GitHub
+                        </a>
+                        <button
+                            onclick="openWaitlistModal()"
+                            class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-neutral-900 text-white text-sm font-medium rounded-lg hover:bg-neutral-800 transition-colors w-full"
+                        >
+                            Dashboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
 
-    <main class="max-w-7xl mx-auto px-6 lg:px-8 py-12 lg:py-16">
-      <!-- Hero -->
-      <div class="max-w-3xl">
-        <h1 class="font-serif text-4xl sm:text-5xl font-bold text-neutral-900">
-          Documentation
-        </h1>
-        <p class="mt-4 text-lg text-neutral-600">
-          Learn how to set up and use Ender. From installation to API integration.
-        </p>
-      </div>
+        <main class="max-w-7xl mx-auto px-6 lg:px-8 py-12 lg:py-16">
+            <!-- Hero -->
+            <div class="max-w-3xl">
+                <h1
+                    class="font-serif text-4xl sm:text-5xl font-bold text-neutral-900"
+                >
+                    Documentation
+                </h1>
+                <p class="mt-4 text-lg text-neutral-600">
+                    Learn how to set up and use Ender. From installation to API
+                    integration.
+                </p>
+            </div>
 
-      <!-- Quick links -->
-      <div class="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <a href="/docs/quickstart" class="group p-6 bg-neutral-900 text-white rounded-lg hover:bg-neutral-800 transition-colors">
-          <div class="flex items-center gap-3">
-            <svg class="w-5 h-5 text-[#e94d1f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-            </svg>
-            <span class="font-medium">Quick Start</span>
-          </div>
-          <p class="mt-2 text-sm text-neutral-400">Get running in 5 minutes</p>
-        </a>
-        <a href="/docs/api/send-sms" class="group p-6 border border-neutral-200 rounded-lg hover:border-neutral-300 hover:shadow-sm transition-all">
-          <div class="flex items-center gap-3">
-            <svg class="w-5 h-5 text-[#e94d1f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-            </svg>
-            <span class="font-medium text-neutral-900">API Reference</span>
-          </div>
-          <p class="mt-2 text-sm text-neutral-600">Send your first SMS</p>
-        </a>
-        <a href="https://github.com/ender-sms" class="group p-6 border border-neutral-200 rounded-lg hover:border-neutral-300 hover:shadow-sm transition-all">
-          <div class="flex items-center gap-3">
-            <svg class="w-5 h-5 text-[#e94d1f]" fill="currentColor" viewBox="0 0 24 24">
-              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/>
-            </svg>
-            <span class="font-medium text-neutral-900">GitHub</span>
-          </div>
-          <p class="mt-2 text-sm text-neutral-600">View source code</p>
-        </a>
-      </div>
-
-      <!-- Sections -->
-      <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
-        {sections.map((section) => (
-          <div>
-            <h2 class="text-sm font-semibold text-neutral-500 uppercase tracking-wider">
-              {section.title}
-            </h2>
-            <ul class="mt-4 space-y-4">
-              {section.items.map((item) => (
-                <li>
-                  <a href={item.href} class="group block">
-                    <h3 class="font-medium text-neutral-900 group-hover:text-[#e94d1f] transition-colors">
-                      {item.title}
-                    </h3>
-                    <p class="mt-1 text-sm text-neutral-600">
-                      {item.description}
+            <!-- Quick links -->
+            <div class="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <a
+                    href="/docs/quickstart"
+                    class="group p-6 bg-neutral-900 text-white rounded-lg hover:bg-neutral-800 transition-colors"
+                >
+                    <div class="flex items-center gap-3">
+                        <svg
+                            class="w-5 h-5 text-[#e94d1f]"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                        <span class="font-medium">Quick Start</span>
+                    </div>
+                    <p class="mt-2 text-sm text-neutral-400">
+                        Get running in 5 minutes
                     </p>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </main>
+                </a>
+                <a
+                    href="/docs/api/send-sms"
+                    class="group p-6 border border-neutral-200 rounded-lg hover:border-neutral-300 hover:shadow-sm transition-all"
+                >
+                    <div class="flex items-center gap-3">
+                        <svg
+                            class="w-5 h-5 text-[#e94d1f]"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                            ></path>
+                        </svg>
+                        <span class="font-medium text-neutral-900"
+                            >API Reference</span
+                        >
+                    </div>
+                    <p class="mt-2 text-sm text-neutral-600">
+                        Send your first SMS
+                    </p>
+                </a>
+                <a
+                    href="https://github.com/JimScope/ender"
+                    class="group p-6 border border-neutral-200 rounded-lg hover:border-neutral-300 hover:shadow-sm transition-all"
+                >
+                    <div class="flex items-center gap-3">
+                        <svg
+                            class="w-5 h-5 text-[#e94d1f]"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="font-medium text-neutral-900">GitHub</span>
+                    </div>
+                    <p class="mt-2 text-sm text-neutral-600">
+                        View source code
+                    </p>
+                </a>
+            </div>
 
-    <!-- Footer -->
-    <footer class="border-t border-neutral-200 py-8 mt-16">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <p class="text-sm text-neutral-500">
-            MIT License. Built by the community.
-          </p>
-          <div class="flex gap-6 text-sm">
-            <a href="https://github.com/ender-sms" class="text-neutral-600 hover:text-neutral-900 transition-colors">
-              GitHub
-            </a>
-            <a href="https://discord.gg/ender" class="text-neutral-600 hover:text-neutral-900 transition-colors">
-              Discord
-            </a>
-          </div>
-        </div>
-      </div>
-    </footer>
-  </div>
+            <!-- Sections -->
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+                {
+                    sections.map((section) => (
+                        <div>
+                            <h2 class="text-sm font-semibold text-neutral-500 uppercase tracking-wider">
+                                {section.title}
+                            </h2>
+                            <ul class="mt-4 space-y-4">
+                                {section.items.map((item) => (
+                                    <li>
+                                        <a href={item.href} class="group block">
+                                            <h3 class="font-medium text-neutral-900 group-hover:text-[#e94d1f] transition-colors">
+                                                {item.title}
+                                            </h3>
+                                            <p class="mt-1 text-sm text-neutral-600">
+                                                {item.description}
+                                            </p>
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))
+                }
+            </div>
+        </main>
 
-  <script>
-    const menuBtn = document.getElementById('docsindex-mobile-menu-btn');
-    const mobileMenu = document.getElementById('docsindex-mobile-menu');
-    const iconOpen = document.getElementById('docsindex-menu-icon-open');
-    const iconClose = document.getElementById('docsindex-menu-icon-close');
+        <!-- Footer -->
+        <footer class="border-t border-neutral-200 py-8 mt-16">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div
+                    class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+                >
+                    <p class="text-sm text-neutral-500">
+                        MIT License. Built by the community.
+                    </p>
+                    <div class="flex gap-6 text-sm">
+                        <a
+                            href="https://github.com/JimScope/ender"
+                            class="text-neutral-600 hover:text-neutral-900 transition-colors"
+                        >
+                            GitHub
+                        </a>
+                        <a
+                            href="https://t.me/ender_sms"
+                            class="text-neutral-600 hover:text-neutral-900 transition-colors"
+                        >
+                            Telegram
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
 
-    menuBtn?.addEventListener('click', () => {
-      const isOpen = !mobileMenu?.classList.contains('hidden');
+    <script>
+        const menuBtn = document.getElementById("docsindex-mobile-menu-btn");
+        const mobileMenu = document.getElementById("docsindex-mobile-menu");
+        const iconOpen = document.getElementById("docsindex-menu-icon-open");
+        const iconClose = document.getElementById("docsindex-menu-icon-close");
 
-      if (isOpen) {
-        mobileMenu?.classList.add('hidden');
-        iconOpen?.classList.remove('hidden');
-        iconClose?.classList.add('hidden');
-      } else {
-        mobileMenu?.classList.remove('hidden');
-        iconOpen?.classList.add('hidden');
-        iconClose?.classList.remove('hidden');
-      }
-    });
+        menuBtn?.addEventListener("click", () => {
+            const isOpen = !mobileMenu?.classList.contains("hidden");
 
-    mobileMenu?.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu?.classList.add('hidden');
-        iconOpen?.classList.remove('hidden');
-        iconClose?.classList.add('hidden');
-      });
-    });
-  </script>
+            if (isOpen) {
+                mobileMenu?.classList.add("hidden");
+                iconOpen?.classList.remove("hidden");
+                iconClose?.classList.add("hidden");
+            } else {
+                mobileMenu?.classList.remove("hidden");
+                iconOpen?.classList.add("hidden");
+                iconClose?.classList.remove("hidden");
+            }
+        });
+
+        mobileMenu?.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", () => {
+                mobileMenu?.classList.add("hidden");
+                iconOpen?.classList.remove("hidden");
+                iconClose?.classList.add("hidden");
+            });
+        });
+    </script>
 </Layout>

@@ -1,54 +1,67 @@
 ---
-import DocsLayout from '../../layouts/DocsLayout.astro'
-import CodeBlock from '../../components/CodeBlock.astro'
+import DocsLayout from "../../layouts/DocsLayout.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
 ---
 
 <DocsLayout title="Quick Start">
-  <h1>Quick Start</h1>
+    <h1>Quick Start</h1>
 
-  <p class="lead text-xl text-neutral-600">
-    Get Ender up and running in 5 minutes.
-  </p>
+    <p class="lead text-xl text-neutral-600">
+        Get Ender up and running in 5 minutes.
+    </p>
 
-  <h2>Choose your path</h2>
+    <h2>Choose your path</h2>
 
-  <div class="not-prose my-6 grid gap-4 md:grid-cols-2">
-    <div class="card card-featured">
-      <h3 class="card-title">Ender Cloud (Recommended)</h3>
-      <p class="card-description">Start sending SMS in under 2 minutes. No server needed.</p>
-      <ul class="card-list">
-        <li>✓ Free plan included</li>
-        <li>✓ Paid plans from $0.99/mo</li>
-      </ul>
-      <button onclick="openWaitlistModal()" class="btn btn-primary">
-        Sign up free
-        <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-        </svg>
-      </button>
+    <div class="not-prose my-6 grid gap-4 md:grid-cols-2">
+        <div class="card card-featured">
+            <h3 class="card-title">Ender Cloud (Recommended)</h3>
+            <p class="card-description">
+                Start sending SMS in under 2 minutes. No server needed.
+            </p>
+            <ul class="card-list">
+                <li>✓ Free plan included</li>
+                <li>✓ Paid plans from $0.99/mo</li>
+            </ul>
+            <button onclick="openWaitlistModal()" class="btn btn-primary">
+                Sign up free
+                <svg
+                    class="btn-icon"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="card card-muted">
+            <h3 class="card-title">Self-hosted</h3>
+            <p class="card-description">
+                Deploy on your own server with Docker.
+            </p>
+            <p class="text-sm text-neutral-500">Continue reading below ↓</p>
+        </div>
     </div>
-    <div class="card card-muted">
-      <h3 class="card-title">Self-hosted</h3>
-      <p class="card-description">Deploy on your own server with Docker.</p>
-      <p class="text-sm text-neutral-500">Continue reading below ↓</p>
-    </div>
-  </div>
 
-  <h2>Self-hosted setup</h2>
+    <h2>Self-hosted setup</h2>
 
-  <h3>Prerequisites</h3>
+    <h3>Prerequisites</h3>
 
-  <ul>
-    <li>Docker and Docker Compose installed</li>
-    <li>An Android phone with a SIM card (or USB modem)</li>
-  </ul>
+    <ul>
+        <li>Docker and Docker Compose installed</li>
+        <li>An Android phone with a SIM card (or USB modem)</li>
+    </ul>
 
-  <h3>1. Create a docker-compose.yml</h3>
+    <h3>1. Create a docker-compose.yml</h3>
 
-  <CodeBlock
-    lang="yaml"
-    filename="docker-compose.yml"
-    code={`services:
+    <CodeBlock
+        lang="yaml"
+        filename="docker-compose.yml"
+        code={`services:
   backend:
     image: ghcr.io/ender-sms/backend:latest
     environment:
@@ -74,66 +87,75 @@ import CodeBlock from '../../components/CodeBlock.astro'
 
 volumes:
   postgres_data:`}
-  />
+    />
 
-  <h3>2. Start the services</h3>
+    <h3>2. Start the services</h3>
 
-  <CodeBlock lang="bash" code="docker compose up -d" />
+    <CodeBlock lang="bash" code="docker compose up -d" />
 
-  <p>This starts:</p>
-  <ul>
-    <li>Ender API server on port <code>8000</code></li>
-    <li>Web dashboard on port <code>5173</code></li>
-    <li>PostgreSQL database</li>
-  </ul>
+    <p>This starts:</p>
+    <ul>
+        <li>Ender API server on port <code>8000</code></li>
+        <li>Web dashboard on port <code>5173</code></li>
+        <li>PostgreSQL database</li>
+    </ul>
 
-  <h3>3. Register an account</h3>
+    <h3>3. Register an account</h3>
 
-  <p>Open the dashboard at <code>http://localhost:5173</code> and create your account.</p>
+    <p>
+        Open the dashboard at <code>http://localhost:5173</code> and create your account.
+    </p>
 
-  <h3>4. Connect a device</h3>
+    <h3>4. Connect a device</h3>
 
-  <p>Install the Ender Android app on your phone:</p>
+    <p>Install the Ender Android app on your phone:</p>
 
-  <ol>
-    <li>Download the APK from <a href="https://github.com/ender-sms/android/releases">GitHub Releases</a></li>
-    <li>Open the app and enter your server URL: <code>http://YOUR_SERVER_IP:8000</code></li>
-    <li>Log in with your credentials</li>
-    <li>Grant SMS permissions when prompted</li>
-  </ol>
+    <ol>
+        <li>
+            Download the APK from <a
+                href="https://github.com/JimScope/ender-android/releases"
+                >GitHub Releases</a>
+        </li>
+        <li>
+            Open the app and enter your server URL: <code
+                >http://YOUR_SERVER_IP:8000</code>
+        </li>
+        <li>Log in with your credentials</li>
+        <li>Grant SMS permissions when prompted</li>
+    </ol>
 
-  <p>Your phone is now registered as a device and ready to send messages.</p>
+    <p>Your phone is now registered as a device and ready to send messages.</p>
 
-  <h3>5. Create an API key</h3>
+    <h3>5. Create an API key</h3>
 
-  <p>Back in the dashboard:</p>
+    <p>Back in the dashboard:</p>
 
-  <ol>
-    <li>Go to <strong>Settings → API Keys</strong></li>
-    <li>Click <strong>Create API Key</strong></li>
-    <li>Copy the key (it won't be shown again)</li>
-  </ol>
+    <ol>
+        <li>Go to <strong>Settings → API Keys</strong></li>
+        <li>Click <strong>Create API Key</strong></li>
+        <li>Copy the key (it won't be shown again)</li>
+    </ol>
 
-  <h3>6. Send your first message</h3>
+    <h3>6. Send your first message</h3>
 
-  <p>Use your API key to send an SMS:</p>
+    <p>Use your API key to send an SMS:</p>
 
-  <CodeBlock
-    lang="bash"
-    code={`curl -X POST http://localhost:8000/api/v1/sms \\
+    <CodeBlock
+        lang="bash"
+        code={`curl -X POST http://localhost:8000/api/v1/sms \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
     "to": "+1234567890",
     "message": "Hello from Ender!"
   }'`}
-  />
+    />
 
-  <p>You'll get a response like:</p>
+    <p>You'll get a response like:</p>
 
-  <CodeBlock
-    lang="json"
-    code={`{
+    <CodeBlock
+        lang="json"
+        code={`{
   "id": "msg_abc123",
   "status": "queued",
   "to": "+1234567890",
@@ -141,21 +163,29 @@ volumes:
   "device_id": "dev_xyz789",
   "created_at": "2024-01-15T10:30:00Z"
 }`}
-  />
+    />
 
-  <h3>7. Check message status</h3>
+    <h3>7. Check message status</h3>
 
-  <CodeBlock
-    lang="bash"
-    code={`curl http://localhost:8000/api/v1/sms/msg_abc123 \\
+    <CodeBlock
+        lang="bash"
+        code={`curl http://localhost:8000/api/v1/sms/msg_abc123 \\
   -H "Authorization: Bearer YOUR_API_KEY"`}
-  />
+    />
 
-  <h2>Next steps</h2>
+    <h2>Next steps</h2>
 
-  <ul>
-    <li><a href="/docs/installation">Installation</a> - Production deployment guide</li>
-    <li><a href="/docs/api/webhooks">Webhooks</a> - Get delivery notifications</li>
-    <li><a href="/docs/guides/nginx">Nginx Guide</a> - Set up SSL and reverse proxy</li>
-  </ul>
+    <ul>
+        <li>
+            <a href="/docs/installation">Installation</a> - Production deployment
+            guide
+        </li>
+        <li>
+            <a href="/docs/api/webhooks">Webhooks</a> - Get delivery notifications
+        </li>
+        <li>
+            <a href="/docs/guides/nginx">Nginx Guide</a> - Set up SSL and reverse
+            proxy
+        </li>
+    </ul>
 </DocsLayout>

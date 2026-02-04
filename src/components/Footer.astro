@@ -1,43 +1,66 @@
 ---
-const currentYear = new Date().getFullYear()
+const currentYear = new Date().getFullYear();
 ---
 
 <footer id="contact" class="py-16 lg:py-24">
-  <div class="max-w-7xl mx-auto px-6 lg:px-8">
-    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
-      <div>
-        <p class="text-sm text-neutral-500 mb-4">Links</p>
-        <div class="flex flex-wrap gap-6 text-sm">
-          <a href="https://github.com/ender-sms" class="text-neutral-900 hover:text-[#e94d1f] transition-colors font-medium">
-            GitHub
-          </a>
-          <a href="/docs" class="text-neutral-900 hover:text-[#e94d1f] transition-colors font-medium">
-            Docs
-          </a>
-          <a href="https://discord.gg/ender" class="text-neutral-900 hover:text-[#e94d1f] transition-colors font-medium">
-            Discord
-          </a>
-          <button onclick="openWaitlistModal()" class="text-neutral-900 hover:text-[#e94d1f] transition-colors font-medium">
-            Dashboard
-          </button>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div
+            class="flex flex-col md:flex-row md:items-end md:justify-between gap-8"
+        >
+            <div>
+                <p class="text-sm text-neutral-500 mb-4">Links</p>
+                <div class="flex flex-wrap gap-6 text-sm">
+                    <a
+                        href="https://github.com/JimScope/ender"
+                        class="text-neutral-900 hover:text-[#e94d1f] transition-colors font-medium"
+                    >
+                        GitHub
+                    </a>
+                    <a
+                        href="/docs"
+                        class="text-neutral-900 hover:text-[#e94d1f] transition-colors font-medium"
+                    >
+                        Docs
+                    </a>
+                    <a
+                        href="https://t.me/ender_sms"
+                        class="text-neutral-900 hover:text-[#e94d1f] transition-colors font-medium"
+                    >
+                        Telegram
+                    </a>
+                    <button
+                        onclick="openWaitlistModal()"
+                        class="text-neutral-900 hover:text-[#e94d1f] transition-colors font-medium"
+                    >
+                        Dashboard
+                    </button>
+                </div>
+                <p class="mt-6 text-sm text-neutral-500">
+                    MIT License. Built by the community.
+                </p>
+            </div>
+
+            <div class="text-sm text-neutral-500">
+                <p>&copy; {currentYear} Ender</p>
+            </div>
         </div>
-        <p class="mt-6 text-sm text-neutral-500">
-          MIT License. Built by the community.
-        </p>
-      </div>
 
-      <div class="text-sm text-neutral-500">
-        <p>&copy; {currentYear} Ender</p>
-      </div>
+        <!-- Large logo at bottom -->
+        <div class="mt-16 lg:mt-24 overflow-hidden">
+            <div class="flex items-baseline">
+                <span
+                    class="text-[#e94d1f] text-[6rem] sm:text-[10rem] lg:text-[14rem] font-bold relative -top-[0.15em]"
+                    >:</span
+                >
+                <span
+                    class="font-serif font-bold text-[6rem] sm:text-[10rem] lg:text-[14rem] tracking-tight uppercase text-neutral-900"
+                    >Ender</span
+                >
+                <span
+                    class="text-[#e94d1f] text-[6rem] sm:text-[10rem] lg:text-[14rem] font-bold relative -top-[0.15em]"
+                    >:</span
+                >
+            </div>
+        </div>
     </div>
-
-    <!-- Large logo at bottom -->
-    <div class="mt-16 lg:mt-24 overflow-hidden">
-      <div class="flex items-baseline">
-        <span class="text-[#e94d1f] text-[6rem] sm:text-[10rem] lg:text-[14rem] font-bold relative -top-[0.15em]">:</span>
-        <span class="font-serif font-bold text-[6rem] sm:text-[10rem] lg:text-[14rem] tracking-tight uppercase text-neutral-900">Ender</span>
-        <span class="text-[#e94d1f] text-[6rem] sm:text-[10rem] lg:text-[14rem] font-bold relative -top-[0.15em]">:</span>
-      </div>
-    </div>
-  </div>
 </footer>
