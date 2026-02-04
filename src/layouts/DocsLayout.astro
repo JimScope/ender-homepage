@@ -69,16 +69,18 @@ const currentPath = Astro.url.pathname
       <header class="sticky top-0 z-50 bg-[#f5f1eb]/95 backdrop-blur-sm border-b border-neutral-200">
         <div class="max-w-[90rem] mx-auto px-6 lg:px-8">
           <nav class="flex items-center justify-between h-14">
-            <div class="flex items-center gap-8">
+            <div class="flex items-center gap-4 md:gap-8">
               <a href="/" class="flex items-center gap-1">
                 <span class="text-[#e94d1f] text-2xl font-bold">:</span>
                 <span class="font-serif font-bold text-lg tracking-tight uppercase">Ender</span>
               </a>
-              <a href="/docs" class="text-sm font-medium text-neutral-600 hover:text-neutral-900 transition-colors">
+              <a href="/docs" class="hidden sm:block text-sm font-medium text-neutral-600 hover:text-neutral-900 transition-colors">
                 Docs
               </a>
             </div>
-            <div class="flex items-center gap-4">
+
+            <!-- Desktop menu -->
+            <div class="hidden md:flex items-center gap-4">
               <a href="https://github.com/ender-sms" class="text-neutral-600 hover:text-neutral-900 transition-colors">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/>
@@ -91,7 +93,33 @@ const currentPath = Astro.url.pathname
                 </svg>
               </button>
             </div>
+
+            <!-- Mobile menu button -->
+            <button id="docs-mobile-menu-btn" class="md:hidden p-2 -mr-2 text-neutral-600 hover:text-neutral-900 transition-colors" aria-label="Open menu">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path id="docs-menu-icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                <path id="docs-menu-icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
           </nav>
+
+          <!-- Mobile menu -->
+          <div id="docs-mobile-menu" class="hidden md:hidden pb-4 border-t border-neutral-200 pt-4">
+            <div class="flex flex-col gap-4">
+              <a href="/docs" class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium">
+                Docs
+              </a>
+              <a href="https://github.com/ender-sms" class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium">
+                GitHub
+              </a>
+              <button onclick="openWaitlistModal()" class="btn btn-primary w-full justify-center">
+                Dashboard
+                <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
       </header>
 
@@ -151,6 +179,36 @@ const currentPath = Astro.url.pathname
     <WaitlistModal />
   </body>
 </html>
+
+<script>
+  const menuBtn = document.getElementById('docs-mobile-menu-btn');
+  const mobileMenu = document.getElementById('docs-mobile-menu');
+  const iconOpen = document.getElementById('docs-menu-icon-open');
+  const iconClose = document.getElementById('docs-menu-icon-close');
+
+  menuBtn?.addEventListener('click', () => {
+    const isOpen = !mobileMenu?.classList.contains('hidden');
+
+    if (isOpen) {
+      mobileMenu?.classList.add('hidden');
+      iconOpen?.classList.remove('hidden');
+      iconClose?.classList.add('hidden');
+    } else {
+      mobileMenu?.classList.remove('hidden');
+      iconOpen?.classList.add('hidden');
+      iconClose?.classList.remove('hidden');
+    }
+  });
+
+  // Close menu when clicking a link
+  mobileMenu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('hidden');
+      iconOpen?.classList.remove('hidden');
+      iconClose?.classList.add('hidden');
+    });
+  });
+</script>
 
 <style is:global>
   /* Lead text for documentation intro paragraphs */
