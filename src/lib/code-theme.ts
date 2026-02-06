@@ -1,69 +1,69 @@
 /**
  * Ender Code Theme
  *
- * Custom Shiki theme matching the site's warm color palette.
+ * Custom Shiki theme matching the site's mint color palette.
  * Colors correspond to CSS variables in global.css:
  *
- * --color-code-bg: #262420
- * --color-code-text: #f5f1eb
- * --color-code-comment: #78746e
- * --color-code-string: #e9a86c
- * --color-code-keyword: #e94d1f
- * --color-code-function: #f5f1eb
- * --color-code-variable: #d4d0ca
- * --color-code-punctuation: #a8a49e
+ * --color-code-bg: #222826
+ * --color-code-text: #edf5f1
+ * --color-code-comment: #707874
+ * --color-code-string: #6ee7c2
+ * --color-code-keyword: #2dd4a8
+ * --color-code-function: #edf5f1
+ * --color-code-variable: #ccd4d0
+ * --color-code-punctuation: #a0a8a4
  */
 export const enderTheme = {
   name: 'ender-dark',
   type: 'dark' as const,
   colors: {
-    'editor.background': '#262420',
-    'editor.foreground': '#f5f1eb',
+    'editor.background': '#222826',
+    'editor.foreground': '#edf5f1',
   },
   tokenColors: [
     {
       scope: ['comment', 'punctuation.definition.comment'],
-      settings: { foreground: '#78746e', fontStyle: 'italic' }
+      settings: { foreground: '#707874', fontStyle: 'italic' }
     },
     {
       scope: ['string', 'string.quoted'],
-      settings: { foreground: '#e9a86c' }
+      settings: { foreground: '#6ee7c2' }
     },
     {
       scope: ['constant.numeric', 'constant.language'],
-      settings: { foreground: '#e94d1f' }
+      settings: { foreground: '#2dd4a8' }
     },
     {
       scope: ['keyword', 'storage.type', 'storage.modifier'],
-      settings: { foreground: '#e94d1f' }
+      settings: { foreground: '#2dd4a8' }
     },
     {
       scope: ['entity.name.function', 'support.function'],
-      settings: { foreground: '#f5f1eb' }
+      settings: { foreground: '#edf5f1' }
     },
     {
       scope: ['variable', 'variable.other'],
-      settings: { foreground: '#d4d0ca' }
+      settings: { foreground: '#ccd4d0' }
     },
     {
       scope: ['entity.name.tag', 'support.class'],
-      settings: { foreground: '#e94d1f' }
+      settings: { foreground: '#2dd4a8' }
     },
     {
       scope: ['entity.other.attribute-name'],
-      settings: { foreground: '#e9a86c' }
+      settings: { foreground: '#6ee7c2' }
     },
     {
       scope: ['meta.property-name', 'support.type.property-name'],
-      settings: { foreground: '#d4d0ca' }
+      settings: { foreground: '#ccd4d0' }
     },
     {
       scope: ['punctuation'],
-      settings: { foreground: '#a8a49e' }
+      settings: { foreground: '#a0a8a4' }
     },
     {
       scope: ['source.shell', 'keyword.operator'],
-      settings: { foreground: '#f5f1eb' }
+      settings: { foreground: '#edf5f1' }
     }
   ]
 }
@@ -73,12 +73,12 @@ export const enderTheme = {
  * that don't use Shiki but need matching colors
  */
 export const codeColors = {
-  bg: '#262420',
-  text: '#f5f1eb',
-  comment: '#78746e',
-  string: '#e9a86c',
-  keyword: '#e94d1f',
-  function: '#f5f1eb',
-  variable: '#d4d0ca',
-  punctuation: '#a8a49e',
+  bg: '#222826',
+  text: '#edf5f1',
+  comment: '#707874',
+  string: '#6ee7c2',
+  keyword: '#2dd4a8',
+  function: '#edf5f1',
+  variable: '#ccd4d0',
+  punctuation: '#a0a8a4',
 }

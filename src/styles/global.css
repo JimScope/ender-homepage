@@ -7,41 +7,41 @@
   --font-serif: "Libre Baskerville", ui-serif, Georgia, serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
-  /* Accent color - Orange/Red */
-  --color-accent: #e94d1f;
-  --color-accent-hover: #d4441b;
+  /* Accent color - Mint/Teal */
+  --color-accent: #2dd4a8;
+  --color-accent-hover: #1fa888;
 
-  /* Background - Warm beige/cream */
-  --color-bg: #f5f1eb;
-  --color-bg-dark: #1a1a1a;
+  /* Background - Cool mint gray */
+  --color-bg: #edf5f1;
+  --color-bg-dark: #181c1b;
 
   /* Text colors */
-  --color-text: #1a1a1a;
+  --color-text: #181c1b;
   --color-text-muted: #6b6b6b;
-  --color-text-light: #f5f1eb;
+  --color-text-light: #edf5f1;
 
-  /* Neutral scale */
-  --color-neutral-50: #fafaf9;
-  --color-neutral-100: #f5f1eb;
-  --color-neutral-200: #e8e4de;
-  --color-neutral-300: #d4d0ca;
-  --color-neutral-400: #a8a49e;
-  --color-neutral-500: #78746e;
-  --color-neutral-600: #5c5852;
-  --color-neutral-700: #403c36;
-  --color-neutral-800: #262420;
-  --color-neutral-900: #1a1a1a;
-  --color-neutral-950: #0d0d0d;
+  /* Neutral scale (mint-tinted grays) */
+  --color-neutral-50: #f7faf9;
+  --color-neutral-100: #edf5f1;
+  --color-neutral-200: #e0e8e4;
+  --color-neutral-300: #ccd4d0;
+  --color-neutral-400: #a0a8a4;
+  --color-neutral-500: #707874;
+  --color-neutral-600: #545c58;
+  --color-neutral-700: #383e3c;
+  --color-neutral-800: #222826;
+  --color-neutral-900: #181c1b;
+  --color-neutral-950: #0c0f0e;
 
   /* Code block syntax highlighting colors */
-  --color-code-bg: #262420;
-  --color-code-text: #f5f1eb;
-  --color-code-comment: #78746e;
-  --color-code-string: #e9a86c;
-  --color-code-keyword: #e94d1f;
-  --color-code-function: #f5f1eb;
-  --color-code-variable: #d4d0ca;
-  --color-code-punctuation: #a8a49e;
+  --color-code-bg: #222826;
+  --color-code-text: #edf5f1;
+  --color-code-comment: #707874;
+  --color-code-string: #6ee7c2;
+  --color-code-keyword: #2dd4a8;
+  --color-code-function: #edf5f1;
+  --color-code-variable: #ccd4d0;
+  --color-code-punctuation: #a0a8a4;
 }
 
 html {
@@ -58,7 +58,7 @@ body {
 
 /* Dot pattern background */
 .dot-pattern {
-  background-image: radial-gradient(circle, #c4c0ba 1px, transparent 1px);
+  background-image: radial-gradient(circle, #b8c4c0 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
