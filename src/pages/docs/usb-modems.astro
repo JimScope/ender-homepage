@@ -87,11 +87,40 @@ MODEMS=dk_abc123:/dev/ttyUSB0:/dev/ttyUSB1,dk_xyz789:/dev/ttyUSB2:/dev/ttyUSB3</
 # Edit .env with your values
 ./ender-modem-agent</code></pre>
 
+    <h2>Docker deployment</h2>
+
+    <p>
+        If you're already running Ender with Docker Compose, you can run the
+        modem agent as an opt-in service instead of building from source. Add
+        these variables to your <code>.env</code> file:
+    </p>
+
+    <pre><code># Modem agent (required when using --profile modem)
+MODEMS=dk_abc123:/dev/ttyUSB0:/dev/ttyUSB1
+
+# Host serial device to map into the container (default: /dev/ttyUSB0)
+MODEM_DEVICE_0=/dev/ttyUSB0</code></pre>
+
+    <p>Then start with the <code>modem</code> profile:</p>
+
+    <pre><code>docker compose --profile modem up -d</code></pre>
+
+    <p>
+        The modem-agent container will wait for the Ender app to be healthy
+        before starting, and connects to the backend via Docker internal DNS
+        (<code>http://app:8090</code>). The host serial device is mapped into
+        the container automatically.
+    </p>
+
+    <p>View modem agent logs:</p>
+
+    <pre><code>docker compose --profile modem logs -f modem-agent</code></pre>
+
     <h2>Systemd service</h2>
 
     <p>
-        For production use, run the agent as a systemd service so it starts
-        automatically on boot:
+        If you're <strong>not</strong> using Docker, you can run the agent as a
+        systemd service for production use so it starts automatically on boot:
     </p>
 
     <pre><code># /etc/systemd/system/ender-modem-agent.service

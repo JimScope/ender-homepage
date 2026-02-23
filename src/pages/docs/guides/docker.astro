@@ -78,6 +78,25 @@ LITESTREAM_SECRET_ACCESS_KEY=your-secret-key`}
 
   <p>When set, Litestream automatically streams WAL changes and restores from the replica on startup.</p>
 
+  <h2>Modem Agent (optional)</h2>
+
+  <p>If you use USB GSM modems, the modem agent can run alongside the app as an opt-in Docker Compose service. Add these to your <code>.env</code>:</p>
+
+  <CodeBlock
+    lang="bash"
+    code={`# Modem agent
+MODEMS=dk_abc123:/dev/ttyUSB0:/dev/ttyUSB1
+MODEM_DEVICE_0=/dev/ttyUSB0`}
+  />
+
+  <p>Start with the <code>modem</code> profile:</p>
+
+  <CodeBlock lang="bash" code="docker compose --profile modem up -d" />
+
+  <p>The modem-agent container waits for the app healthcheck to pass, then connects via Docker internal DNS. The host serial device is mapped into the container. See <a href="/docs/usb-modems">USB Modems</a> for full setup instructions.</p>
+
+  <CodeBlock lang="bash" code="docker compose --profile modem logs -f modem-agent" />
+
   <h2>Update</h2>
 
   <CodeBlock
