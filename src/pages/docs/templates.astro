@@ -1,0 +1,121 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro'
+---
+
+<DocsLayout title="SMS Templates">
+  <h1>SMS Templates</h1>
+
+  <p class="lead text-xl text-neutral-600">
+    Save reusable message templates for quick SMS composition.
+  </p>
+
+  <h2>Overview</h2>
+
+  <p>
+    Templates let you save frequently used message text so you don't have to type it from scratch every time. Create templates for verification codes, appointment reminders, shipping notifications, or any other recurring message pattern.
+  </p>
+
+  <p>
+    Templates are managed through the <strong>Templates</strong> page in the dashboard and can be selected when composing messages in the Send SMS dialog or when creating scheduled messages.
+  </p>
+
+  <h2>Creating templates</h2>
+
+  <ol>
+    <li>Navigate to <strong>Templates</strong> in the sidebar</li>
+    <li>Click <strong>Add Template</strong></li>
+    <li>Enter a <strong>name</strong> (e.g., "Verification Code") and the <strong>body</strong> text</li>
+    <li>Click <strong>Create Template</strong></li>
+  </ol>
+
+  <p>Template bodies support up to 1,600 characters, matching the SMS body limit.</p>
+
+  <h2>Using templates</h2>
+
+  <p>Templates appear in two places:</p>
+
+  <ul>
+    <li><strong>Send SMS dialog</strong> — Select a template from the dropdown above the body field. The template text fills the body, which you can edit before sending.</li>
+    <li><strong>Schedule SMS dialog</strong> — Same template picker is available when creating scheduled messages.</li>
+  </ul>
+
+  <h2>API access</h2>
+
+  <p>
+    Templates are stored in the <code>sms_templates</code> collection and can be managed via the PocketBase collections API. All operations are scoped to the authenticated user.
+  </p>
+
+  <h3>List templates</h3>
+
+  <div class="not-prose my-6 p-4 bg-neutral-100 rounded-lg">
+    <p class="text-sm font-mono">
+      <span class="text-blue-600 font-semibold">GET</span>
+      <span class="text-neutral-900 ml-2">/api/collections/sms_templates/records</span>
+    </p>
+  </div>
+
+  <h3>Create a template</h3>
+
+  <div class="not-prose my-6 p-4 bg-neutral-100 rounded-lg">
+    <p class="text-sm font-mono">
+      <span class="text-green-600 font-semibold">POST</span>
+      <span class="text-neutral-900 ml-2">/api/collections/sms_templates/records</span>
+    </p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>name</code></td>
+        <td>string</td>
+        <td>Yes</td>
+        <td>Template name (max 100 characters)</td>
+      </tr>
+      <tr>
+        <td><code>body</code></td>
+        <td>string</td>
+        <td>Yes</td>
+        <td>Message text (max 1600 characters)</td>
+      </tr>
+      <tr>
+        <td><code>user</code></td>
+        <td>string</td>
+        <td>Yes</td>
+        <td>User ID (set automatically in dashboard)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Update a template</h3>
+
+  <div class="not-prose my-6 p-4 bg-neutral-100 rounded-lg">
+    <p class="text-sm font-mono">
+      <span class="text-amber-600 font-semibold">PATCH</span>
+      <span class="text-neutral-900 ml-2">/api/collections/sms_templates/records/:id</span>
+    </p>
+  </div>
+
+  <h3>Delete a template</h3>
+
+  <div class="not-prose my-6 p-4 bg-neutral-100 rounded-lg">
+    <p class="text-sm font-mono">
+      <span class="text-red-600 font-semibold">DELETE</span>
+      <span class="text-neutral-900 ml-2">/api/collections/sms_templates/records/:id</span>
+    </p>
+  </div>
+
+  <h2>Related</h2>
+
+  <ul>
+    <li><a href="/docs/scheduling">Scheduled SMS</a> - Use templates with scheduled messages</li>
+    <li><a href="/docs/api/send-sms">Send SMS</a> - Send messages via API</li>
+  </ul>
+</DocsLayout>

@@ -1,0 +1,244 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro'
+import CodeBlock from '../../components/CodeBlock.astro'
+---
+
+<DocsLayout title="Scheduled SMS">
+  <h1>Scheduled SMS</h1>
+
+  <p class="lead text-xl text-neutral-600">
+    Schedule messages for one-time or recurring delivery.
+  </p>
+
+  <h2>Overview</h2>
+
+  <p>
+    Scheduled SMS lets you send messages at a specific future time or on a recurring basis using cron expressions. Useful for appointment reminders, recurring alerts, or time-sensitive notifications in different timezones.
+  </p>
+
+  <p>
+    Schedules are managed through the <strong>Scheduled</strong> page in the dashboard. A background cron job checks for due messages every minute and dispatches them automatically.
+  </p>
+
+  <h2>One-time schedules</h2>
+
+  <ol>
+    <li>Navigate to <strong>Scheduled</strong> in the sidebar</li>
+    <li>Click <strong>Schedule SMS</strong></li>
+    <li>Enter a name, recipients, and message body (or pick a template)</li>
+    <li>Set <strong>Schedule Type</strong> to <strong>One-time</strong></li>
+    <li>Pick a date and time in the <strong>Send At</strong> field</li>
+    <li>Choose your timezone and click <strong>Create Schedule</strong></li>
+  </ol>
+
+  <p>
+    When the scheduled time arrives, the message is sent and the status changes to <strong>completed</strong>.
+  </p>
+
+  <h2>Recurring schedules</h2>
+
+  <ol>
+    <li>Follow the same steps as above</li>
+    <li>Set <strong>Schedule Type</strong> to <strong>Recurring</strong></li>
+    <li>Enter a <strong>cron expression</strong> (5-field format)</li>
+  </ol>
+
+  <p>Cron expressions use the standard 5-field format:</p>
+
+  <div class="not-prose my-6 p-4 bg-neutral-100 rounded-lg">
+    <p class="text-sm font-mono text-neutral-900">
+      ┌───── minute (0–59)<br/>
+      │ ┌───── hour (0–23)<br/>
+      │ │ ┌───── day of month (1–31)<br/>
+      │ │ │ ┌───── month (1–12)<br/>
+      │ │ │ │ ┌───── day of week (0–6, Sun=0)<br/>
+      │ │ │ │ │<br/>
+      * * * * *
+    </p>
+  </div>
+
+  <p>Common examples:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Expression</th>
+        <th>Meaning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>*/5 * * * *</code></td>
+        <td>Every 5 minutes</td>
+      </tr>
+      <tr>
+        <td><code>0 9 * * *</code></td>
+        <td>Every day at 9:00 AM</td>
+      </tr>
+      <tr>
+        <td><code>0 9 * * 1</code></td>
+        <td>Every Monday at 9:00 AM</td>
+      </tr>
+      <tr>
+        <td><code>0 0 1 * *</code></td>
+        <td>First day of each month at midnight</td>
+      </tr>
+      <tr>
+        <td><code>30 8 * * 1-5</code></td>
+        <td>Weekdays at 8:30 AM</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    After each dispatch, the <strong>next run</strong> time is automatically recomputed based on the cron expression and timezone.
+  </p>
+
+  <h2>Pause and resume</h2>
+
+  <p>
+    Active schedules can be paused from the actions menu. Paused schedules are skipped by the cron job until resumed. Resuming recalculates the next run time.
+  </p>
+
+  <h2>Timezones</h2>
+
+  <p>
+    Each schedule has a timezone setting (defaults to UTC). Cron expressions are evaluated in the specified timezone, and the computed <code>next_run_at</code> is stored in UTC for accurate dispatch.
+  </p>
+
+  <h2>API access</h2>
+
+  <p>
+    Schedules are stored in the <code>scheduled_sms</code> collection and can be managed via the PocketBase collections API. The server automatically computes <code>next_run_at</code> when records are created or updated.
+  </p>
+
+  <h3>Create a schedule</h3>
+
+  <div class="not-prose my-6 p-4 bg-neutral-100 rounded-lg">
+    <p class="text-sm font-mono">
+      <span class="text-green-600 font-semibold">POST</span>
+      <span class="text-neutral-900 ml-2">/api/collections/scheduled_sms/records</span>
+    </p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>name</code></td>
+        <td>string</td>
+        <td>Yes</td>
+        <td>Schedule name (max 100 characters)</td>
+      </tr>
+      <tr>
+        <td><code>recipients</code></td>
+        <td>string[]</td>
+        <td>Yes</td>
+        <td>Array of phone numbers in E.164 format</td>
+      </tr>
+      <tr>
+        <td><code>body</code></td>
+        <td>string</td>
+        <td>Yes</td>
+        <td>Message text (max 1600 characters)</td>
+      </tr>
+      <tr>
+        <td><code>schedule_type</code></td>
+        <td>string</td>
+        <td>Yes</td>
+        <td><code>one_time</code> or <code>recurring</code></td>
+      </tr>
+      <tr>
+        <td><code>scheduled_at</code></td>
+        <td>datetime</td>
+        <td>Conditional</td>
+        <td>Required for one-time schedules (ISO 8601 UTC)</td>
+      </tr>
+      <tr>
+        <td><code>cron_expression</code></td>
+        <td>string</td>
+        <td>Conditional</td>
+        <td>Required for recurring schedules (5-field cron)</td>
+      </tr>
+      <tr>
+        <td><code>timezone</code></td>
+        <td>string</td>
+        <td>No</td>
+        <td>IANA timezone (defaults to UTC)</td>
+      </tr>
+      <tr>
+        <td><code>device_id</code></td>
+        <td>string</td>
+        <td>No</td>
+        <td>Specific device to use for sending</td>
+      </tr>
+      <tr>
+        <td><code>user</code></td>
+        <td>string</td>
+        <td>Yes</td>
+        <td>User ID (set automatically in dashboard)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Validate a cron expression</h3>
+
+  <div class="not-prose my-6 p-4 bg-neutral-100 rounded-lg">
+    <p class="text-sm font-mono">
+      <span class="text-green-600 font-semibold">POST</span>
+      <span class="text-neutral-900 ml-2">/api/sms/validate-cron</span>
+    </p>
+  </div>
+
+  <CodeBlock
+    lang="json"
+    code={`// Request
+{ "expression": "0 9 * * 1-5", "timezone": "America/New_York" }
+
+// Response (valid)
+{ "valid": true, "next_run": "2026-02-24T14:00:00Z" }
+
+// Response (invalid)
+{ "valid": false, "error": "invalid cron expression: ..." }`}
+  />
+
+  <h3>Schedule statuses</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>active</code></td>
+        <td>Schedule is running and will dispatch at next_run_at</td>
+      </tr>
+      <tr>
+        <td><code>paused</code></td>
+        <td>Schedule is paused, skipped by the cron job</td>
+      </tr>
+      <tr>
+        <td><code>completed</code></td>
+        <td>One-time schedule has been dispatched</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Related</h2>
+
+  <ul>
+    <li><a href="/docs/templates">SMS Templates</a> - Save reusable message templates</li>
+    <li><a href="/docs/api/send-sms">Send SMS</a> - Send messages immediately via API</li>
+    <li><a href="/docs/api/webhooks">Webhooks</a> - Get notified when scheduled messages are delivered</li>
+  </ul>
+</DocsLayout>
