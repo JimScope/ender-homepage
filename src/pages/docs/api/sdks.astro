@@ -1,0 +1,232 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro'
+import CodeBlock from '../../../components/CodeBlock.astro'
+
+// JS/TS snippets with template literals stored here to avoid Astro escaping issues
+const jsSendSmsLog = 'const response = await client.sendSms(\n  ["+1234567890", "+0987654321"],\n  "Your order has shipped!",\n  "optional_device_id",\n);\nconsole.log(`Batch: ${response.batch_id}, Messages: ${response.message_ids}`);'
+
+const jsGetQuota = 'const quota = await client.getQuota();\nconsole.log(`Plan: ${quota.plan}`);\nconsole.log(`SMS: ${quota.sms_sent_this_month}/${quota.max_sms_per_month}`);\nconsole.log(`Devices: ${quota.devices_registered}/${quota.max_devices}`);\nconsole.log(`Resets: ${quota.reset_date}`);'
+
+const jsErrorHandling = 'import { EnderClient, EnderQuotaError, EnderAPIError } from "ender-sdk";\n\ntry {\n  await client.sendSms(["+1234567890"], "Hello");\n} catch (e) {\n  if (e instanceof EnderQuotaError) {\n    console.log(`Quota exceeded: ${e.used}/${e.limit} used, ${e.available} remaining`);\n  } else if (e instanceof EnderAPIError) {\n    console.log(`API error [${e.statusCode}]: ${e.message}`);\n  }\n}'
+---
+
+<DocsLayout title="Client SDKs">
+  <h1>Client SDKs</h1>
+
+  <p class="lead text-xl text-neutral-600">
+    Official client libraries for Python, JavaScript/TypeScript, and Go.
+  </p>
+
+  <p>
+    The Ender SDKs provide a simple interface for sending SMS, checking quotas, and verifying
+    webhook signatures. They authenticate with integration API keys (<code>ek_</code> prefix)
+    — create one in the Dashboard under Settings → API Keys.
+  </p>
+
+  <h2>Installation</h2>
+
+  <h3>Python</h3>
+  <CodeBlock lang="bash" code="pip install ender-sdk" />
+
+  <h3>JavaScript / TypeScript</h3>
+  <CodeBlock lang="bash" code="npm install ender-sdk" />
+  <p>
+    Zero runtime dependencies — uses built-in <code>fetch</code> (Node 18+). TypeScript types included.
+  </p>
+
+  <h3>Go</h3>
+  <CodeBlock lang="bash" code="go get github.com/JimScope/ender-sdk-go" />
+
+  <h2>Quick start</h2>
+
+  <p>Send an SMS in three lines:</p>
+
+  <h3>Python</h3>
+  <CodeBlock lang="python" code={`from ender_sdk import EnderClient
+
+client = EnderClient("https://sms.example.com", "ek_your_api_key")
+response = client.send_sms(["+1234567890"], "Hello from Ender!")`} />
+
+  <h3>JavaScript / TypeScript</h3>
+  <CodeBlock lang="typescript" code={`import { EnderClient } from "ender-sdk";
+
+const client = new EnderClient({
+  baseUrl: "https://sms.example.com",
+  apiKey: "ek_your_api_key",
+});
+const response = await client.sendSms(["+1234567890"], "Hello from Ender!");`} />
+
+  <h3>Go</h3>
+  <CodeBlock lang="go" code={`package main
+
+import (
+	"context"
+	"fmt"
+	ender "github.com/JimScope/ender-sdk-go"
+)
+
+func main() {
+	client := ender.NewClient("https://sms.example.com", "ek_your_api_key")
+	resp, err := client.SendSMS(context.Background(), ender.SendSMSRequest{
+		Recipients: []string{"+1234567890"},
+		Body:       "Hello from Ender!",
+	})
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("Batch ID:", resp.BatchID)
+}`} />
+
+  <h2>Send SMS</h2>
+
+  <p>
+    Send to one or more recipients in E.164 format. Optionally specify a <code>device_id</code> to
+    route through a particular device.
+  </p>
+
+  <h3>Python</h3>
+  <CodeBlock lang="python" code={`response = client.send_sms(
+    recipients=["+1234567890", "+0987654321"],
+    body="Your order has shipped!",
+    device_id="optional_device_id",
+)
+print(f"Batch: {response.batch_id}, Messages: {response.message_ids}")`} />
+
+  <h3>JavaScript / TypeScript</h3>
+  <CodeBlock lang="typescript" code={jsSendSmsLog} />
+
+  <h3>Go</h3>
+  <CodeBlock lang="go" code={`resp, err := client.SendSMS(ctx, ender.SendSMSRequest{
+	Recipients: []string{"+1234567890", "+0987654321"},
+	Body:       "Your order has shipped!",
+	DeviceID:   "optional_device_id",
+})
+fmt.Printf("Batch: %s, Messages: %v\\n", resp.BatchID, resp.MessageIDs)`} />
+
+  <h2>Get quota</h2>
+
+  <p>Check your current plan limits and usage.</p>
+
+  <h3>Python</h3>
+  <CodeBlock lang="python" code={`quota = client.get_quota()
+print(f"Plan: {quota.plan}")
+print(f"SMS: {quota.sms_sent_this_month}/{quota.max_sms_per_month}")
+print(f"Devices: {quota.devices_registered}/{quota.max_devices}")
+print(f"Resets: {quota.reset_date}")`} />
+
+  <h3>JavaScript / TypeScript</h3>
+  <CodeBlock lang="typescript" code={jsGetQuota} />
+
+  <h3>Go</h3>
+  <CodeBlock lang="go" code={`quota, err := client.GetQuota(ctx)
+fmt.Printf("Plan: %s\\n", quota.Plan)
+fmt.Printf("SMS: %d/%d\\n", quota.SMSSentThisMonth, quota.MaxSMSPerMonth)
+fmt.Printf("Devices: %d/%d\\n", quota.DevicesRegistered, quota.MaxDevices)
+fmt.Printf("Resets: %s\\n", quota.ResetDate)`} />
+
+  <h2>Webhook verification</h2>
+
+  <p>
+    When you receive a webhook, verify the <code>X-Webhook-Signature</code> header to ensure
+    it came from Ender. The signature is an HMAC-SHA256 hex digest of the request body.
+  </p>
+
+  <div class="alert alert-warning">
+    <strong>Important:</strong> Always verify webhook signatures in production. Use the raw request
+    body string for verification — do not re-serialize parsed JSON, as key ordering may differ.
+  </div>
+
+  <h3>Python (Flask)</h3>
+  <CodeBlock lang="python" code={`from ender_sdk import verify_webhook_signature
+
+@app.route("/webhook", methods=["POST"])
+def webhook():
+    signature = request.headers.get("X-Webhook-Signature", "")
+    is_valid = verify_webhook_signature(
+        payload=request.get_data(as_text=True),
+        signature=signature,
+        secret="your_webhook_secret",
+    )
+    if not is_valid:
+        return "Invalid signature", 401
+
+    event = request.json
+    print(f"Event: {event['event']}")
+    return "OK", 200`} />
+
+  <h3>JavaScript / TypeScript (Express)</h3>
+  <CodeBlock lang="typescript" code={`import { verifyWebhookSignature } from "ender-sdk";
+import express from "express";
+
+const app = express();
+app.use(express.raw({ type: "application/json" }));
+
+app.post("/webhook", (req, res) => {
+  const signature = req.headers["x-webhook-signature"] as string;
+  const isValid = verifyWebhookSignature(
+    req.body.toString(),
+    signature,
+    "your_webhook_secret",
+  );
+  if (!isValid) return res.status(401).send("Invalid signature");
+
+  const event = JSON.parse(req.body.toString());
+  console.log("Event:", event.event);
+  res.sendStatus(200);
+});`} />
+
+  <h3>Go (net/http)</h3>
+  <CodeBlock lang="go" code={`import (
+	"io"
+	"net/http"
+	ender "github.com/JimScope/ender-sdk-go"
+)
+
+func webhookHandler(w http.ResponseWriter, r *http.Request) {
+	body, _ := io.ReadAll(r.Body)
+	signature := r.Header.Get("X-Webhook-Signature")
+
+	if !ender.VerifyWebhookSignature(string(body), signature, "your_webhook_secret") {
+		http.Error(w, "Invalid signature", http.StatusUnauthorized)
+		return
+	}
+
+	// Process the event...
+	w.WriteHeader(http.StatusOK)
+}`} />
+
+  <h2>Error handling</h2>
+
+  <p>
+    All SDKs throw typed errors. Quota errors (HTTP 429) include <code>limit</code>, <code>used</code>,
+    and <code>available</code> fields so you can show meaningful messages to users.
+  </p>
+
+  <h3>Python</h3>
+  <CodeBlock lang="python" code={`from ender_sdk import EnderClient, EnderAPIError, EnderQuotaError
+
+try:
+    client.send_sms(["+1234567890"], "Hello")
+except EnderQuotaError as e:
+    print(f"Quota exceeded: {e.used}/{e.limit} used, {e.available} remaining")
+except EnderAPIError as e:
+    print(f"API error [{e.status_code}]: {e.message}")`} />
+
+  <h3>JavaScript / TypeScript</h3>
+  <CodeBlock lang="typescript" code={jsErrorHandling} />
+
+  <h3>Go</h3>
+  <CodeBlock lang="go" code={`resp, err := client.SendSMS(ctx, req)
+if err != nil {
+	if ender.IsQuotaError(err) {
+		qe := err.(*ender.QuotaError)
+		fmt.Printf("Quota exceeded: %d/%d used, %d remaining\\n", qe.Used, qe.Limit, qe.Available)
+	} else if ender.IsAPIError(err) {
+		ae := err.(*ender.EnderError)
+		fmt.Printf("API error [%d]: %s\\n", ae.StatusCode, ae.Message)
+	} else {
+		fmt.Printf("Network error: %v\\n", err)
+	}
+}`} />
+
+</DocsLayout>
