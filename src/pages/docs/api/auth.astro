@@ -7,14 +7,24 @@ import CodeBlock from '../../../components/CodeBlock.astro'
   <h1>Authentication</h1>
 
   <p class="lead text-xl text-neutral-600">
-    Authenticate API requests using API keys.
+    Authenticate API requests using API keys or JWT tokens.
   </p>
 
   <h2>API Keys</h2>
 
-  <p>All API requests require an API key in the <code>Authorization</code> header:</p>
+  <p>For server-to-server integrations, use an API key in the <code>X-API-Key</code> header:</p>
 
-  <CodeBlock lang="bash" code="Authorization: Bearer sk_live_abc123..." />
+  <CodeBlock lang="bash" code="X-API-Key: ek_your_api_key_here" />
+
+  <p>API keys (prefixed <code>ek_</code>) are created in the dashboard and can be used to send SMS and access the API without a user session.</p>
+
+  <h2>JWT Authentication</h2>
+
+  <p>For browser-based or session-based access, use PocketBase's built-in JWT authentication:</p>
+
+  <CodeBlock lang="bash" code="Authorization: Bearer YOUR_JWT_TOKEN" />
+
+  <p>Obtain a JWT token by authenticating via the PocketBase auth endpoints (<code>/api/collections/users/auth-with-password</code>).</p>
 
   <h2>Creating API keys</h2>
 
@@ -22,7 +32,7 @@ import CodeBlock from '../../../components/CodeBlock.astro'
     <li>Log in to the Dashboard</li>
     <li>Go to Settings → API Keys</li>
     <li>Click "Create API Key"</li>
-    <li>Copy the key (it won't be shown again)</li>
+    <li>Copy the key immediately (it's only shown once on creation)</li>
   </ol>
 
   <h2>Key types</h2>
@@ -37,28 +47,17 @@ import CodeBlock from '../../../components/CodeBlock.astro'
     </thead>
     <tbody>
       <tr>
-        <td><code>sk_live_</code></td>
-        <td>Live</td>
-        <td>Production API calls</td>
+        <td><code>ek_</code></td>
+        <td>Integration key</td>
+        <td>Server-to-server API calls (send SMS, etc.)</td>
       </tr>
       <tr>
-        <td><code>sk_test_</code></td>
-        <td>Test</td>
-        <td>Testing (messages not sent)</td>
+        <td><code>dk_</code></td>
+        <td>Device key</td>
+        <td>Auto-generated for registered devices</td>
       </tr>
     </tbody>
   </table>
-
-  <h2>Key permissions</h2>
-
-  <p>API keys can be scoped to specific permissions:</p>
-
-  <ul>
-    <li><code>sms:send</code> - Send SMS messages</li>
-    <li><code>sms:read</code> - Read message status</li>
-    <li><code>devices:read</code> - List devices</li>
-    <li><code>devices:write</code> - Manage devices</li>
-  </ul>
 
   <h2>Revoking keys</h2>
 
@@ -72,11 +71,13 @@ import CodeBlock from '../../../components/CodeBlock.astro'
 
   <div class="not-prose my-8 p-4 bg-red-50 border border-red-200 rounded-lg">
     <p class="text-red-800 text-sm">
-      <strong>Security:</strong> Never expose API keys in client-side code or public repositories.
+      <strong>Security:</strong> Never expose API keys in client-side code or public repositories. Device keys (<code>dk_</code>) are auto-generated and only shown once when the device is first registered.
     </p>
   </div>
 
   <h2>Rate limits</h2>
+
+  <p>Ender uses PocketBase's built-in rate limiter. The SMS send endpoint is limited to 30 requests per minute per user.</p>
 
   <table>
     <thead>
@@ -87,22 +88,13 @@ import CodeBlock from '../../../components/CodeBlock.astro'
     </thead>
     <tbody>
       <tr>
-        <td>POST /api/v1/sms</td>
-        <td>100 req/min</td>
+        <td>POST /api/sms/send</td>
+        <td>30 req/min</td>
       </tr>
       <tr>
-        <td>GET endpoints</td>
-        <td>300 req/min</td>
+        <td>Other endpoints</td>
+        <td>PocketBase defaults</td>
       </tr>
     </tbody>
   </table>
-
-  <p>Rate limit headers are included in responses:</p>
-
-  <CodeBlock
-    lang="bash"
-    code={`X-RateLimit-Limit: 100
-X-RateLimit-Remaining: 95
-X-RateLimit-Reset: 1642234567`}
-  />
 </DocsLayout>

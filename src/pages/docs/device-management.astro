@@ -37,28 +37,26 @@ import CodeBlock from '../../components/CodeBlock.astro'
   <h2>Load balancing</h2>
 
   <p>
-    When multiple devices are available, Ender distributes messages based on:
+    When multiple devices are available, Ender distributes messages using round-robin across devices that have an active FCM token.
   </p>
-
-  <ol>
-    <li>Device priority (higher first)</li>
-    <li>Current queue length (shorter first)</li>
-    <li>Recent failures (healthier first)</li>
-  </ol>
 
   <h2>API endpoints</h2>
 
+  <p>Devices are managed through the PocketBase collections API (<code>sms_devices</code> collection):</p>
+
   <h3>List devices</h3>
 
-  <CodeBlock lang="bash" code="GET /api/v1/devices" />
+  <CodeBlock lang="bash" code="GET /api/collections/sms_devices/records" />
 
   <h3>Get device</h3>
 
-  <CodeBlock lang="bash" code="GET /api/v1/devices/:id" />
+  <CodeBlock lang="bash" code="GET /api/collections/sms_devices/records/:id" />
 
   <h3>Update device</h3>
 
-  <CodeBlock lang="bash" code="PATCH /api/v1/devices/:id" />
+  <CodeBlock lang="bash" code="PATCH /api/collections/sms_devices/records/:id" />
+
+  <p>All device endpoints require JWT authentication. On device creation, a unique API key (prefixed <code>dk_</code>) is auto-generated and returned in the response — it is hidden on subsequent reads.</p>
 
   <h2>Related</h2>
 

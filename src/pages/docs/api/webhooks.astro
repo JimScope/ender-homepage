@@ -12,39 +12,26 @@ import CodeBlock from '../../../components/CodeBlock.astro'
 
   <h2>Setting up webhooks</h2>
 
-  <h3>Per-message webhook</h3>
+  <p>Configure webhooks in the Dashboard → Settings → Webhooks. Each webhook configuration includes:</p>
 
-  <p>Include a <code>webhook_url</code> when sending:</p>
-
-  <CodeBlock
-    lang="json"
-    code={`{
-  "to": "+1234567890",
-  "message": "Hello!",
-  "webhook_url": "https://your-app.com/webhooks/sms"
-}`}
-  />
-
-  <h3>Global webhook</h3>
-
-  <p>Configure in Dashboard → Settings → Webhooks for all messages.</p>
+  <ul>
+    <li><strong>URL</strong> - The endpoint that will receive POST requests</li>
+    <li><strong>Events</strong> - Which events to subscribe to</li>
+    <li><strong>Secret</strong> - Used to sign payloads for verification (auto-generated, AES-encrypted at rest)</li>
+  </ul>
 
   <h2>Webhook payload</h2>
 
-  <p>Ender sends a POST request with JSON body:</p>
+  <p>Ender sends a POST request with a JSON body. Keys are sorted alphabetically for deterministic HMAC signing:</p>
 
   <CodeBlock
     lang="json"
     code={`{
-  "event": "message.delivered",
-  "data": {
-    "id": "msg_abc123",
-    "status": "delivered",
-    "to": "+1234567890",
-    "device_id": "dev_xyz789",
-    "delivered_at": "2024-01-15T10:30:05Z"
-  },
-  "timestamp": "2024-01-15T10:30:05Z"
+  "body": "Hello, this is a test message",
+  "event": "sms_received",
+  "from": "+1234567890",
+  "message_id": "a1b2c3d4e5f6g7h",
+  "timestamp": "2024-01-15 10:30:05.000Z"
 }`}
   />
 
@@ -59,33 +46,17 @@ import CodeBlock from '../../../components/CodeBlock.astro'
     </thead>
     <tbody>
       <tr>
-        <td><code>message.queued</code></td>
-        <td>Message added to queue</td>
-      </tr>
-      <tr>
-        <td><code>message.sent</code></td>
-        <td>Message sent by device</td>
-      </tr>
-      <tr>
-        <td><code>message.delivered</code></td>
-        <td>Delivery confirmed</td>
-      </tr>
-      <tr>
-        <td><code>message.failed</code></td>
-        <td>Message failed</td>
-      </tr>
-      <tr>
-        <td><code>message.received</code></td>
-        <td>Incoming SMS received</td>
+        <td><code>sms_received</code></td>
+        <td>Incoming SMS received by a device</td>
       </tr>
     </tbody>
   </table>
 
   <h2>Verifying webhooks</h2>
 
-  <p>Webhooks include a signature header:</p>
+  <p>Webhooks include an HMAC-SHA256 signature in the <code>X-Webhook-Signature</code> header. The signature is computed over the entire JSON body using your webhook secret:</p>
 
-  <CodeBlock lang="bash" code="X-Ender-Signature: sha256=abc123..." />
+  <CodeBlock lang="bash" code="X-Webhook-Signature: a1b2c3d4e5f6..." />
 
   <p>Verify it using your webhook secret:</p>
 
@@ -94,29 +65,45 @@ import CodeBlock from '../../../components/CodeBlock.astro'
     code={`import hmac
 import hashlib
 
-def verify_signature(payload, signature, secret):
+def verify_signature(payload_bytes, signature, secret):
+    """Verify the webhook signature.
+
+    Important: Use the raw request body (not re-serialized JSON)
+    since the signature is computed over sorted-key JSON.
+    """
     expected = hmac.new(
         secret.encode(),
-        payload.encode(),
+        payload_bytes,
         hashlib.sha256
     ).hexdigest()
-    return hmac.compare_digest(f"sha256={expected}", signature)`}
+    return hmac.compare_digest(expected, signature)`}
+  />
+
+  <CodeBlock
+    lang="javascript"
+    code={`import { createHmac } from "crypto";
+
+function verifySignature(payloadBuffer, signature, secret) {
+  const expected = createHmac("sha256", secret)
+    .update(payloadBuffer)
+    .digest("hex");
+  return expected === signature;
+}`}
   />
 
   <h2>Retry policy</h2>
 
-  <p>Failed webhooks are retried:</p>
+  <p>Failed webhook deliveries are retried with exponential backoff:</p>
 
   <ul>
-    <li>3 retries with exponential backoff</li>
-    <li>Delays: 1min, 5min, 30min</li>
-    <li>Webhook marked failed after all retries</li>
+    <li>3 retries with increasing delays</li>
+    <li>Webhook marked as failed after all retries are exhausted</li>
   </ul>
 
   <h2>Related</h2>
 
   <ul>
-    <li><a href="/docs/api/send-sms">Send SMS</a> - Include webhook URL</li>
+    <li><a href="/docs/api/send-sms">Send SMS</a> - Send messages</li>
     <li><a href="/docs/api/status">Message Status</a> - Poll for status</li>
   </ul>
 </DocsLayout>

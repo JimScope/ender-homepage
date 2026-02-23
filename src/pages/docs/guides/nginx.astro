@@ -20,7 +20,7 @@ sudo apt install nginx`}
 
   <h2>Configure site</h2>
 
-  <p>Create <code>/etc/nginx/sites-available/ender</code>:</p>
+  <p>Ender serves both the API and frontend on a single port (8090), so the proxy config is straightforward. Create <code>/etc/nginx/sites-available/ender</code>:</p>
 
   <CodeBlock
     lang="nginx"
@@ -38,20 +38,12 @@ server {
     ssl_certificate /etc/letsencrypt/live/sms.yourdomain.com/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/sms.yourdomain.com/privkey.pem;
 
-    # API
-    location /api {
-        proxy_pass http://localhost:8000;
+    location / {
+        proxy_pass http://localhost:8090;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-    }
-
-    # Dashboard
-    location / {
-        proxy_pass http://localhost:5173;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
     }
 }`}
   />

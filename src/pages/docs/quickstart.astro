@@ -62,48 +62,33 @@ import CodeBlock from "../../components/CodeBlock.astro";
         lang="yaml"
         filename="docker-compose.yml"
         code={`services:
-  backend:
-    image: ghcr.io/ender-sms/backend:latest
+  app:
+    image: ghcr.io/jimscope/ender:latest
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/ender
-      - SECRET_KEY=change-this-to-a-random-string
+      - ENVIRONMENT=production
+      - FIRST_SUPERUSER=admin@yourdomain.com
+      - FIRST_SUPERUSER_PASSWORD=change-this-password
+      - APP_URL=http://localhost:8090
+      - FRONTEND_URL=http://localhost:8090
     ports:
-      - "8000:8000"
-    depends_on:
-      - db
-
-  frontend:
-    image: ghcr.io/ender-sms/frontend:latest
-    ports:
-      - "5173:80"
-
-  db:
-    image: postgres:17
-    environment:
-      - POSTGRES_DB=ender
-      - POSTGRES_PASSWORD=postgres
+      - "8090:8090"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ender_data:/app/pb_data
 
 volumes:
-  postgres_data:`}
+  ender_data:`}
     />
 
-    <h3>2. Start the services</h3>
+    <h3>2. Start the service</h3>
 
     <CodeBlock lang="bash" code="docker compose up -d" />
 
-    <p>This starts:</p>
-    <ul>
-        <li>Ender API server on port <code>8000</code></li>
-        <li>Web dashboard on port <code>5173</code></li>
-        <li>PostgreSQL database</li>
-    </ul>
+    <p>This starts Ender on port <code>8090</code>, serving both the API and the web dashboard as a single service. Data is stored in an embedded SQLite database.</p>
 
-    <h3>3. Register an account</h3>
+    <h3>3. Log in to the dashboard</h3>
 
     <p>
-        Open the dashboard at <code>http://localhost:5173</code> and create your account.
+        Open the dashboard at <code>http://localhost:8090</code> and log in with the superuser credentials you set in the environment variables. You can also access the PocketBase admin panel at <code>http://localhost:8090/_/</code>.
     </p>
 
     <h3>4. Connect a device</h3>
@@ -118,7 +103,7 @@ volumes:
         </li>
         <li>
             Open the app and enter your server URL: <code
-                >http://YOUR_SERVER_IP:8000</code>
+                >http://YOUR_SERVER_IP:8090</code>
         </li>
         <li>Log in with your credentials</li>
         <li>Grant SMS permissions when prompted</li>
@@ -142,12 +127,12 @@ volumes:
 
     <CodeBlock
         lang="bash"
-        code={`curl -X POST http://localhost:8000/api/v1/sms \\
-  -H "Authorization: Bearer YOUR_API_KEY" \\
+        code={`curl -X POST http://localhost:8090/api/sms/send \\
+  -H "X-API-Key: YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
-    "to": "+1234567890",
-    "message": "Hello from Ender!"
+    "recipients": ["+1234567890"],
+    "body": "Hello from Ender!"
   }'`}
     />
 
@@ -156,21 +141,20 @@ volumes:
     <CodeBlock
         lang="json"
         code={`{
-  "id": "msg_abc123",
-  "status": "queued",
-  "to": "+1234567890",
-  "message": "Hello from Ender!",
-  "device_id": "dev_xyz789",
-  "created_at": "2024-01-15T10:30:00Z"
+  "message_ids": ["a1b2c3d4e5f6g7h"],
+  "recipients_count": 1,
+  "status": "accepted"
 }`}
     />
 
     <h3>7. Check message status</h3>
 
+    <p>View your message in the dashboard, or query it via the PocketBase collections API:</p>
+
     <CodeBlock
         lang="bash"
-        code={`curl http://localhost:8000/api/v1/sms/msg_abc123 \\
-  -H "Authorization: Bearer YOUR_API_KEY"`}
+        code={`curl http://localhost:8090/api/collections/sms_messages/records/MESSAGE_ID \\
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"`}
     />
 
     <h2>Next steps</h2>

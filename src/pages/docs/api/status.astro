@@ -12,10 +12,12 @@ import CodeBlock from '../../../components/CodeBlock.astro'
 
   <h2>Get message status</h2>
 
+  <p>Messages are stored in the <code>sms_messages</code> PocketBase collection. Query a specific message by its ID:</p>
+
   <div class="not-prose my-6 p-4 bg-neutral-100 rounded-lg">
     <p class="text-sm font-mono">
       <span class="text-blue-600 font-semibold">GET</span>
-      <span class="text-neutral-900 ml-2">/api/v1/sms/:id</span>
+      <span class="text-neutral-900 ml-2">/api/collections/sms_messages/records/:id</span>
     </p>
   </div>
 
@@ -23,8 +25,8 @@ import CodeBlock from '../../../components/CodeBlock.astro'
 
   <CodeBlock
     lang="bash"
-    code={`curl https://your-server.com/api/v1/sms/msg_abc123 \\
-  -H "Authorization: Bearer YOUR_API_KEY"`}
+    code={`curl https://your-server.com/api/collections/sms_messages/records/MESSAGE_ID \\
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"`}
   />
 
   <h3>Response</h3>
@@ -32,15 +34,19 @@ import CodeBlock from '../../../components/CodeBlock.astro'
   <CodeBlock
     lang="json"
     code={`{
-  "id": "msg_abc123",
+  "id": "a1b2c3d4e5f6g7h",
+  "collectionId": "sms_messages",
+  "collectionName": "sms_messages",
   "status": "delivered",
   "to": "+1234567890",
-  "message": "Your code is 123456",
-  "device_id": "dev_xyz789",
-  "created_at": "2024-01-15T10:30:00Z",
-  "sent_at": "2024-01-15T10:30:02Z",
-  "delivered_at": "2024-01-15T10:30:05Z",
-  "error": null
+  "body": "Your code is 123456",
+  "message_type": "outgoing",
+  "device": "x9y8z7w6v5u4t3s",
+  "sent_at": "2024-01-15 10:30:02.000Z",
+  "delivered_at": "2024-01-15 10:30:05.000Z",
+  "error_message": "",
+  "created": "2024-01-15 10:30:00.000Z",
+  "updated": "2024-01-15 10:30:05.000Z"
 }`}
   />
 
@@ -55,8 +61,12 @@ import CodeBlock from '../../../components/CodeBlock.astro'
     </thead>
     <tbody>
       <tr>
-        <td><code>queued</code></td>
-        <td>Waiting to be sent</td>
+        <td><code>pending</code></td>
+        <td>Created, no device assigned</td>
+      </tr>
+      <tr>
+        <td><code>assigned</code></td>
+        <td>Device assigned, push notification sent</td>
       </tr>
       <tr>
         <td><code>sending</code></td>
@@ -74,6 +84,10 @@ import CodeBlock from '../../../components/CodeBlock.astro'
         <td><code>failed</code></td>
         <td>Failed to send</td>
       </tr>
+      <tr>
+        <td><code>received</code></td>
+        <td>Incoming SMS from an external sender</td>
+      </tr>
     </tbody>
   </table>
 
@@ -82,11 +96,13 @@ import CodeBlock from '../../../components/CodeBlock.astro'
   <div class="not-prose my-6 p-4 bg-neutral-100 rounded-lg">
     <p class="text-sm font-mono">
       <span class="text-blue-600 font-semibold">GET</span>
-      <span class="text-neutral-900 ml-2">/api/v1/sms</span>
+      <span class="text-neutral-900 ml-2">/api/collections/sms_messages/records</span>
     </p>
   </div>
 
   <h3>Query parameters</h3>
+
+  <p>Uses PocketBase's standard list API with filtering, sorting, and page-based pagination:</p>
 
   <table>
     <thead>
@@ -97,23 +113,31 @@ import CodeBlock from '../../../components/CodeBlock.astro'
     </thead>
     <tbody>
       <tr>
-        <td><code>status</code></td>
-        <td>Filter by status</td>
+        <td><code>filter</code></td>
+        <td>PocketBase filter syntax (e.g., <code>status="sent"</code>)</td>
       </tr>
       <tr>
-        <td><code>to</code></td>
-        <td>Filter by recipient</td>
+        <td><code>sort</code></td>
+        <td>Sort field (e.g., <code>-created</code> for newest first)</td>
       </tr>
       <tr>
-        <td><code>limit</code></td>
-        <td>Results per page (default: 20)</td>
+        <td><code>page</code></td>
+        <td>Page number (default: 1)</td>
       </tr>
       <tr>
-        <td><code>offset</code></td>
-        <td>Pagination offset</td>
+        <td><code>perPage</code></td>
+        <td>Results per page (default: 30, max: 500)</td>
       </tr>
     </tbody>
   </table>
+
+  <h3>Example</h3>
+
+  <CodeBlock
+    lang="bash"
+    code={`curl "https://your-server.com/api/collections/sms_messages/records?filter=status='delivered'&sort=-created&perPage=20" \\
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"`}
+  />
 
   <h2>Related</h2>
 

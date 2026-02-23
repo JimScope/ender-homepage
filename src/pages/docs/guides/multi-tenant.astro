@@ -7,38 +7,40 @@ import CodeBlock from '../../../components/CodeBlock.astro'
   <h1>Multi-tenant Setup</h1>
 
   <p class="lead text-xl text-neutral-600">
-    Create users with separate quotas and permissions.
+    Create users with separate quotas and devices.
   </p>
 
   <h2>User management</h2>
 
   <h3>Create user via Dashboard</h3>
 
-  <p>The easiest way to create users is through the dashboard:</p>
+  <p>Users can self-register through the dashboard, or an admin can create them via the PocketBase admin panel at <code>/_/</code>:</p>
 
   <ol>
-    <li>Go to <strong>Settings → Users</strong></li>
-    <li>Click <strong>Create User</strong></li>
-    <li>Enter email, password, and quota settings</li>
+    <li>Go to the PocketBase admin panel (<code>/_/</code>)</li>
+    <li>Navigate to the <strong>users</strong> collection</li>
+    <li>Click <strong>New record</strong></li>
+    <li>Enter email and password</li>
   </ol>
 
   <h3>Create user via API</h3>
 
+  <p>Use the PocketBase collections API to create users programmatically:</p>
+
   <CodeBlock
     lang="bash"
-    code={`curl -X POST https://your-server.com/api/v1/users \\
-  -H "Authorization: Bearer ADMIN_API_KEY" \\
+    code={`curl -X POST https://your-server.com/api/collections/users/records \\
   -H "Content-Type: application/json" \\
   -d '{
     "email": "user@example.com",
-    "password": "secret123",
-    "quota": 1000
+    "password": "secret123456",
+    "passwordConfirm": "secret123456"
   }'`}
   />
 
   <h2>Quotas</h2>
 
-  <p>Set monthly message limits per user:</p>
+  <p>Each user gets a quota tracked in the <code>user_quotas</code> collection. Quotas are managed through subscription plans:</p>
 
   <table>
     <thead>
@@ -49,39 +51,34 @@ import CodeBlock from '../../../components/CodeBlock.astro'
     </thead>
     <tbody>
       <tr>
-        <td><code>quota</code></td>
-        <td>Monthly message limit</td>
+        <td><code>sms_limit</code></td>
+        <td>Monthly SMS limit</td>
       </tr>
       <tr>
-        <td><code>quota_reset_day</code></td>
-        <td>Day of month to reset (1-28)</td>
+        <td><code>sms_used</code></td>
+        <td>SMS sent this period</td>
+      </tr>
+      <tr>
+        <td><code>device_limit</code></td>
+        <td>Maximum registered devices</td>
       </tr>
     </tbody>
   </table>
 
-  <h2>Device assignment</h2>
+  <p>Quotas reset automatically on a monthly cron cycle.</p>
 
-  <p>Assign specific devices to users:</p>
+  <h2>Devices</h2>
 
-  <CodeBlock
-    lang="bash"
-    code={`curl -X POST https://your-server.com/api/v1/users/user_123/devices \\
-  -H "Authorization: Bearer ADMIN_API_KEY" \\
-  -d '{"device_id": "dev_xyz789"}'`}
-  />
+  <p>Each device is owned by the user who registered it. Users can only see and use their own devices. When sending SMS, Ender automatically selects from the user's available devices via round-robin.</p>
 
-  <h2>Permissions</h2>
+  <h2>Subscription plans</h2>
 
-  <ul>
-    <li><strong>admin</strong> - Full access, can manage users</li>
-    <li><strong>user</strong> - Can send SMS, view own messages</li>
-    <li><strong>readonly</strong> - Can only view status</li>
-  </ul>
+  <p>Plans are defined in the <code>user_plans</code> collection and can be managed through the PocketBase admin panel. Each plan sets the SMS limit and device limit for subscribers.</p>
 
   <h2>Related</h2>
 
   <ul>
     <li><a href="/docs/api/auth">Authentication</a> - API keys per user</li>
-    <li><a href="/docs/device-management">Device Management</a> - Assign devices</li>
+    <li><a href="/docs/device-management">Device Management</a> - Manage devices</li>
   </ul>
 </DocsLayout>

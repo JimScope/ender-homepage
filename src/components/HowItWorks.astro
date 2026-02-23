@@ -28,10 +28,10 @@ const capabilities = [
   },
 ]
 
-const codeExample = `curl -X POST https://your-server.com/api/v1/sms \\
-  -H "Authorization: Bearer YOUR_API_KEY" \\
+const codeExample = `curl -X POST https://your-server.com/api/sms/send \\
+  -H "X-API-Key: ek_your_api_key" \\
   -H "Content-Type: application/json" \\
-  -d '{"to": "+1234567890", "message": "Hello from Ender!"}'`
+  -d '{"recipients": ["+1234567890"], "body": "Hello from Ender!"}'`
 ---
 
 <section id="how-it-works" class="py-24 lg:py-32 bg-neutral-900 text-white">

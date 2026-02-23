@@ -12,38 +12,36 @@ import CodeBlock from '../../../components/CodeBlock.astro'
 
   <h2>docker-compose.yml</h2>
 
+  <p>Ender runs as a single container serving both the API and the web dashboard on port 8090. Data is stored in an embedded SQLite database.</p>
+
   <CodeBlock
     lang="yaml"
     filename="docker-compose.yml"
     code={`services:
-  backend:
-    image: ghcr.io/ender-sms/backend:latest
+  app:
+    image: ghcr.io/jimscope/ender:latest
     environment:
-      - DATABASE_URL=postgresql://postgres:\${POSTGRES_PASSWORD}@db:5432/ender
-      - SECRET_KEY=\${SECRET_KEY}
-      - DOMAIN=\${DOMAIN}
+      - ENVIRONMENT=production
+      - FIRST_SUPERUSER=\${FIRST_SUPERUSER}
+      - FIRST_SUPERUSER_PASSWORD=\${FIRST_SUPERUSER_PASSWORD}
+      - APP_URL=https://\${DOMAIN}
+      - FRONTEND_URL=https://\${DOMAIN}
+      - FIREBASE_SERVICE_ACCOUNT_JSON=\${FIREBASE_SERVICE_ACCOUNT_JSON:-}
+      - SMTP_HOST=\${SMTP_HOST:-}
+      - SMTP_PORT=\${SMTP_PORT:-}
+      - SMTP_USERNAME=\${SMTP_USERNAME:-}
+      - SMTP_PASSWORD=\${SMTP_PASSWORD:-}
+      - WEBHOOK_ENCRYPTION_KEY=\${WEBHOOK_ENCRYPTION_KEY:-}
+      - LITESTREAM_REPLICA_URL=\${LITESTREAM_REPLICA_URL:-}
+      - LITESTREAM_ACCESS_KEY_ID=\${LITESTREAM_ACCESS_KEY_ID:-}
+      - LITESTREAM_SECRET_ACCESS_KEY=\${LITESTREAM_SECRET_ACCESS_KEY:-}
     ports:
-      - "8000:8000"
-    depends_on:
-      - db
-
-  frontend:
-    image: ghcr.io/ender-sms/frontend:latest
-    environment:
-      - VITE_API_URL=https://\${DOMAIN}
-    ports:
-      - "5173:80"
-
-  db:
-    image: postgres:17
-    environment:
-      - POSTGRES_DB=ender
-      - POSTGRES_PASSWORD=\${POSTGRES_PASSWORD}
+      - "8090:8090"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ender_data:/app/pb_data
 
 volumes:
-  postgres_data:`}
+  ender_data:`}
   />
 
   <h2>Environment variables</h2>
@@ -53,18 +51,32 @@ volumes:
   <CodeBlock
     lang="bash"
     filename=".env"
-    code={`SECRET_KEY=your-32-character-secret-key
-POSTGRES_PASSWORD=your-database-password
-DOMAIN=sms.yourdomain.com`}
+    code={`FIRST_SUPERUSER=admin@yourdomain.com
+FIRST_SUPERUSER_PASSWORD=your-secure-password
+DOMAIN=sms.yourdomain.com
+FIREBASE_SERVICE_ACCOUNT_JSON={"type":"service_account",...}`}
   />
 
-  <h2>Start services</h2>
+  <h2>Start the service</h2>
 
   <CodeBlock lang="bash" code="docker compose up -d" />
 
   <h2>View logs</h2>
 
-  <CodeBlock lang="bash" code="docker compose logs -f backend" />
+  <CodeBlock lang="bash" code="docker compose logs -f app" />
+
+  <h2>Backup with Litestream</h2>
+
+  <p>For continuous SQLite backup to S3-compatible storage, add these to your <code>.env</code>:</p>
+
+  <CodeBlock
+    lang="bash"
+    code={`LITESTREAM_REPLICA_URL=s3://my-bucket/ender/data
+LITESTREAM_ACCESS_KEY_ID=your-access-key
+LITESTREAM_SECRET_ACCESS_KEY=your-secret-key`}
+  />
+
+  <p>When set, Litestream automatically streams WAL changes and restores from the replica on startup.</p>
 
   <h2>Update</h2>
 

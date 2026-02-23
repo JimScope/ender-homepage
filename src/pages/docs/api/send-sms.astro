@@ -13,7 +13,7 @@ import CodeBlock from '../../../components/CodeBlock.astro'
   <div class="not-prose my-6 p-4 bg-neutral-100 rounded-lg">
     <p class="text-sm font-mono">
       <span class="text-green-600 font-semibold">POST</span>
-      <span class="text-neutral-900 ml-2">/api/v1/sms</span>
+      <span class="text-neutral-900 ml-2">/api/sms/send</span>
     </p>
   </div>
 
@@ -30,8 +30,8 @@ import CodeBlock from '../../../components/CodeBlock.astro'
     </thead>
     <tbody>
       <tr>
-        <td><code>Authorization</code></td>
-        <td><code>Bearer YOUR_API_KEY</code></td>
+        <td><code>X-API-Key</code></td>
+        <td><code>YOUR_API_KEY</code></td>
       </tr>
       <tr>
         <td><code>Content-Type</code></td>
@@ -39,6 +39,8 @@ import CodeBlock from '../../../components/CodeBlock.astro'
       </tr>
     </tbody>
   </table>
+
+  <p>Alternatively, you can use JWT authentication with <code>Authorization: Bearer YOUR_JWT_TOKEN</code>.</p>
 
   <h3>Body</h3>
 
@@ -53,13 +55,13 @@ import CodeBlock from '../../../components/CodeBlock.astro'
     </thead>
     <tbody>
       <tr>
-        <td><code>to</code></td>
-        <td>string</td>
+        <td><code>recipients</code></td>
+        <td>string[]</td>
         <td>Yes</td>
-        <td>Phone number in E.164 format (e.g., <code>+1234567890</code>)</td>
+        <td>Array of phone numbers in E.164 format (e.g., <code>["+1234567890"]</code>)</td>
       </tr>
       <tr>
-        <td><code>message</code></td>
+        <td><code>body</code></td>
         <td>string</td>
         <td>Yes</td>
         <td>Message content (max 1600 characters)</td>
@@ -68,13 +70,7 @@ import CodeBlock from '../../../components/CodeBlock.astro'
         <td><code>device_id</code></td>
         <td>string</td>
         <td>No</td>
-        <td>Specific device to use. If omitted, auto-selected.</td>
-      </tr>
-      <tr>
-        <td><code>webhook_url</code></td>
-        <td>string</td>
-        <td>No</td>
-        <td>URL for delivery status webhook</td>
+        <td>Specific device to use. If omitted, auto-selected via round-robin.</td>
       </tr>
     </tbody>
   </table>
@@ -83,30 +79,37 @@ import CodeBlock from '../../../components/CodeBlock.astro'
 
   <CodeBlock
     lang="bash"
-    code={`curl -X POST https://your-server.com/api/v1/sms \\
-  -H "Authorization: Bearer sk_live_abc123" \\
+    code={`curl -X POST https://your-server.com/api/sms/send \\
+  -H "X-API-Key: ek_your_api_key" \\
   -H "Content-Type: application/json" \\
   -d '{
-    "to": "+1234567890",
-    "message": "Your verification code is 123456",
-    "webhook_url": "https://your-app.com/webhooks/sms"
+    "recipients": ["+1234567890"],
+    "body": "Your verification code is 123456"
   }'`}
   />
 
   <h2>Response</h2>
 
-  <h3>Success (201 Created)</h3>
+  <h3>Success (200 OK)</h3>
 
   <CodeBlock
     lang="json"
     code={`{
-  "id": "msg_abc123def456",
-  "status": "queued",
-  "to": "+1234567890",
-  "message": "Your verification code is 123456",
-  "device_id": "dev_xyz789",
-  "created_at": "2024-01-15T10:30:00Z",
-  "updated_at": "2024-01-15T10:30:00Z"
+  "message_ids": ["a1b2c3d4e5f6g7h"],
+  "recipients_count": 1,
+  "status": "accepted"
+}`}
+  />
+
+  <p>For multiple recipients, a <code>batch_id</code> field is also included:</p>
+
+  <CodeBlock
+    lang="json"
+    code={`{
+  "batch_id": "x9y8z7w6v5u4t3s",
+  "message_ids": ["a1b2c3d4e5f", "g7h8i9j0k1l"],
+  "recipients_count": 2,
+  "status": "accepted"
 }`}
   />
 
@@ -121,12 +124,16 @@ import CodeBlock from '../../../components/CodeBlock.astro'
     </thead>
     <tbody>
       <tr>
-        <td><code>queued</code></td>
-        <td>Message is queued for sending</td>
+        <td><code>pending</code></td>
+        <td>Message created, no device assigned yet</td>
+      </tr>
+      <tr>
+        <td><code>assigned</code></td>
+        <td>Device assigned, push notification being sent</td>
       </tr>
       <tr>
         <td><code>sending</code></td>
-        <td>Message is being sent by the device</td>
+        <td>Device is sending the message</td>
       </tr>
       <tr>
         <td><code>sent</code></td>
@@ -156,7 +163,7 @@ import CodeBlock from '../../../components/CodeBlock.astro'
 // 401 Unauthorized - Invalid API key
 {
   "error": "unauthorized",
-  "message": "Invalid or missing API key"
+  "message": "Authentication required"
 }
 
 // 402 Payment Required - Quota exceeded
@@ -181,14 +188,14 @@ import CodeBlock from '../../../components/CodeBlock.astro'
     code={`import requests
 
 response = requests.post(
-    "https://your-server.com/api/v1/sms",
+    "https://your-server.com/api/sms/send",
     headers={
-        "Authorization": "Bearer sk_live_abc123",
+        "X-API-Key": "ek_your_api_key",
         "Content-Type": "application/json"
     },
     json={
-        "to": "+1234567890",
-        "message": "Hello from Python!"
+        "recipients": ["+1234567890"],
+        "body": "Hello from Python!"
     }
 )
 
@@ -199,15 +206,15 @@ print(response.json())`}
 
   <CodeBlock
     lang="javascript"
-    code={`const response = await fetch("https://your-server.com/api/v1/sms", {
+    code={`const response = await fetch("https://your-server.com/api/sms/send", {
   method: "POST",
   headers: {
-    "Authorization": "Bearer sk_live_abc123",
+    "X-API-Key": "ek_your_api_key",
     "Content-Type": "application/json"
   },
   body: JSON.stringify({
-    to: "+1234567890",
-    message: "Hello from JavaScript!"
+    recipients: ["+1234567890"],
+    body: "Hello from JavaScript!"
   })
 });
 
