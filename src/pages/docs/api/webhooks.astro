@@ -20,9 +20,45 @@ import CodeBlock from '../../../components/CodeBlock.astro'
     <li><strong>Secret</strong> - Used to sign payloads for verification (auto-generated, AES-encrypted at rest)</li>
   </ul>
 
-  <h2>Webhook payload</h2>
+  <h2>Event types</h2>
 
-  <p>Ender sends a POST request with a JSON body. Keys are sorted alphabetically for deterministic HMAC signing:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Event</th>
+        <th>Direction</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>sms_received</code></td>
+        <td>Incoming</td>
+        <td>An SMS was received by a device</td>
+      </tr>
+      <tr>
+        <td><code>sms_sent</code></td>
+        <td>Outgoing</td>
+        <td>A device confirmed the SMS was sent</td>
+      </tr>
+      <tr>
+        <td><code>sms_delivered</code></td>
+        <td>Outgoing</td>
+        <td>The carrier confirmed the SMS was delivered</td>
+      </tr>
+      <tr>
+        <td><code>sms_failed</code></td>
+        <td>Outgoing</td>
+        <td>The SMS could not be sent or delivered</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Webhook payloads</h2>
+
+  <p>Ender sends a POST request with a JSON body. Keys are sorted alphabetically for deterministic HMAC signing. The payload fields depend on the event type.</p>
+
+  <h3><code>sms_received</code></h3>
 
   <CodeBlock
     lang="json"
@@ -35,22 +71,36 @@ import CodeBlock from '../../../components/CodeBlock.astro'
 }`}
   />
 
-  <h2>Event types</h2>
+  <h3><code>sms_sent</code> / <code>sms_delivered</code></h3>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Event</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><code>sms_received</code></td>
-        <td>Incoming SMS received by a device</td>
-      </tr>
-    </tbody>
-  </table>
+  <CodeBlock
+    lang="json"
+    code={`{
+  "body": "Your verification code is 847293",
+  "delivered_at": "2024-01-15 10:31:12.000Z",
+  "event": "sms_delivered",
+  "message_id": "a1b2c3d4e5f6g7h",
+  "sent_at": "2024-01-15 10:30:08.000Z",
+  "status": "delivered",
+  "timestamp": "2024-01-15 10:30:05.000Z",
+  "to": "+1234567890"
+}`}
+  />
+
+  <h3><code>sms_failed</code></h3>
+
+  <CodeBlock
+    lang="json"
+    code={`{
+  "body": "Your verification code is 847293",
+  "error_message": "FCM not initialized",
+  "event": "sms_failed",
+  "message_id": "a1b2c3d4e5f6g7h",
+  "status": "failed",
+  "timestamp": "2024-01-15 10:30:05.000Z",
+  "to": "+1234567890"
+}`}
+  />
 
   <h2>Verifying webhooks</h2>
 

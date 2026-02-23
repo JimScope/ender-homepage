@@ -17,13 +17,17 @@ const response = await fetch('https://your-server.com/api/sms/send', {
 const { message_ids, status } = await response.json();
 // { message_ids: ["a1b2c3d4e5f"], status: "accepted" }`
 
-const webhookExample = `// Webhook payload on incoming SMS
+const webhookExample = `// Webhook payloads — incoming & outgoing
+// sms_received, sms_sent, sms_delivered, sms_failed
 {
-  "event": "sms_received",
+  "event": "sms_delivered",
   "message_id": "a1b2c3d4e5f6g7h",
-  "from": "+1234567890",
-  "body": "Hello from the outside world",
-  "timestamp": "2024-01-15T10:30:45Z"
+  "to": "+1234567890",
+  "body": "Your verification code is 847293",
+  "status": "delivered",
+  "sent_at": "2024-01-15T10:30:08Z",
+  "delivered_at": "2024-01-15T10:31:12Z",
+  "timestamp": "2024-01-15T10:30:05Z"
 }`
 ---
 
