@@ -1,0 +1,711 @@
+---
+import Layout from '../layouts/Layout.astro'
+import CodeBlock from '../components/CodeBlock.astro'
+---
+
+<Layout title="Ender Design System" description="Visual reference for the Ender design language — colors, typography, components, and patterns.">
+  <!-- Header -->
+  <header class="py-6 lg:py-12 border-b border-neutral-200">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <nav class="flex items-center justify-between">
+        <a href="/" class="flex items-baseline">
+          <span class="text-[#2dd4a8] text-2xl font-bold relative -top-[0.15em]">:</span>
+          <span class="font-serif font-bold text-2xl tracking-tight uppercase">Ender</span>
+          <span class="text-[#2dd4a8] text-2xl font-bold relative -top-[0.15em]">:</span>
+        </a>
+        <div class="flex items-center gap-6">
+          <a href="/" class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium">Home</a>
+          <a href="/docs" class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium">Docs</a>
+          <a href="https://github.com/JimScope/ender" class="text-neutral-600 hover:text-neutral-900 transition-colors text-sm font-medium">GitHub</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="py-16 lg:py-24">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="max-w-2xl">
+          <div class="accent-dot mb-6"></div>
+          <h1 class="font-serif text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900 mb-4">
+            Design System
+          </h1>
+          <p class="text-lg text-neutral-600 leading-relaxed">
+            Visual reference for the Ender design language. Use this as the single source of truth for colors, typography, components, and patterns across the homepage and dashboard.
+          </p>
+        </div>
+
+        <!-- Quick nav -->
+        <nav class="mt-10 flex flex-wrap gap-3">
+          <a href="#colors" class="btn btn-secondary text-sm">Colors</a>
+          <a href="#typography" class="btn btn-secondary text-sm">Typography</a>
+          <a href="#logo" class="btn btn-secondary text-sm">Logo</a>
+          <a href="#buttons" class="btn btn-secondary text-sm">Buttons</a>
+          <a href="#cards" class="btn btn-secondary text-sm">Cards</a>
+          <a href="#code" class="btn btn-secondary text-sm">Code Blocks</a>
+          <a href="#alerts" class="btn btn-secondary text-sm">Alerts</a>
+          <a href="#patterns" class="btn btn-secondary text-sm">Patterns</a>
+          <a href="#tokens" class="btn btn-secondary text-sm">Tokens</a>
+        </nav>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         Colors
+         ═══════════════════════════════════════════════════════ -->
+    <section id="colors" class="py-16 lg:py-20 border-t border-neutral-200">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <h2 class="font-serif text-3xl font-bold text-neutral-900 mb-2">Colors</h2>
+        <p class="text-neutral-600 mb-10 max-w-xl">Mint-tinted palette built around the accent color <code class="ds-code">#2dd4a8</code>. All grays carry a subtle green tint for cohesion.</p>
+
+        <!-- Accent -->
+        <h3 class="ds-label mb-4">Accent</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+          <div class="ds-swatch" style="background:#2dd4a8;">
+            <span class="ds-swatch-label text-neutral-900">#2dd4a8</span>
+            <span class="ds-swatch-name text-neutral-900/60">accent</span>
+          </div>
+          <div class="ds-swatch" style="background:#1fa888;">
+            <span class="ds-swatch-label text-white">#1fa888</span>
+            <span class="ds-swatch-name text-white/60">accent-hover</span>
+          </div>
+          <div class="ds-swatch" style="background:#6ee7c2;">
+            <span class="ds-swatch-label text-neutral-900">#6ee7c2</span>
+            <span class="ds-swatch-name text-neutral-900/60">accent-light</span>
+          </div>
+        </div>
+
+        <!-- Backgrounds & Text -->
+        <h3 class="ds-label mb-4">Background &amp; Text</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+          <div class="ds-swatch border border-neutral-200" style="background:#edf5f1;">
+            <span class="ds-swatch-label text-neutral-900">#edf5f1</span>
+            <span class="ds-swatch-name text-neutral-900/60">bg</span>
+          </div>
+          <div class="ds-swatch" style="background:#181c1b;">
+            <span class="ds-swatch-label text-white">#181c1b</span>
+            <span class="ds-swatch-name text-white/60">bg-dark / text</span>
+          </div>
+          <div class="ds-swatch" style="background:#6b6b6b;">
+            <span class="ds-swatch-label text-white">#6b6b6b</span>
+            <span class="ds-swatch-name text-white/60">text-muted</span>
+          </div>
+          <div class="ds-swatch border border-neutral-200" style="background:#edf5f1;">
+            <span class="ds-swatch-label text-neutral-900">#edf5f1</span>
+            <span class="ds-swatch-name text-neutral-900/60">text-light</span>
+          </div>
+        </div>
+
+        <!-- Neutral scale -->
+        <h3 class="ds-label mb-4">Neutral Scale (Mint-tinted Grays)</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 lg:grid-cols-11 gap-2 mb-4">
+          <div class="ds-swatch-sm border border-neutral-200" style="background:#f7faf9;"><span class="text-neutral-900">50</span><span class="text-[10px] text-neutral-500">#f7faf9</span></div>
+          <div class="ds-swatch-sm border border-neutral-200" style="background:#edf5f1;"><span class="text-neutral-900">100</span><span class="text-[10px] text-neutral-500">#edf5f1</span></div>
+          <div class="ds-swatch-sm border border-neutral-200" style="background:#e0e8e4;"><span class="text-neutral-900">200</span><span class="text-[10px] text-neutral-500">#e0e8e4</span></div>
+          <div class="ds-swatch-sm" style="background:#ccd4d0;"><span class="text-neutral-900">300</span><span class="text-[10px] text-neutral-700">#ccd4d0</span></div>
+          <div class="ds-swatch-sm" style="background:#a0a8a4;"><span class="text-neutral-900">400</span><span class="text-[10px] text-neutral-700">#a0a8a4</span></div>
+          <div class="ds-swatch-sm" style="background:#707874;"><span class="text-white">500</span><span class="text-[10px] text-white/60">#707874</span></div>
+          <div class="ds-swatch-sm" style="background:#545c58;"><span class="text-white">600</span><span class="text-[10px] text-white/60">#545c58</span></div>
+          <div class="ds-swatch-sm" style="background:#383e3c;"><span class="text-white">700</span><span class="text-[10px] text-white/60">#383e3c</span></div>
+          <div class="ds-swatch-sm" style="background:#222826;"><span class="text-white">800</span><span class="text-[10px] text-white/60">#222826</span></div>
+          <div class="ds-swatch-sm" style="background:#181c1b;"><span class="text-white">900</span><span class="text-[10px] text-white/60">#181c1b</span></div>
+          <div class="ds-swatch-sm" style="background:#0c0f0e;"><span class="text-white">950</span><span class="text-[10px] text-white/60">#0c0f0e</span></div>
+        </div>
+
+        <!-- Code syntax -->
+        <h3 class="ds-label mb-4 mt-10">Code Syntax Highlighting</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div class="ds-swatch" style="background:#222826;"><span class="ds-swatch-label text-[#edf5f1]">#222826</span><span class="ds-swatch-name text-[#a0a8a4]">code-bg</span></div>
+          <div class="ds-swatch" style="background:#222826;"><span class="ds-swatch-label" style="color:#edf5f1">#edf5f1</span><span class="ds-swatch-name" style="color:#a0a8a4">text / function</span></div>
+          <div class="ds-swatch" style="background:#222826;"><span class="ds-swatch-label" style="color:#2dd4a8">#2dd4a8</span><span class="ds-swatch-name" style="color:#a0a8a4">keyword</span></div>
+          <div class="ds-swatch" style="background:#222826;"><span class="ds-swatch-label" style="color:#6ee7c2">#6ee7c2</span><span class="ds-swatch-name" style="color:#a0a8a4">string</span></div>
+          <div class="ds-swatch" style="background:#222826;"><span class="ds-swatch-label" style="color:#ccd4d0">#ccd4d0</span><span class="ds-swatch-name" style="color:#a0a8a4">variable</span></div>
+          <div class="ds-swatch" style="background:#222826;"><span class="ds-swatch-label" style="color:#707874">#707874</span><span class="ds-swatch-name" style="color:#545c58">comment</span></div>
+          <div class="ds-swatch" style="background:#222826;"><span class="ds-swatch-label" style="color:#a0a8a4">#a0a8a4</span><span class="ds-swatch-name" style="color:#545c58">punctuation</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         Typography
+         ═══════════════════════════════════════════════════════ -->
+    <section id="typography" class="py-16 lg:py-20 border-t border-neutral-200">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <h2 class="font-serif text-3xl font-bold text-neutral-900 mb-2">Typography</h2>
+        <p class="text-neutral-600 mb-10 max-w-xl">Three font families — a clean sans-serif for body text, a classic serif for headings, and a monospace for code.</p>
+
+        <!-- Font families -->
+        <div class="grid gap-8 mb-12">
+          <!-- Sans -->
+          <div class="ds-type-card">
+            <div class="ds-label mb-3">Sans &mdash; Body, UI, Navigation</div>
+            <p class="text-4xl font-normal mb-1" style="font-family: 'Inter', sans-serif;">Inter</p>
+            <p class="text-sm text-neutral-500 font-mono mb-4">font-family: "Inter", ui-sans-serif, system-ui, sans-serif</p>
+            <div class="flex flex-wrap gap-6 text-sm text-neutral-600">
+              <span style="font-weight:400;">Regular 400</span>
+              <span style="font-weight:500;">Medium 500</span>
+              <span style="font-weight:600;">Semibold 600</span>
+            </div>
+          </div>
+
+          <!-- Serif -->
+          <div class="ds-type-card">
+            <div class="ds-label mb-3">Serif &mdash; Headings, Card Titles</div>
+            <p class="text-4xl font-normal mb-1" style="font-family: 'Libre Baskerville', serif;">Libre Baskerville</p>
+            <p class="text-sm text-neutral-500 font-mono mb-4">font-family: "Libre Baskerville", ui-serif, Georgia, serif</p>
+            <div class="flex flex-wrap gap-6 text-sm text-neutral-600">
+              <span class="font-serif" style="font-weight:400;">Regular 400</span>
+              <span class="font-serif" style="font-weight:700;">Bold 700</span>
+            </div>
+          </div>
+
+          <!-- Mono -->
+          <div class="ds-type-card">
+            <div class="ds-label mb-3">Mono &mdash; Code, Tokens, Data</div>
+            <p class="text-4xl font-normal mb-1" style="font-family: 'JetBrains Mono', monospace;">JetBrains Mono</p>
+            <p class="text-sm text-neutral-500 font-mono mb-4">font-family: "JetBrains Mono", ui-monospace, monospace</p>
+            <div class="flex flex-wrap gap-6 text-sm text-neutral-600 font-mono">
+              <span style="font-weight:400;">Regular 400</span>
+              <span style="font-weight:500;">Medium 500</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Type Scale -->
+        <h3 class="ds-label mb-6">Heading Scale</h3>
+        <div class="space-y-6 mb-12">
+          <div class="flex items-baseline gap-6">
+            <span class="text-xs text-neutral-400 font-mono w-16 shrink-0">5xl</span>
+            <h1 class="font-serif text-5xl font-bold tracking-tight text-neutral-900">Heading One</h1>
+          </div>
+          <div class="flex items-baseline gap-6">
+            <span class="text-xs text-neutral-400 font-mono w-16 shrink-0">4xl</span>
+            <h2 class="font-serif text-4xl font-bold tracking-tight text-neutral-900">Heading Two</h2>
+          </div>
+          <div class="flex items-baseline gap-6">
+            <span class="text-xs text-neutral-400 font-mono w-16 shrink-0">3xl</span>
+            <h3 class="font-serif text-3xl font-bold text-neutral-900">Heading Three</h3>
+          </div>
+          <div class="flex items-baseline gap-6">
+            <span class="text-xs text-neutral-400 font-mono w-16 shrink-0">2xl</span>
+            <h4 class="font-serif text-2xl font-bold text-neutral-900">Heading Four</h4>
+          </div>
+          <div class="flex items-baseline gap-6">
+            <span class="text-xs text-neutral-400 font-mono w-16 shrink-0">xl</span>
+            <h5 class="font-serif text-xl text-neutral-900">Heading Five</h5>
+          </div>
+          <div class="flex items-baseline gap-6">
+            <span class="text-xs text-neutral-400 font-mono w-16 shrink-0">lg</span>
+            <h6 class="font-serif text-lg text-neutral-900">Heading Six</h6>
+          </div>
+        </div>
+
+        <!-- Body text -->
+        <h3 class="ds-label mb-6">Body Text</h3>
+        <div class="space-y-4 max-w-2xl">
+          <p class="text-lg text-neutral-600 leading-relaxed">
+            Large body text for introductions and hero sections. Uses Inter at 18px with relaxed line-height for comfortable reading.
+          </p>
+          <p class="text-base text-neutral-600">
+            Default body text for general content. Inter at 16px with normal line-height. Used throughout cards, descriptions, and documentation paragraphs.
+          </p>
+          <p class="text-sm text-neutral-500">
+            Small text for captions, metadata, and secondary information. Inter at 14px in a muted color.
+          </p>
+          <p class="text-xs text-neutral-400 font-mono">
+            Tiny monospace for labels, timestamps, and technical metadata. JetBrains Mono at 12px.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         Logo
+         ═══════════════════════════════════════════════════════ -->
+    <section id="logo" class="py-16 lg:py-20 border-t border-neutral-200">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <h2 class="font-serif text-3xl font-bold text-neutral-900 mb-2">Logo</h2>
+        <p class="text-neutral-600 mb-10 max-w-xl">The Ender wordmark uses Libre Baskerville bold uppercase with accent-colored colons. The icon is four mint dots arranged in a square.</p>
+
+        <div class="grid sm:grid-cols-2 gap-6 mb-10">
+          <!-- Wordmark on light -->
+          <div class="bg-white rounded-lg border border-neutral-200 p-8 flex items-center justify-center">
+            <div class="flex items-baseline">
+              <span class="text-[#2dd4a8] text-4xl font-bold relative -top-[0.15em]">:</span>
+              <span class="font-serif font-bold text-4xl tracking-tight uppercase">Ender</span>
+              <span class="text-[#2dd4a8] text-4xl font-bold relative -top-[0.15em]">:</span>
+            </div>
+          </div>
+          <!-- Wordmark on dark -->
+          <div class="bg-neutral-900 rounded-lg p-8 flex items-center justify-center">
+            <div class="flex items-baseline">
+              <span class="text-[#2dd4a8] text-4xl font-bold relative -top-[0.15em]">:</span>
+              <span class="font-serif font-bold text-4xl tracking-tight uppercase text-white">Ender</span>
+              <span class="text-[#2dd4a8] text-4xl font-bold relative -top-[0.15em]">:</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Icon -->
+        <h3 class="ds-label mb-4">Icon (Favicon)</h3>
+        <div class="grid sm:grid-cols-3 gap-6">
+          <div class="bg-white rounded-lg border border-neutral-200 p-8 flex items-center justify-center">
+            <img src="/favicon.svg" alt="Ender icon" class="w-12 h-12" />
+          </div>
+          <div class="bg-neutral-900 rounded-lg p-8 flex items-center justify-center">
+            <img src="/favicon.svg" alt="Ender icon" class="w-12 h-12" />
+          </div>
+          <div class="bg-[#2dd4a8] rounded-lg p-8 flex items-center justify-center">
+            <img src="/favicon.svg" alt="Ender icon" class="w-12 h-12" />
+          </div>
+        </div>
+
+        <!-- Construction -->
+        <h3 class="ds-label mb-4 mt-10">Construction</h3>
+        <div class="bg-white rounded-lg border border-neutral-200 p-6 max-w-lg font-mono text-sm text-neutral-600 space-y-2">
+          <p><span class="text-[#2dd4a8] font-bold">:</span> &mdash; Accent colon, <code class="ds-code">#2dd4a8</code>, bold, offset <code class="ds-code">-top-[0.15em]</code></p>
+          <p><span class="font-serif font-bold uppercase">Ender</span> &mdash; Libre Baskerville, bold, uppercase, tight tracking</p>
+          <p><span class="text-[#2dd4a8] font-bold">:</span> &mdash; Same accent colon, mirrored</p>
+          <p class="pt-2 border-t border-neutral-200 text-neutral-400">Minimum clear space: 1em on all sides</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         Buttons
+         ═══════════════════════════════════════════════════════ -->
+    <section id="buttons" class="py-16 lg:py-20 border-t border-neutral-200">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <h2 class="font-serif text-3xl font-bold text-neutral-900 mb-2">Buttons</h2>
+        <p class="text-neutral-600 mb-10 max-w-xl">Three button variants for different levels of emphasis. All support an optional trailing icon.</p>
+
+        <div class="space-y-10">
+          <!-- Primary -->
+          <div>
+            <h3 class="ds-label mb-4">Primary &mdash; Main actions</h3>
+            <div class="flex flex-wrap items-center gap-4 mb-3">
+              <a href="#" class="btn btn-primary">
+                Get started
+                <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+              </a>
+              <a href="#" class="btn btn-primary">Primary button</a>
+            </div>
+            <p class="text-xs text-neutral-400 font-mono">.btn .btn-primary</p>
+          </div>
+
+          <!-- Secondary -->
+          <div>
+            <h3 class="ds-label mb-4">Secondary &mdash; Alternative actions</h3>
+            <div class="flex flex-wrap items-center gap-4 mb-3">
+              <a href="#" class="btn btn-secondary">Learn more</a>
+              <a href="#" class="btn btn-secondary">
+                View on GitHub
+                <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+              </a>
+            </div>
+            <p class="text-xs text-neutral-400 font-mono">.btn .btn-secondary</p>
+          </div>
+
+          <!-- Link -->
+          <div>
+            <h3 class="ds-label mb-4">Link &mdash; Inline / subtle actions</h3>
+            <div class="flex flex-wrap items-center gap-4 mb-3">
+              <a href="#" class="btn btn-link">
+                Read the docs
+                <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+              </a>
+              <a href="#" class="btn btn-link">Text link</a>
+            </div>
+            <p class="text-xs text-neutral-400 font-mono">.btn .btn-link</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         Cards
+         ═══════════════════════════════════════════════════════ -->
+    <section id="cards" class="py-16 lg:py-20 border-t border-neutral-200">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <h2 class="font-serif text-3xl font-bold text-neutral-900 mb-2">Cards</h2>
+        <p class="text-neutral-600 mb-10 max-w-xl">Container components for grouping related content. Three variants for different visual weight.</p>
+
+        <div class="grid sm:grid-cols-3 gap-6">
+          <!-- Default -->
+          <div class="card card-default">
+            <div class="card-title">Default Card</div>
+            <p class="card-description">Standard card with a subtle border. Used for feature lists and general content grouping.</p>
+            <ul class="card-list">
+              <li>Standard border</li>
+              <li>White background</li>
+              <li>Rounded corners</li>
+            </ul>
+            <p class="text-xs text-neutral-400 font-mono">.card .card-default</p>
+          </div>
+
+          <!-- Featured -->
+          <div class="card card-featured">
+            <div class="card-title">Featured Card</div>
+            <p class="card-description">Emphasized card with a thicker dark border. Used to highlight primary content or CTAs.</p>
+            <ul class="card-list">
+              <li>2px dark border</li>
+              <li>White background</li>
+              <li>Visual emphasis</li>
+            </ul>
+            <p class="text-xs text-neutral-400 font-mono">.card .card-featured</p>
+          </div>
+
+          <!-- Muted -->
+          <div class="card card-muted">
+            <div class="card-title">Muted Card</div>
+            <p class="card-description">Subtle card with a tinted background. Used for secondary information and asides.</p>
+            <ul class="card-list">
+              <li>Neutral-50 background</li>
+              <li>Subtle border</li>
+              <li>Low visual weight</li>
+            </ul>
+            <p class="text-xs text-neutral-400 font-mono">.card .card-muted</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         Code Blocks
+         ═══════════════════════════════════════════════════════ -->
+    <section id="code" class="py-16 lg:py-20 border-t border-neutral-200">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <h2 class="font-serif text-3xl font-bold text-neutral-900 mb-2">Code Blocks</h2>
+        <p class="text-neutral-600 mb-10 max-w-xl">Syntax-highlighted code using the custom <code class="ds-code">ender-dark</code> Shiki theme. Supports an optional filename header.</p>
+
+        <div class="grid lg:grid-cols-2 gap-6">
+          <!-- JavaScript -->
+          <div>
+            <h3 class="ds-label mb-3">JavaScript &mdash; with filename</h3>
+            <CodeBlock
+              lang="javascript"
+              filename="send-sms.js"
+              code={`const response = await fetch("/api/sms/send", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "X-API-Key": "your-api-key"
+  },
+  body: JSON.stringify({
+    to: "+1234567890",
+    message: "Hello from Ender!"
+  })
+});
+
+const data = await response.json();
+console.log(data.id); // "msg_abc123"`}
+            />
+          </div>
+
+          <!-- JSON -->
+          <div>
+            <h3 class="ds-label mb-3">JSON &mdash; webhook payload</h3>
+            <CodeBlock
+              lang="json"
+              filename="webhook-payload.json"
+              code={`{
+  "event": "sms.delivered",
+  "data": {
+    "id": "msg_abc123",
+    "to": "+1234567890",
+    "status": "delivered",
+    "device": "pixel-7a",
+    "delivered_at": "2026-02-22T14:30:00Z"
+  }
+}`}
+            />
+          </div>
+
+          <!-- Bash -->
+          <div>
+            <h3 class="ds-label mb-3">Bash &mdash; no filename</h3>
+            <CodeBlock
+              lang="bash"
+              code={`curl -X POST https://your-server.com/api/sms/send \\
+  -H "Content-Type: application/json" \\
+  -H "X-API-Key: your-api-key" \\
+  -d '{"to": "+1234567890", "message": "Hello!"}'`}
+            />
+          </div>
+
+          <!-- YAML -->
+          <div>
+            <h3 class="ds-label mb-3">YAML &mdash; Docker Compose</h3>
+            <CodeBlock
+              lang="yaml"
+              filename="docker-compose.yml"
+              code={`services:
+  app:
+    build: .
+    ports:
+      - "8090:8090"
+    volumes:
+      - ender-data:/app/pb_data
+    environment:
+      - ENVIRONMENT=production`}
+            />
+          </div>
+        </div>
+
+        <!-- Inline code -->
+        <h3 class="ds-label mb-3 mt-10">Inline Code</h3>
+        <div class="bg-white rounded-lg border border-neutral-200 p-6 max-w-2xl">
+          <p class="text-neutral-700">
+            Use the <code class="ds-code">X-API-Key</code> header to authenticate requests.
+            Send messages via <code class="ds-code">POST /api/sms/send</code> with a JSON body.
+            The <code class="ds-code">device_id</code> field is optional.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         Alerts
+         ═══════════════════════════════════════════════════════ -->
+    <section id="alerts" class="py-16 lg:py-20 border-t border-neutral-200">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <h2 class="font-serif text-3xl font-bold text-neutral-900 mb-2">Alerts</h2>
+        <p class="text-neutral-600 mb-10 max-w-xl">Contextual banners for informational and warning messages within documentation.</p>
+
+        <div class="space-y-4 max-w-2xl">
+          <div class="alert alert-info">
+            <strong>Info:</strong> PocketBase serves the frontend SPA, API, and admin dashboard from a single binary on port 8090.
+          </div>
+          <div class="alert alert-warning">
+            <strong>Warning:</strong> Make sure to set <code class="ds-code">WEBHOOK_ENCRYPTION_KEY</code> in production. Without it, webhook secrets are stored in plaintext.
+          </div>
+        </div>
+        <div class="mt-4 text-xs text-neutral-400 font-mono space-y-1">
+          <p>.alert .alert-info</p>
+          <p>.alert .alert-warning</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         Patterns
+         ═══════════════════════════════════════════════════════ -->
+    <section id="patterns" class="py-16 lg:py-20 border-t border-neutral-200">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <h2 class="font-serif text-3xl font-bold text-neutral-900 mb-2">Patterns &amp; Decorations</h2>
+        <p class="text-neutral-600 mb-10 max-w-xl">Visual elements used for texture and emphasis across the site.</p>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Dot pattern -->
+          <div>
+            <h3 class="ds-label mb-3">Dot Pattern</h3>
+            <div class="dot-pattern rounded-lg border border-neutral-200 h-40 flex items-center justify-center">
+              <span class="text-xs text-neutral-400 font-mono bg-white/80 px-2 py-1 rounded">.dot-pattern</span>
+            </div>
+          </div>
+
+          <!-- Accent dot -->
+          <div>
+            <h3 class="ds-label mb-3">Accent Dot</h3>
+            <div class="bg-white rounded-lg border border-neutral-200 h-40 flex items-center justify-center gap-6">
+              <div class="accent-dot"></div>
+              <div class="text-xs text-neutral-400 font-mono">.accent-dot<br/>12px circle</div>
+            </div>
+          </div>
+
+          <!-- Accent circle -->
+          <div>
+            <h3 class="ds-label mb-3">Accent Circle</h3>
+            <div class="bg-white rounded-lg border border-neutral-200 h-40 flex items-center justify-center gap-6">
+              <div class="accent-circle" style="width:48px;height:48px;"></div>
+              <div class="text-xs text-neutral-400 font-mono">.accent-circle<br/>Scalable</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dark section example -->
+        <h3 class="ds-label mb-3 mt-10">Dark Section</h3>
+        <div class="bg-neutral-900 rounded-lg p-8 text-white">
+          <h4 class="font-serif text-2xl font-bold mb-3">Dark background sections</h4>
+          <p class="text-neutral-400 mb-4 max-w-md">Used for high-contrast feature sections. Background <code class="text-[#2dd4a8] text-xs font-mono">neutral-900</code> with white text and <code class="text-[#2dd4a8] text-xs font-mono">neutral-400</code> for muted content.</p>
+          <div class="flex gap-3">
+            <span class="inline-flex items-center gap-2 text-sm"><span class="w-2 h-2 rounded-full bg-[#2dd4a8]"></span> Accent bullets</span>
+            <span class="inline-flex items-center gap-2 text-sm text-neutral-400"><span class="w-2 h-2 rounded-full bg-neutral-600"></span> Muted bullets</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         Tokens Reference
+         ═══════════════════════════════════════════════════════ -->
+    <section id="tokens" class="py-16 lg:py-20 border-t border-neutral-200">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <h2 class="font-serif text-3xl font-bold text-neutral-900 mb-2">Design Tokens</h2>
+        <p class="text-neutral-600 mb-10 max-w-xl">CSS custom properties defined in <code class="ds-code">global.css</code> via Tailwind v4's <code class="ds-code">@theme</code> block. Copy these into any project to match the Ender look.</p>
+
+        <CodeBlock
+          lang="yaml"
+          filename="global.css — @theme"
+          code={`# Typography
+--font-sans:   "Inter", ui-sans-serif, system-ui, sans-serif
+--font-serif:  "Libre Baskerville", ui-serif, Georgia, serif
+--font-mono:   "JetBrains Mono", ui-monospace, monospace
+
+# Accent
+--color-accent:        #2dd4a8
+--color-accent-hover:  #1fa888
+
+# Background & Text
+--color-bg:            #edf5f1
+--color-bg-dark:       #181c1b
+--color-text:          #181c1b
+--color-text-muted:    #6b6b6b
+--color-text-light:    #edf5f1
+
+# Neutral Scale (mint-tinted)
+--color-neutral-50:    #f7faf9
+--color-neutral-100:   #edf5f1
+--color-neutral-200:   #e0e8e4
+--color-neutral-300:   #ccd4d0
+--color-neutral-400:   #a0a8a4
+--color-neutral-500:   #707874
+--color-neutral-600:   #545c58
+--color-neutral-700:   #383e3c
+--color-neutral-800:   #222826
+--color-neutral-900:   #181c1b
+--color-neutral-950:   #0c0f0e
+
+# Code Syntax
+--color-code-bg:          #222826
+--color-code-text:        #edf5f1
+--color-code-comment:     #707874
+--color-code-string:      #6ee7c2
+--color-code-keyword:     #2dd4a8
+--color-code-function:    #edf5f1
+--color-code-variable:    #ccd4d0
+--color-code-punctuation: #a0a8a4`}
+        />
+
+        <!-- Google Fonts -->
+        <h3 class="ds-label mb-3 mt-10">Google Fonts Import</h3>
+        <CodeBlock
+          lang="bash"
+          filename="index.html or Layout.astro"
+          code={`<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet" />`}
+        />
+
+        <!-- Dashboard shadcn mapping -->
+        <h3 class="ds-label mb-3 mt-10">Dashboard (shadcn/ui) Token Mapping</h3>
+        <p class="text-neutral-600 mb-4 text-sm max-w-xl">The React dashboard maps the same palette to shadcn semantic variables. This is the bridge between the homepage tokens and the dashboard's component library.</p>
+        <CodeBlock
+          lang="yaml"
+          filename="frontend/src/index.css — :root"
+          code={`# shadcn semantic colors → Ender palette
+--background:             #edf5f1   # neutral-100
+--foreground:             #181c1b   # neutral-900
+--card:                   #edf5f1   # neutral-100
+--primary:                #181c1b   # neutral-900  (dark buttons)
+--primary-foreground:     #ffffff
+--secondary:              #e0e8e4   # neutral-200
+--secondary-foreground:   #545c58   # neutral-600
+--muted:                  #e0e8e4   # neutral-200
+--muted-foreground:       #707874   # neutral-500
+--accent:                 #e0e8e4   # neutral-200  (hover states)
+--accent-foreground:      #181c1b   # neutral-900
+--border:                 #ccd4d0   # neutral-300
+--input:                  #ccd4d0   # neutral-300
+--ring:                   #181c1b   # neutral-900
+--destructive:            #dc2626   # red-600
+
+# Chart colors use the mint accent
+--chart-1:  #2dd4a8   # accent
+--chart-2:  #6ee7c2   # accent-light
+--chart-3:  #707874   # neutral-500
+--chart-4:  #ccd4d0   # neutral-300
+--chart-5:  #1fa888   # accent-hover`}
+        />
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-12 border-t border-neutral-200">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div class="flex items-baseline gap-1">
+          <span class="text-[#2dd4a8] text-lg font-bold relative -top-[0.1em]">:</span>
+          <span class="font-serif font-bold text-lg tracking-tight uppercase">Ender</span>
+          <span class="text-[#2dd4a8] text-lg font-bold relative -top-[0.1em]">:</span>
+          <span class="text-neutral-400 text-sm ml-2">Design System</span>
+        </div>
+        <div class="flex gap-6 text-sm">
+          <a href="/" class="text-neutral-500 hover:text-neutral-900 transition-colors">Home</a>
+          <a href="/docs" class="text-neutral-500 hover:text-neutral-900 transition-colors">Docs</a>
+          <a href="https://github.com/JimScope/ender" class="text-neutral-500 hover:text-neutral-900 transition-colors">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<style>
+  /* ── Design System page-specific styles ─────────────── */
+  .ds-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #707874;
+  }
+
+  .ds-code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    background: #e0e8e4;
+    padding: 0.1em 0.4em;
+    border-radius: 0.25rem;
+    color: #181c1b;
+  }
+
+  .ds-swatch {
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    min-height: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .ds-swatch-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  .ds-swatch-name {
+    font-size: 0.7rem;
+    margin-top: 0.15rem;
+  }
+
+  .ds-swatch-sm {
+    border-radius: 0.375rem;
+    padding: 0.75rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .ds-type-card {
+    background: white;
+    border: 1px solid #e0e8e4;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+  }
+</style>
+</Layout>
