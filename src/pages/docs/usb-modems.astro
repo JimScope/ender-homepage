@@ -6,30 +6,159 @@ import DocsLayout from "../../layouts/DocsLayout.astro";
     <h1>USB Modems</h1>
 
     <p class="lead text-xl text-neutral-600">
-        Connect USB GSM modems to your server for SMS sending.
+        Connect USB GSM modems to your server for SMS sending without an Android
+        phone.
     </p>
 
-    <div
-        class="not-prose my-8 p-4 bg-blue-50 border border-blue-200 rounded-lg"
-    >
-        <p class="text-blue-800 text-sm">
-            <strong>Coming soon:</strong> USB modem support is in development. For
-            now, use the Android app.
-        </p>
-    </div>
+    <h2>Overview</h2>
+
+    <p>
+        The Ender modem agent is a lightweight Go binary that connects USB GSM
+        modems to your Ender instance. It receives message assignments in
+        real-time via Server-Sent Events (SSE), sends SMS using AT commands, and
+        reports delivery status back to the server.
+    </p>
+
+    <h2>Prerequisites</h2>
+
+    <ul>
+        <li>A USB GSM modem with a SIM card inserted (any AT-compatible modem)</li>
+        <li>
+            Serial port access — add your user to the <code>dialout</code> group:
+            <pre><code>sudo usermod -aG dialout $USER</code></pre>
+            Log out and back in for the group change to take effect.
+        </li>
+        <li>Go 1.21+ installed (for building from source)</li>
+        <li>An Ender instance running and accessible from the agent host</li>
+    </ul>
+
+    <h2>Step 1: Create a modem device</h2>
+
+    <p>
+        In the Ender dashboard, go to <strong>Devices</strong> and click <strong
+            >Add Device</strong
+        >. Select <strong>USB Modem</strong> as the device type, enter a name and
+        the SIM card's phone number. Save the API key shown after creation — you'll
+        need it to configure the agent.
+    </p>
+
+    <h2>Step 2: Build the agent</h2>
+
+    <pre><code>cd modem-agent
+go build -o ender-modem-agent .</code></pre>
+
+    <h2>Step 3: Configure</h2>
+
+    <p>
+        The agent uses two environment variables:
+    </p>
+
+    <ul>
+        <li>
+            <code>ENDER_URL</code> — Your Ender server URL (default: <code
+                >http://localhost:8090</code
+            >)
+        </li>
+        <li>
+            <code>MODEMS</code> — Comma-separated list of modem definitions in
+            the format <code>api_key:command_port[:notify_port]</code>
+        </li>
+    </ul>
+
+    <p>
+        The <code>notify_port</code> is optional and defaults to the command port
+        for single-port modems. Dual-port modems (like the Huawei E173) use
+        separate ports for commands and unsolicited notifications.
+    </p>
+
+    <pre><code># Single modem
+MODEMS=dk_abc123:/dev/ttyUSB0:/dev/ttyUSB1
+
+# Multiple modems
+MODEMS=dk_abc123:/dev/ttyUSB0:/dev/ttyUSB1,dk_xyz789:/dev/ttyUSB2:/dev/ttyUSB3</code></pre>
+
+    <h2>Step 4: Run</h2>
+
+    <pre><code>ENDER_URL=https://sms.example.com MODEMS=dk_abc123:/dev/ttyUSB0:/dev/ttyUSB1 ./ender-modem-agent</code></pre>
+
+    <p>Or use a <code>.env</code> file (copy from <code>.env.example</code>):</p>
+
+    <pre><code>cp .env.example .env
+# Edit .env with your values
+./ender-modem-agent</code></pre>
+
+    <h2>Systemd service</h2>
+
+    <p>
+        For production use, run the agent as a systemd service so it starts
+        automatically on boot:
+    </p>
+
+    <pre><code># /etc/systemd/system/ender-modem-agent.service
+[Unit]
+Description=Ender Modem Agent
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ender
+Group=dialout
+Environment=ENDER_URL=https://sms.example.com
+Environment=MODEMS=dk_abc123:/dev/ttyUSB0:/dev/ttyUSB1
+ExecStart=/usr/local/bin/ender-modem-agent
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+
+    <pre><code>sudo systemctl daemon-reload
+sudo systemctl enable --now ender-modem-agent</code></pre>
+
+    <h2>Multi-modem setup</h2>
+
+    <p>
+        The agent supports multiple modems simultaneously. Each modem runs
+        independently in its own goroutine with its own SSE connection and serial
+        port. List all modems in the <code>MODEMS</code> variable separated by
+        commas:
+    </p>
+
+    <pre><code>MODEMS=dk_key1:/dev/ttyUSB0:/dev/ttyUSB1,dk_key2:/dev/ttyUSB2:/dev/ttyUSB3</code></pre>
+
+    <p>
+        Each modem must have its own device registered in the dashboard with its
+        own API key. Messages are distributed among all available devices
+        (including Android phones) via round-robin.
+    </p>
+
+    <h2>Incoming SMS</h2>
+
+    <p>
+        The agent automatically monitors for incoming SMS on all connected
+        modems. Received messages are reported to Ender and trigger your
+        configured webhooks with the <code>sms_received</code> event.
+    </p>
 
     <h2>Supported modems</h2>
 
-    <p>We're testing compatibility with:</p>
+    <p>
+        Any AT-compatible USB GSM modem should work. Tested models include:
+    </p>
 
     <ul>
+        <li>Huawei E173 / E1752 / E3531</li>
+        <li>ZTE MF180 / MF190</li>
         <li>Alcatel MW40</li>
+        <li>SIMCom SIM800 / SIM900 modules</li>
+        <li>Quectel M95 / UC20 / EC25</li>
     </ul>
 
-    <h2>Get notified</h2>
-
     <p>
-        Star the <a href="https://github.com/JimScope/ender">GitHub repo</a> to get
-        notified when USB modem support is released.
+        If your modem is not listed but supports standard AT commands for SMS
+        (AT+CMGS, AT+CMGR), it should work. Open an issue on <a
+            href="https://github.com/JimScope/ender">GitHub</a
+        > if you encounter compatibility problems.
     </p>
 </DocsLayout>
